@@ -20,14 +20,14 @@ InputField.propTypes = {
   helper: PropTypes.string,
 };
 
-InputField.defaultProps = {
-  type: 'text',
-  label: '',
-  placeholder: '',
-  disabled: false,
-  required: false,
-  helper: '',
-};
+// InputField.defaultProps = {
+//   type: 'text',
+//   label: '',
+//   placeholder: '',
+//   disabled: false,
+//   required: false,
+//   helper: '',
+// };
 
 function InputField(props) {
   const { field, form, type, label, placeholder, disabled, required, helper } =
@@ -52,7 +52,7 @@ function InputField(props) {
       />
       {helper && <FormHelperText>{helper}</FormHelperText>}
       {showError && (
-        <FormErrorMessage fontSize={['12px', '14px']} mt={-1} mb={2}>
+        <FormErrorMessage fontSize={['12px', '14px']} my={2}>
           {errors[name]}
         </FormErrorMessage>
       )}

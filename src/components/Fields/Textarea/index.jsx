@@ -19,15 +19,15 @@ TextareaField.propTypes = {
   helper: PropTypes.string,
 };
 
-TextareaField.defaultProps = {
-  type: 'text',
-  label: '',
-  placeholder: '',
-  disabled: false,
-  required: false,
-  h: '150px',
-  helper: '',
-};
+// TextareaField.defaultProps = {
+//   type: 'text',
+//   label: '',
+//   placeholder: '',
+//   disabled: false,
+//   required: false,
+//   h: '150px',
+//   helper: '',
+// };
 
 function TextareaField(props) {
   const { field, form, type, label, placeholder, disabled, required, helper } =
@@ -41,6 +41,7 @@ function TextareaField(props) {
       {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 
       <Textarea
+        h='150px'
         {...props}
         id={name}
         {...field}
