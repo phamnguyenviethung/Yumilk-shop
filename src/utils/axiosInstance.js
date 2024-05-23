@@ -50,7 +50,8 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    error.serverMessage = error.response.data.message;
+    error.serverMessage =
+      error.response.data.message || error.response.data.title;
 
     return Promise.reject(error);
   }

@@ -4,6 +4,7 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import NotFound from './pages/NotFound';
 import SimpleLayout from './components/Layout/SimpleLayout';
+import Verify from './pages/Verify';
 function App() {
   return (
     <Routes>
@@ -12,6 +13,7 @@ function App() {
       </Route>
       <Route element={<SimpleLayout />}>
         <Route path='login' element={<Login />} />
+        <Route path='verify' element={<Verify />} />
       </Route>
       <Route path='*' element={<NotFound />} />
     </Routes>
