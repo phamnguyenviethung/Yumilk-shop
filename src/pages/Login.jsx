@@ -1,14 +1,18 @@
 import InputField from '@/components/Fields/Input';
-import { Box, Button, Center, VStack } from '@chakra-ui/react';
+import { Box, Button, Center, VStack, useToast } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import { useDispatch } from 'react-redux';
+import authServices from '@/services/authServices';
+import { login } from '@/features/Auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const toast = useToast();
+  const dispatch = useDispatch();
   const validationSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email('Email không đúng dịnh dạng   ')
-      .required('Vui lòng không bỏ trống'),
+    username: yup.string().required('Vui lòng không bỏ trống'),
     password: yup.string().required('Vui lòng không bỏ trống'),
   });
   return (
@@ -16,12 +20,35 @@ const Login = () => {
       <Formik
         validationSchema={validationSchema}
         initialValues={{
-          email: '',
+          username: '',
           password: '',
         }}
-        onSubmit={(data, event) => {
-          console.log('login');
-          event.setSubmitting(false);
+        onSubmit={async (data, event) => {
+          try {
+            const res = await authServices.login(data);
+            event.setSubmitting(false);
+            dispatch(login(res.data.data));
+            toast({
+              title: 'Đăng nhập thành công',
+              status: 'success',
+              duration: 1000,
+              isClosable: true,
+              position: 'top-right',
+              onCloseComplete: () => {
+                navigate('/');
+              },
+            });
+          } catch (err) {
+            console.log('Login error: ', err);
+            console.log(event);
+            toast({
+              title: err.serverMessage,
+              status: 'error',
+              duration: 2500,
+              isClosable: true,
+              position: 'top-right',
+            });
+          }
         }}
       >
         {formikProps => {
@@ -31,9 +58,9 @@ const Login = () => {
                 <VStack>
                   <FastField
                     component={InputField}
-                    placeholder='Your Email'
-                    label='Email'
-                    name='email'
+                    placeholder='username'
+                    label='Tên đăng nhập'
+                    name='username'
                     required={true}
                     size='lg'
                     mb={2}
