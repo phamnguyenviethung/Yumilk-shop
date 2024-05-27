@@ -41,7 +41,7 @@ const RegisterForm = () => {
         message:
           'Mật khẩu phải có ít nhất 1 số, 1 kí tự đặc biệt, 1 chữ hoa và 1 chữ thường',
       }),
-    comfirmPassword: yup
+    confirmPassword: yup
       .string()
       .oneOf([yup.ref('password'), null], 'Mật khẩu không trùng khớp'),
   });
