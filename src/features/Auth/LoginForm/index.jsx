@@ -1,11 +1,19 @@
 import InputField from '@/components/Fields/Input';
-import { Box, Button, Center, VStack, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Text,
+  VStack,
+  useToast,
+} from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import authServices from '@/services/authServices';
 import { login } from '@/features/Auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -52,7 +60,7 @@ const LoginForm = () => {
       >
         {formikProps => {
           return (
-            <Box>
+            <Box w={['full', '50%', '30%']} px={2}>
               <Form>
                 <VStack>
                   <FastField
@@ -74,6 +82,11 @@ const LoginForm = () => {
                     size='lg'
                   />
                 </VStack>
+                <Flex my={2} justifyContent='flex-end'>
+                  <Text color='pink.400' fontSize='14px'>
+                    <Link to='/forgot'>Quên mật khẩu</Link>
+                  </Text>
+                </Flex>
                 <Button
                   mt={2}
                   disabled={formikProps.isSubmitting}
@@ -84,6 +97,11 @@ const LoginForm = () => {
                 >
                   Gửi
                 </Button>
+                <Center mt={4} mb={2}>
+                  <Text color='pink.400' fontSize='14px'>
+                    <Link to='/register'>Đăng ký tài khoản mới</Link>
+                  </Text>
+                </Center>
               </Form>
             </Box>
           );
