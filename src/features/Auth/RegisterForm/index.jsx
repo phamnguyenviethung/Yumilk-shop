@@ -10,19 +10,19 @@ import {
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
 import authServices from '@/services/authServices';
-import { login } from '@/features/Auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const dispatch = useDispatch();
   const validationSchema = yup.object().shape({
     firstName: yup.string().required('Vui lòng không bỏ trống'),
     lastName: yup.string().required('Vui lòng không bỏ trống'),
-    phoneNumber: yup.string().required('Vui lòng không bỏ trống'),
+    phoneNumber: yup
+      .string()
+      .length(10, 'Số điện thoại phải là 10 số')
+      .required('Vui lòng không bỏ trống'),
     email: yup
       .string()
       .email('Vui lòng nhập vào 1 email')
@@ -30,21 +30,23 @@ const RegisterForm = () => {
     username: yup.string().required('Vui lòng không bỏ trống'),
     password: yup
       .string()
-      .min(8)
+      .min(8, {
+        message: 'Mật khẩu phải tối thiểu 8 kí tự',
+      })
+      .max(255, {
+        message: 'Mật khẩu tối đa chỉ được 255 kí tự',
+      })
       .required('Vui lòng không bỏ trống')
-      .matches(
-        '^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,255}$',
-        {
-          message:
-            'Mật khẩu phải có ít nhất 1 số, 1 kí tự đặc biệt,\n1 chữ hoa, 1 chữ thường và có độ dài tối thiểu là 8',
-        }
-      ),
+      .matches('^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$', {
+        message:
+          'Mật khẩu phải có ít nhất 1 số, 1 kí tự đặc biệt, 1 chữ hoa và 1 chữ thường',
+      }),
     comfirmPassword: yup
       .string()
       .oneOf([yup.ref('password'), null], 'Mật khẩu không trùng khớp'),
   });
   return (
-    <Container maxW='container.xl'>
+    <Container maxW='container.xl' pt={2} pb={8}>
       <Center flex='1' w='full'>
         <Formik
           validationSchema={validationSchema}
@@ -59,21 +61,20 @@ const RegisterForm = () => {
           }}
           onSubmit={async (data, event) => {
             try {
-              const res = await authServices.login(data);
+              await authServices.register(data);
               event.setSubmitting(false);
-              // dispatch(login(res.data.data));
               toast({
-                title: 'Đăng nhập thành công',
+                title: 'Đăng ký thành công',
                 status: 'success',
                 duration: 1000,
                 isClosable: true,
                 position: 'top-right',
                 onCloseComplete: () => {
-                  navigate('/');
+                  navigate('/login');
                 },
               });
             } catch (err) {
-              console.log('Login error: ', err);
+              console.log('Register error: ', err);
               toast({
                 title: err.serverMessage,
                 status: 'error',
@@ -150,7 +151,7 @@ const RegisterForm = () => {
                       component={InputField}
                       placeholder='Xác nhận mật khẩu'
                       label='Xác nhận mật khẩu'
-                      name='comfirmPassword'
+                      name='confirmPassword'
                       type='password'
                       required={true}
                       size='lg'
