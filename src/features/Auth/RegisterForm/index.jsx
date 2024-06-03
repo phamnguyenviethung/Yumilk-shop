@@ -30,9 +30,7 @@ const RegisterForm = () => {
     username: yup.string().required('Vui lòng không bỏ trống'),
     password: yup
       .string()
-      .min(8, {
-        message: 'Mật khẩu phải tối thiểu 8 kí tự',
-      })
+      .min(8, 'Mật khẩu phải tối thiểu 8 kí tự')
       .max(255, {
         message: 'Mật khẩu tối đa chỉ được 255 kí tự',
       })
