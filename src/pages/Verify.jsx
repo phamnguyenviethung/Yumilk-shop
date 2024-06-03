@@ -1,10 +1,11 @@
-import authServices from '@/services/authServices';
+import { useActiveAccountMutation } from '@/apis/authApi';
 import { Box } from '@chakra-ui/react';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const Verify = () => {
+  const [activeAccount] = useActiveAccountMutation();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const [isValid, setValid] = useState(false);
@@ -20,7 +21,8 @@ const Verify = () => {
 
   const handleSubmitToken = async token => {
     try {
-      await authServices.activeAccount(token);
+      const res = await activeAccount(token);
+      if (res.error) throw res.error.data;
     } catch (error) {
       console.log('Verify error', error);
     }

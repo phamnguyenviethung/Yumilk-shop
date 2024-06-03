@@ -1,3 +1,4 @@
+import { useRegisterMutation } from '@/apis/authApi';
 import InputField from '@/components/Fields/Input';
 import {
   Box,
@@ -9,13 +10,13 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
-import * as yup from 'yup';
-import authServices from '@/services/authServices';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
   const toast = useToast();
+  const [register] = useRegisterMutation();
   const validationSchema = yup.object().shape({
     firstName: yup.string().required('Vui lòng không bỏ trống'),
     lastName: yup.string().required('Vui lòng không bỏ trống'),
@@ -57,7 +58,9 @@ const RegisterForm = () => {
           }}
           onSubmit={async (data, event) => {
             try {
-              await authServices.register(data);
+              const res = await register(data);
+              if (res.error) throw res.error.data;
+
               event.setSubmitting(false);
               toast({
                 title: 'Đăng ký thành công',
@@ -72,7 +75,7 @@ const RegisterForm = () => {
             } catch (err) {
               console.log('Register error: ', err);
               toast({
-                title: err.serverMessage,
+                title: err.message,
                 status: 'error',
                 duration: 2500,
                 isClosable: true,

@@ -10,7 +10,29 @@ export const authApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidateTags: ['Auth'],
     }),
+    register: build.mutation({
+      query: data => ({
+        url: '/authentication/sign-up',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidateTags: ['Auth'],
+    }),
+    activeAccount: build.mutation({
+      query: data => ({
+        url: '/authentication/active-account',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidateTags: ['Auth'],
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useActiveAccountMutation,
+} = authApi;
