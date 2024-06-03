@@ -31,9 +31,7 @@ const RegisterForm = () => {
     password: yup
       .string()
       .min(8, 'Mật khẩu phải tối thiểu 8 kí tự')
-      .max(255, {
-        message: 'Mật khẩu tối đa chỉ được 255 kí tự',
-      })
+      .max(255, 'Mật khẩu tối đa chỉ được 255 kí tự')
       .required('Vui lòng không bỏ trống')
       .matches('^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$', {
         message:
