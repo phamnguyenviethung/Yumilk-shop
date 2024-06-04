@@ -46,8 +46,14 @@ function InputField(props) {
         type={type}
         disabled={disabled}
         placeholder={placeholder}
+        borderColor='pink.400'
+        boxShadow='none'
         _focus={{
           outline: 0,
+          borderColor: 'green.600',
+        }}
+        _focusVisible={{
+          borderColor: 'pink.500',
         }}
       />
       {helper && <FormHelperText>{helper}</FormHelperText>}
