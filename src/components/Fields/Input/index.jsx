@@ -46,11 +46,12 @@ function InputField(props) {
         type={type}
         disabled={disabled}
         placeholder={placeholder}
+        border='1.8px solid'
         borderColor='pink.400'
         boxShadow='none'
         _focus={{
           outline: 0,
-          borderColor: 'green.600',
+          borderColor: 'pink.600',
         }}
         _focusVisible={{
           borderColor: 'pink.500',

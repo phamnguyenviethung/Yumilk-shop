@@ -6,7 +6,7 @@ import { FiSearch } from 'react-icons/fi';
 const SearchForm = () => {
   return (
     <Formik initialValues={{ search: '' }}>
-      {formikProps => {
+      {() => {
         return (
           <Form>
             <HStack alignItems='center' gap='0'>
@@ -19,7 +19,6 @@ const SearchForm = () => {
                 borderRadius='0'
                 borderTopLeftRadius='10px'
                 borderBottomLeftRadius='10px'
-
               />
               <Button
                 colorScheme='pink'
