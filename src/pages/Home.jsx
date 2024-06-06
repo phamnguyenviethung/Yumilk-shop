@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const Home = () => {
   const authState = useSelector(state => state.auth);
   const dispatch = useDispatch();
-  const { data, isLoading } = useGetSellingProductQuery();
+  const { data = { items: [] }, isLoading } = useGetSellingProductQuery();
 
   const handleSubmit = () => {
     dispatch(logout());

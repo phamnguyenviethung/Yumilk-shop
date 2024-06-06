@@ -8,6 +8,9 @@ const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [react()],
+  rules: {
+    'react/forbid-prop-types': 0,
+  },
   resolve: {
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
   },
