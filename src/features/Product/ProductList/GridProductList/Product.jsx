@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Flex, Heading, Icon, Image, Tag } from '@chakra-ui/react';
-import { PiShoppingCartThin } from 'react-icons/pi';
+import { BsCart3 } from 'react-icons/bs';
 
 const Product = ({ data }) => {
   return (
@@ -36,7 +36,7 @@ const Product = ({ data }) => {
             )}
           </Flex>
           <Box cursor='pointer'>
-            <Icon as={PiShoppingCartThin} fontSize='1.6rem' />
+            <Icon as={BsCart3} fontSize='1.6rem' />
           </Box>
         </Flex>
       </Flex>
