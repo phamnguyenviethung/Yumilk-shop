@@ -1,9 +1,9 @@
-import LoginForm from '@/features/Auth/LoginForm';
+import RegisterForm from '@/features/Auth/RegisterForm';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Register = () => {
   const authState = useSelector(state => state.auth);
   const navigate = useNavigate();
 
@@ -12,8 +12,7 @@ const Login = () => {
       navigate('/');
     }
   }, [authState.isAuthenticated, navigate]);
-
-  return <LoginForm />;
+  return <RegisterForm />;
 };
 
-export default Login;
+export default Register;
