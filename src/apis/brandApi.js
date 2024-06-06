@@ -1,5 +1,5 @@
 import { api } from './api';
-export const getAllBrandApi = api.injectEndpoints({
+export const brandApi = api.injectEndpoints({
   endpoints: build => ({
     getAllBrand: build.query({
       query: () => ({
@@ -12,4 +12,4 @@ export const getAllBrandApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetAllBrandQuery } = getAllBrandApi;
+export const { useGetAllBrandQuery } = brandApi;

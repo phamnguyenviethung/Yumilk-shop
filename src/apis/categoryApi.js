@@ -1,5 +1,5 @@
 import { api } from './api';
-export const getAllCategoryApi = api.injectEndpoints({
+export const categoryApi = api.injectEndpoints({
   endpoints: build => ({
     getAllCategory: build.query({
       query: () => ({
@@ -12,4 +12,4 @@ export const getAllCategoryApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetAllCategoryQuery } = getAllCategoryApi;
+export const { useGetAllCategoryQuery } = categoryApi;
