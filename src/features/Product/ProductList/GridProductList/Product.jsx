@@ -1,8 +1,28 @@
 /* eslint-disable react/prop-types */
+import { useAddToCartMutation } from '@/apis/cartApi';
 import { Box, Flex, Heading, Icon, Image, Tag } from '@chakra-ui/react';
 import { BsCart3 } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 
 const Product = ({ data }) => {
+  const [addToCart] = useAddToCartMutation();
+  const authState = useSelector(state => state.auth);
+
+  const handleAddtoCart = async productId => {
+    try {
+      const res = await addToCart({
+        userID: authState?.userData?.userID,
+        data: {
+          productId,
+          quantity: 1,
+        },
+      });
+      if (res.error) throw res.error.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Flex direction='column' minH='full'>
       <Box w='full'>
@@ -35,7 +55,7 @@ const Product = ({ data }) => {
               </Tag>
             )}
           </Flex>
-          <Box cursor='pointer'>
+          <Box cursor='pointer' onClick={() => handleAddtoCart(data.id)}>
             <Icon as={BsCart3} fontSize='1.6rem' />
           </Box>
         </Flex>

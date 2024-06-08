@@ -1,4 +1,5 @@
 import logo from '@/assets/logo.png';
+import CartNavbarIcon from '@/features/Cart/CartNavbarIcon';
 import SearchForm from '@/features/Search/SearchBox/SearchForm';
 import {
   Box,
@@ -14,8 +15,7 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
-import { BsCart3 } from 'react-icons/bs';
-import { BsPerson } from 'react-icons/bs';
+import { BsCart3, BsPerson } from 'react-icons/bs';
 import data from './data';
 
 const Navbar = () => {
@@ -33,17 +33,7 @@ const Navbar = () => {
             <Center p='3' bgColor='pink.100' borderRadius='100%'>
               <Icon as={BsCart3} fontSize='1.2rem' />
             </Center>
-            <Box pos='absolute' top='-16%' right='-20%'>
-              <Center
-                p='2'
-                boxSize='20px'
-                bgColor='red.400'
-                borderRadius='100%'
-                color='white'
-              >
-                1
-              </Center>
-            </Box>
+            <CartNavbarIcon />
           </Box>
           <Box>
             <Menu>

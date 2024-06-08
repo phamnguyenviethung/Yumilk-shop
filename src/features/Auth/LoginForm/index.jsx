@@ -17,7 +17,6 @@ import { useLoginMutation } from '@/apis/authApi';
 
 const LoginForm = () => {
   const [login] = useLoginMutation();
-
   const navigate = useNavigate();
   const toast = useToast();
   const dispatch = useDispatch();
