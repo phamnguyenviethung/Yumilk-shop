@@ -13,7 +13,6 @@ const CartNavbarIcon = () => {
     dispatch(setCartData(data));
   }, [data, dispatch]);
 
-  console.log(cartState?.data?.cartItems?.totalCount);
   return (
     <Box pos='absolute' top='-20%' right='-20%'>
       <Center
@@ -23,7 +22,9 @@ const CartNavbarIcon = () => {
         borderRadius='100%'
         color='white'
       >
-        <Text fontSize='1rem'>{cartState?.data?.cartItems?.totalCount}</Text>
+        <Text fontSize='1rem'>
+          {cartState?.data?.cartItems?.totalCount || 0}
+        </Text>
       </Center>
     </Box>
   );

@@ -1,23 +1,25 @@
 /* eslint-disable react/prop-types */
 import { useAddToCartMutation } from '@/apis/cartApi';
+import { addToCart } from '@/features/Cart/cartSlice';
 import { Box, Flex, Heading, Icon, Image, Tag } from '@chakra-ui/react';
 import { BsCart3 } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Product = ({ data }) => {
-  const [addToCart] = useAddToCartMutation();
+  const [addToCartAPI] = useAddToCartMutation();
   const authState = useSelector(state => state.auth);
-
-  const handleAddtoCart = async productId => {
+  const dispatch = useDispatch();
+  const handleAddtoCart = async productData => {
     try {
-      const res = await addToCart({
+      const res = await addToCartAPI({
         userID: authState?.userData?.userID,
         data: {
-          productId,
+          productId: productData.productId,
           quantity: 1,
         },
       });
       if (res.error) throw res.error.data;
+      dispatch(addToCart(productData));
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +57,18 @@ const Product = ({ data }) => {
               </Tag>
             )}
           </Flex>
-          <Box cursor='pointer' onClick={() => handleAddtoCart(data.id)}>
+          <Box
+            cursor='pointer'
+            onClick={() =>
+              handleAddtoCart({
+                productId: data.id,
+                productName: data.name,
+                quantity: 1,
+                price: data.salePrice ? data.salePrice : data.originalPrice,
+                thumbnail: data.thumbnail,
+              })
+            }
+          >
             <Icon as={BsCart3} fontSize='1.6rem' />
           </Box>
         </Flex>
