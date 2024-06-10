@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useAddToCartMutation } from '@/apis/cartApi';
+import AddToCartIcon from '@/assets/Icon/addtocart';
 import { addToCart } from '@/features/Cart/cartSlice';
 import {
   Box,
@@ -10,7 +11,6 @@ import {
   Tag,
   useToast,
 } from '@chakra-ui/react';
-import { BsCart3 } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Product = ({ data }) => {
@@ -87,7 +87,7 @@ const Product = ({ data }) => {
               })
             }
           >
-            <Icon as={BsCart3} fontSize='1.6rem' />
+            <Icon as={AddToCartIcon} fontSize='1.6rem' />
           </Box>
         </Flex>
       </Flex>
