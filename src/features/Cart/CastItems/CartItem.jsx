@@ -37,7 +37,7 @@ const Quantity = ({ value, productID, auth }) => {
       console.log(error);
     }
   };
-  const throttledText = useThrottle(value, 2500);
+  const throttledText = useThrottle(value, 100);
 
   return (
     <HStack flex='1' gap='4' userSelect='none'>
