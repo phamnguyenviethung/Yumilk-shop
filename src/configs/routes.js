@@ -1,5 +1,6 @@
 import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
+import ActiveMail from '@/pages/ActiveMail';
 import Cart from '@/pages/Cart';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
@@ -35,6 +36,10 @@ const routes = [
       {
         path: '/verify',
         component: Verify,
+      },
+      {
+        path: '/active-mail',
+        component: ActiveMail,
       },
     ],
   },
