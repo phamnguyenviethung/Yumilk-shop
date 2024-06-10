@@ -8,6 +8,7 @@ import {
   Image,
   Stack,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import { FiTrash2 } from 'react-icons/fi';
@@ -88,7 +89,18 @@ const CartItem = ({ data }) => {
         auth={authState}
       />
       <Box alignSelf='center' flex='2' textAlign='center'>
-        <Text>{formatMoney(data.price * data.quantity)}</Text>
+        {data.salePrice === 0 ? (
+          <Text fontSize='1rem'>
+            {formatMoney(data.originalPrice * data.quantity)}
+          </Text>
+        ) : (
+          <HStack justifyContent='center'>
+            <Text>{formatMoney(data.salePrice * data.quantity)} </Text>
+            <Text as='s' fontSize='0.95rem' color='gray.500'>
+              {formatMoney(data.originalPrice * data.quantity)}
+            </Text>
+          </HStack>
+        )}
       </Box>
       <Box alignSelf='center'>
         <Icon as={FiTrash2} />
