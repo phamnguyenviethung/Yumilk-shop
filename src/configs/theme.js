@@ -6,6 +6,10 @@ const config = {
   useSystemColorMode: false,
 };
 const theme = extendTheme({
+  fonts: {
+    heading: `'Be Vietnam Pro', sans-serif`,
+    body: `'Be Vietnam Pro', sans-serif`,
+  },
   config,
 });
 
