@@ -1,7 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
 
-const cartData = JSON.parse(localStorage.getItem('cartData')) || [];
+const cartData = JSON.parse(localStorage.getItem('cartData')) || {
+  data: {
+    cartItems: {
+      totalCount: 0,
+      items: [],
+    },
+  },
+};
 
 const initialState = {
   data: cartData,
@@ -19,17 +26,23 @@ const cart = createSlice({
       const target = state.data.cartItems.items.find(
         item => item.productId === action.payload.productID
       );
-      if (target) {
+
+      if (!target) {
         state.data.cartItems.items.push(action.payload);
       } else {
         target.quantity += 1;
       }
     },
+    removeFromCart: (state, action) => {
+      state.data.cartItems.items = state.data.cartItems.items.filter(
+        item => item.productId !== action.payload.productID
+      );
+    },
+
     increaseQuantity: (state, action) => {
       const target = state.data.cartItems.items.find(
         item => item.productId === action.payload.productID
       );
-      console.log(target);
       if (target) {
         target.quantity += action.payload.quantity;
       }
@@ -37,5 +50,6 @@ const cart = createSlice({
   },
 });
 
-export const { setCartData, addToCart, increaseQuantity } = cart.actions;
+export const { setCartData, addToCart, increaseQuantity, removeFromCart } =
+  cart.actions;
 export default cart.reducer;

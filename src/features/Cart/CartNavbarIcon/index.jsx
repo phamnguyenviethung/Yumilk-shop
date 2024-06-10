@@ -1,8 +1,8 @@
+import { useGetCartQuery } from '@/apis/cartApi';
 import { Box, Center, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartData } from '../cartSlice';
-import { useGetCartQuery } from '@/apis/cartApi';
 
 const CartNavbarIcon = () => {
   const cartState = useSelector(state => state.cart);
@@ -22,7 +22,7 @@ const CartNavbarIcon = () => {
         borderRadius='100%'
         color='white'
       >
-        <Text fontSize='1rem'>
+        <Text fontSize='1rem' userSelect='none'>
           {cartState?.data?.cartItems?.totalCount || 0}
         </Text>
       </Center>

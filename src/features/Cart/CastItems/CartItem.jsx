@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+import {
+  useChangeQuantityMutation,
+  useRemoveFromCartMutation,
+} from '@/apis/cartApi';
 import formatMoney from '@/utils/formatMoney';
 import {
   Box,
@@ -8,57 +12,53 @@ import {
   Image,
   Stack,
   Text,
-  VStack,
 } from '@chakra-ui/react';
-import { FiMinus, FiPlus } from 'react-icons/fi';
-import { FiTrash2 } from 'react-icons/fi';
+import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseQuantity } from '../cartSlice';
-import { useChangeQuantityMutation } from '@/apis/cartApi';
+import { increaseQuantity, removeFromCart } from '../cartSlice';
+import { useThrottle } from 'use-throttle';
 
 const Quantity = ({ value, productID, auth }) => {
   const dispatch = useDispatch();
   const [changeQuantityAPI] = useChangeQuantityMutation();
-
-  const handleClick = quantity => {
+  const handleIncQuantity = async quantity => {
     try {
       if (value + quantity > 0) {
         dispatch(increaseQuantity({ productID, quantity }));
-        if (auth.isAuthenticated) {
-          changeQuantityAPI({
-            userID: auth.userData.userID,
-            productID,
-            data: {
-              quantity: value + quantity,
-            },
-          });
-        }
+        await changeQuantityAPI({
+          userID: auth.userData.userID,
+          productID,
+          data: {
+            quantity: value + quantity,
+          },
+        });
       }
     } catch (error) {
       console.log(error);
     }
   };
+  const throttledText = useThrottle(value, 2500);
 
   return (
-    <HStack flex='1' gap='4'>
+    <HStack flex='1' gap='4' userSelect='none'>
       <Center
         cursor='pointer'
         p='3'
         bg='gray.200'
         borderRadius='50%'
         fontSize='1rem'
-        onClick={() => handleClick(-1)} // Decrease 1
+        onClick={() => handleIncQuantity(-1)} // Decrease 1
       >
         <Icon as={FiMinus} />
       </Center>
-      <Box>{value}</Box>
+      <Box>{throttledText}</Box>
       <Center
         cursor='pointer'
         p='3'
         bg='gray.200'
         borderRadius='50%'
         fontSize='1rem'
-        onClick={() => handleClick(1)} // Increase 1
+        onClick={() => handleIncQuantity(1)} // Increase 1
       >
         <Icon as={FiPlus} />
       </Center>{' '}
@@ -68,6 +68,20 @@ const Quantity = ({ value, productID, auth }) => {
 
 const CartItem = ({ data }) => {
   const authState = useSelector(state => state.auth);
+  const [removeFromCartAPI] = useRemoveFromCartMutation();
+  const dispatch = useDispatch();
+  const handleRemove = async productID => {
+    try {
+      dispatch(removeFromCart(productID));
+      await removeFromCartAPI({
+        userID: authState.userData.userID,
+        productID,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Stack
       flexDir='row'
@@ -88,7 +102,7 @@ const CartItem = ({ data }) => {
         productID={data.productId}
         auth={authState}
       />
-      <Box alignSelf='center' flex='2' textAlign='center'>
+      <Box alignSelf='center' flex='2' textAlign='center' userSelect='none'>
         {data.salePrice === 0 ? (
           <Text fontSize='1rem'>
             {formatMoney(data.originalPrice * data.quantity)}
@@ -102,7 +116,11 @@ const CartItem = ({ data }) => {
           </HStack>
         )}
       </Box>
-      <Box alignSelf='center'>
+      <Box
+        cursor='pointer'
+        alignSelf='center'
+        onClick={() => handleRemove(data.productId)}
+      >
         <Icon as={FiTrash2} />
       </Box>
     </Stack>
