@@ -1,7 +1,7 @@
+import SearchIcon from '@/assets/Icon/search';
 import InputField from '@/components/Fields/Input';
 import { Button, HStack, Icon } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
-import { FiSearch } from 'react-icons/fi';
 
 const SearchForm = () => {
   return (
@@ -27,7 +27,7 @@ const SearchForm = () => {
                 borderTopRightRadius='10px'
                 borderBottomRightRadius='10px'
               >
-                <Icon as={FiSearch} fontSize='1.6rem' fontWeight='bold' />
+                <Icon as={SearchIcon} fontSize='1.6rem' fontWeight='bold' />
               </Button>
             </HStack>
           </Form>

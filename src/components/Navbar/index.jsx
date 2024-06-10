@@ -1,24 +1,24 @@
+import UserIcon from '@/assets/Icon/user';
 import logo from '@/assets/logo.png';
 import CartNavbarIcon from '@/features/Cart/CartNavbarIcon';
 import SearchForm from '@/features/Search/SearchBox/SearchForm';
 import {
   Box,
   Center,
+  Link as ChakraLink,
   Container,
   Flex,
   HStack,
   Icon,
   IconButton,
   Image,
-  Link as ChakraLink,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
-import { BsCart3, BsPerson } from 'react-icons/bs';
-import data from './data';
 import { Link } from 'react-router-dom';
+import data from './data';
 
 const Navbar = () => {
   return (
@@ -32,21 +32,17 @@ const Navbar = () => {
         </Box>
         <Flex alignItems='center' gap='3' flex='1' justifyContent='flex-end'>
           <Link to='/cart'>
-            <Box pos='relative'>
-              <Center p='3' bgColor='pink.100' borderRadius='100%'>
-                <Icon as={BsCart3} fontSize='1.2rem' />
-              </Center>{' '}
-              <CartNavbarIcon />
-            </Box>
+            <CartNavbarIcon />
           </Link>
           <Box>
             <Menu>
               <MenuButton
                 as={IconButton}
                 aria-label='Options'
+                border='0'
                 icon={
-                  <Center p='3' bgColor='pink.100' borderRadius='100%'>
-                    <Icon as={BsPerson} fontSize='1.2rem' />
+                  <Center p='3' borderRadius='100%'>
+                    <Icon as={UserIcon} fontSize='1.2rem' />
                   </Center>
                 }
                 variant='outline'
