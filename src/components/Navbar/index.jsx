@@ -1,4 +1,5 @@
 import logo from '@/assets/logo.png';
+import CartNavbarIcon from '@/features/Cart/CartNavbarIcon';
 import SearchForm from '@/features/Search/SearchBox/SearchForm';
 import {
   Box,
@@ -9,42 +10,35 @@ import {
   Icon,
   IconButton,
   Image,
+  Link as ChakraLink,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
 } from '@chakra-ui/react';
-import { BsCart3 } from 'react-icons/bs';
-import { BsPerson } from 'react-icons/bs';
+import { BsCart3, BsPerson } from 'react-icons/bs';
 import data from './data';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <Container maxW='container.xl' maxH='150px'>
       <HStack w='full' maxH='full'>
-        <Box flex='1' justifyContent='flex-start'>
+        <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
-        </Box>
+        </ChakraLink>
         <Box flex='4'>
           <SearchForm />
         </Box>
         <Flex alignItems='center' gap='3' flex='1' justifyContent='flex-end'>
-          <Box pos='relative'>
-            <Center p='3' bgColor='pink.100' borderRadius='100%'>
-              <Icon as={BsCart3} fontSize='1.2rem' />
-            </Center>
-            <Box pos='absolute' top='-16%' right='-20%'>
-              <Center
-                p='2'
-                boxSize='20px'
-                bgColor='red.400'
-                borderRadius='100%'
-                color='white'
-              >
-                1
-              </Center>
+          <Link to='/cart'>
+            <Box pos='relative'>
+              <Center p='3' bgColor='pink.100' borderRadius='100%'>
+                <Icon as={BsCart3} fontSize='1.2rem' />
+              </Center>{' '}
+              <CartNavbarIcon />
             </Box>
-          </Box>
+          </Link>
           <Box>
             <Menu>
               <MenuButton
