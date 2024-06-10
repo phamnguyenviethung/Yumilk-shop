@@ -20,10 +20,10 @@ export const authApi = api.injectEndpoints({
       invalidateTags: ['Auth'],
     }),
     sendActiveMail: build.mutation({
-      query: data => ({
-        url: '/authentication/active-account',
+      query: params => ({
+        url: '/authentication/activate-account',
         method: 'POST',
-        body: data,
+        params,
       }),
       transformResponse: res => res.data,
       invalidateTags: ['Auth'],
