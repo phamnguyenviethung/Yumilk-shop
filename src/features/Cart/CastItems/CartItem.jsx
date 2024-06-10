@@ -3,6 +3,9 @@ import {
   useChangeQuantityMutation,
   useRemoveFromCartMutation,
 } from '@/apis/cartApi';
+import MinusIcon from '@/assets/Icon/minus';
+import PlusIcon from '@/assets/Icon/plus';
+import TrashIcon from '@/assets/Icon/trash';
 import formatMoney from '@/utils/formatMoney';
 import {
   Box,
@@ -13,10 +16,9 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { increaseQuantity, removeFromCart } from '../cartSlice';
 import { useThrottle } from 'use-throttle';
+import { increaseQuantity, removeFromCart } from '../cartSlice';
 
 const Quantity = ({ value, productID, auth }) => {
   const dispatch = useDispatch();
@@ -49,7 +51,7 @@ const Quantity = ({ value, productID, auth }) => {
         fontSize='1rem'
         onClick={() => handleIncQuantity(-1)} // Decrease 1
       >
-        <Icon as={FiMinus} />
+        <Icon as={MinusIcon} />
       </Center>
       <Box>{throttledText}</Box>
       <Center
@@ -60,7 +62,7 @@ const Quantity = ({ value, productID, auth }) => {
         fontSize='1rem'
         onClick={() => handleIncQuantity(1)} // Increase 1
       >
-        <Icon as={FiPlus} />
+        <Icon as={PlusIcon} />
       </Center>{' '}
     </HStack>
   );
@@ -121,7 +123,7 @@ const CartItem = ({ data }) => {
         alignSelf='center'
         onClick={() => handleRemove(data.productId)}
       >
-        <Icon as={FiTrash2} />
+        <Icon as={TrashIcon} fontSize='1.2rem' />
       </Box>
     </Stack>
   );

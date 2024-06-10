@@ -1,24 +1,37 @@
-import MainLayout from '@/components/Layout/MainLayout';
-import { Route, Routes } from 'react-router-dom';
-import Home from '@/pages/Home';
-import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
-import SimpleLayout from './components/Layout/SimpleLayout';
-import Verify from '@/pages/Verify';
-import Register from '@/pages/Register';
-import Cart from '@/pages/Cart';
+import { Route, Routes } from 'react-router-dom';
+import routes from './configs/routes';
 function App() {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route index element={<Home />} />
-        <Route path='cart' element={<Cart />} />
-      </Route>
-      <Route element={<SimpleLayout />}>
-        <Route path='login' element={<Login />} />
-        <Route path='register' element={<Register />} />
-        <Route path='verify' element={<Verify />} />
-      </Route>
+      {routes.map((route, i) => {
+        const Layout = route.layout;
+
+        return (
+          <Route key={i} element={<Layout />}>
+            {route.data.map(item => {
+              const Component = item.component;
+              {
+                /* const PermissionComponent = item.onlyAdmin
+                ? PermissionCheck
+                : Fragment; */
+              }
+
+              return (
+                <Route
+                  key={item.path}
+                  path={item.path}
+                  element={
+                    // <PermissionComponent>
+                    <Component />
+                    // </PermissionComponent>
+                  }
+                />
+              );
+            })}
+          </Route>
+        );
+      })}
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
