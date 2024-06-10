@@ -1,11 +1,17 @@
-import { useActiveAccountMutation } from '@/apis/authApi';
-import { Box } from '@chakra-ui/react';
+import { useVerifyAccountMutation } from '@/apis/authApi';
+import {
+  Box,
+  Button,
+  Link as ChakraLink,
+  Container,
+  Text,
+} from '@chakra-ui/react';
 import { jwtDecode } from 'jwt-decode';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Verify = () => {
-  const [activeAccount] = useActiveAccountMutation();
+  const [verifyAccountAPI, { isLoading, isError }] = useVerifyAccountMutation();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
   const [isValid, setValid] = useState(false);
@@ -21,10 +27,11 @@ const Verify = () => {
 
   const handleSubmitToken = async token => {
     try {
-      const res = await activeAccount(token);
+      const res = await verifyAccountAPI(token);
       if (res.error) throw res.error.data;
+      setValid(true);
     } catch (error) {
-      console.log('Verify error', error);
+      setValid(false);
     }
   };
 
@@ -35,14 +42,32 @@ const Verify = () => {
     }
   }, [token]);
 
+  if (isLoading) return <p>Loading...</p>;
+
   return (
-    <Box>
-      {isValid ? (
-        <Box>Xac nhan thanh cong</Box>
-      ) : (
-        <Box>Da het han hoac khong hop le </Box>
-      )}
-    </Box>
+    <Container maxW='container.xl'>
+      <Box>
+        {isValid && !isError ? (
+          <Box>
+            <Text color='green.400'>Xác nhận thành công</Text>
+            <Link to='/'>
+              <Button>Về trang chủ</Button>
+            </Link>
+          </Box>
+        ) : (
+          <Box>
+            <Text fontSize='1.2rem' color='red.400' mb={2}>
+              Link đã hết hạn hoặc không hợp lệ
+            </Text>
+            <ChakraLink as={Link} to='/send-mail-active'>
+              <Button size='sm' colorScheme='pink'>
+                Gửi lại
+              </Button>
+            </ChakraLink>
+          </Box>
+        )}
+      </Box>
+    </Container>
   );
 };
 

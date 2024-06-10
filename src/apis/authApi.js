@@ -19,11 +19,20 @@ export const authApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidateTags: ['Auth'],
     }),
-    activeAccount: build.mutation({
+    sendActiveMail: build.mutation({
       query: data => ({
         url: '/authentication/active-account',
         method: 'POST',
         body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidateTags: ['Auth'],
+    }),
+    verifyAccount: build.mutation({
+      query: token => ({
+        url: '/authentication/verify',
+        method: 'POST',
+        params: { token },
       }),
       transformResponse: res => res.data,
       invalidateTags: ['Auth'],
@@ -34,5 +43,6 @@ export const authApi = api.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
-  useActiveAccountMutation,
+  useSendActiveMailMutation,
+  useVerifyAccountMutation,
 } = authApi;
