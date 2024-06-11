@@ -22,7 +22,7 @@ import data from './data';
 
 const Navbar = () => {
   return (
-    <Container maxW='container.xl' maxH='150px'>
+    <Container maxW='container.xl' maxH='150px' mb={8}>
       <HStack w='full' maxH='full'>
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
