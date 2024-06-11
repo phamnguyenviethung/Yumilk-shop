@@ -51,7 +51,9 @@ const Verify = () => {
           <Box>
             <Text color='green.400'>Xác nhận thành công</Text>
             <Link to='/'>
-              <Button>Về trang chủ</Button>
+              <Button colorScheme='pink' size='sm'>
+                Về trang chủ
+              </Button>
             </Link>
           </Box>
         ) : (
@@ -59,7 +61,7 @@ const Verify = () => {
             <Text fontSize='1.2rem' color='red.400' mb={2}>
               Link đã hết hạn hoặc không hợp lệ
             </Text>
-            <ChakraLink as={Link} to='/send-mail-active'>
+            <ChakraLink as={Link} to='/ative-mail'>
               <Button size='sm' colorScheme='pink'>
                 Gửi lại
               </Button>
