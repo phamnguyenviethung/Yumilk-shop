@@ -49,7 +49,19 @@ const Navbar = () => {
               />
               <MenuList>
                 {data.map(item => {
-                  return <MenuItem key={item.name}>{item.name}</MenuItem>;
+                  if (item.handleClick) {
+                    return (
+                      <MenuItem key={item.name} onClick={item.handleClick}>
+                        {item.name}
+                      </MenuItem>
+                    );
+                  }
+
+                  return (
+                    <Link key={item.name} to={item.path}>
+                      <MenuItem>{item.name}</MenuItem>
+                    </Link>
+                  );
                 })}
               </MenuList>
             </Menu>

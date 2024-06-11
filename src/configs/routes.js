@@ -21,6 +21,9 @@ const routes = [
       {
         path: '/cart',
         component: Cart,
+        auth: {
+          shouldLogin: true,
+        },
       },
     ],
   },
@@ -30,26 +33,44 @@ const routes = [
       {
         path: '/login',
         component: Login,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/register',
         component: Register,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/verify',
         component: Verify,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/active-mail',
         component: ActiveMail,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/reset-password',
         component: ResetPassword,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/forgot-password',
         component: ForgotPassword,
+        auth: {
+          shouldLogout: true,
+        },
       },
     ],
   },

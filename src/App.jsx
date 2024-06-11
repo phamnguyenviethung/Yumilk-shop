@@ -1,6 +1,7 @@
 import NotFound from '@/pages/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import routes from './configs/routes';
+import AuthCheck from './components/Auth/AuthCheck';
 function App() {
   return (
     <Routes>
@@ -11,20 +12,17 @@ function App() {
           <Route key={i} element={<Layout />}>
             {route.data.map(item => {
               const Component = item.component;
-              {
-                /* const PermissionComponent = item.onlyAdmin
-                ? PermissionCheck
-                : Fragment; */
-              }
-
               return (
                 <Route
                   key={item.path}
                   path={item.path}
                   element={
-                    // <PermissionComponent>
-                    <Component />
-                    // </PermissionComponent>
+                    <AuthCheck
+                      shouldLogin={item?.auth?.shouldLogin}
+                      shouldLogout={item?.auth?.shouldLogout}
+                    >
+                      <Component />
+                    </AuthCheck>
                   }
                 />
               );
