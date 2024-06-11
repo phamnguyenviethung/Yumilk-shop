@@ -40,7 +40,7 @@ const Verify = () => {
       checkTokenExpired(token);
       handleSubmitToken(token);
     }
-  }, [token, handleSubmitToken]);
+  }, [token]);
 
   if (isLoading) return <p>Loading...</p>;
 

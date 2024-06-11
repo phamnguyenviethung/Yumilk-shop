@@ -28,6 +28,24 @@ export const authApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidateTags: ['Auth'],
     }),
+    forgotPassword: build.mutation({
+      query: email => ({
+        url: '/authentication/forgot-password',
+        method: 'POST',
+        body: { email },
+      }),
+      transformResponse: res => res.data,
+      invalidateTags: ['Auth'],
+    }),
+    resetPassword: build.mutation({
+      query: data => ({
+        url: '/authentication/reset-password',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidateTags: ['Auth'],
+    }),
     verifyAccount: build.mutation({
       query: token => ({
         url: '/authentication/verify',
@@ -45,4 +63,6 @@ export const {
   useRegisterMutation,
   useSendActiveMailMutation,
   useVerifyAccountMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authApi;
