@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useGetCartQuery } from '@/apis/cartApi';
 import { Box, Center, Icon, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
@@ -5,15 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCartData } from '../cartSlice';
 import CartIcon from '@/assets/Icon/cart';
 
-const CartNavbarIcon = () => {
-  const cartState = useSelector(state => state.cart);
-  const authState = useSelector(state => state.auth);
-  const dispatch = useDispatch();
-  const { data } = useGetCartQuery({ userID: authState?.userData?.userID });
-  useEffect(() => {
-    dispatch(setCartData(data));
-  }, [data, dispatch]);
-
+const Cart = ({ count }) => {
   return (
     <Box pos='relative'>
       <Center p='3' borderRadius='100%'>
@@ -28,12 +21,29 @@ const CartNavbarIcon = () => {
           color='white'
         >
           <Text fontSize='1rem' userSelect='none'>
-            {cartState?.data?.cartItems?.totalCount || 0}
+            {count || 0}
           </Text>
         </Center>
       </Box>
     </Box>
   );
+};
+
+const AuthenticatedCartIcon = ({ userID }) => {
+  const cartState = useSelector(state => state.cart);
+  const { data } = useGetCartQuery({ userID });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCartData(data));
+  }, [data, dispatch]);
+  return <Cart count={cartState?.data?.cartItems?.totalCount} />;
+};
+
+const CartNavbarIcon = () => {
+  const authState = useSelector(state => state.auth);
+  if (!authState.isAuthenticated) return <Cart />;
+  return <AuthenticatedCartIcon userID={authState?.userData?.userID} />;
 };
 
 export default CartNavbarIcon;
