@@ -1,15 +1,13 @@
-import { useResetPasswordMutation } from '@/apis/authApi';
 import ResetPasswordForm from '@/features/Auth/ResetPassword';
 import {
   Box,
-  Text,
-  Link as ChakraLink,
   Button,
+  Link as ChakraLink,
   Container,
+  Text,
 } from '@chakra-ui/react';
 import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const ResetPassword = () => {

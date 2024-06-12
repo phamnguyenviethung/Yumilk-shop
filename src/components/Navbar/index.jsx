@@ -22,7 +22,7 @@ import data from './data';
 
 const Navbar = () => {
   return (
-    <Container maxW='container.xl' maxH='150px'>
+    <Container maxW='container.xl' maxH='150px' mb={8}>
       <HStack w='full' maxH='full'>
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
@@ -49,7 +49,19 @@ const Navbar = () => {
               />
               <MenuList>
                 {data.map(item => {
-                  return <MenuItem key={item.name}>{item.name}</MenuItem>;
+                  if (item.handleClick) {
+                    return (
+                      <MenuItem key={item.name} onClick={item.handleClick}>
+                        {item.name}
+                      </MenuItem>
+                    );
+                  }
+
+                  return (
+                    <Link key={item.name} to={item.path}>
+                      <MenuItem>{item.name}</MenuItem>
+                    </Link>
+                  );
                 })}
               </MenuList>
             </Menu>

@@ -7,6 +7,7 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
+import Settings from '@/pages/Settings';
 import Verify from '@/pages/Verify';
 
 const routes = [
@@ -21,6 +22,16 @@ const routes = [
       {
         path: '/cart',
         component: Cart,
+        auth: {
+          shouldLogin: true,
+        },
+      },
+      {
+        path: '/settings',
+        component: Settings,
+        auth: {
+          shouldLogin: true,
+        },
       },
     ],
   },
@@ -30,26 +41,44 @@ const routes = [
       {
         path: '/login',
         component: Login,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/register',
         component: Register,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/verify',
         component: Verify,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/active-mail',
         component: ActiveMail,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/reset-password',
         component: ResetPassword,
+        auth: {
+          shouldLogout: true,
+        },
       },
       {
         path: '/forgot-password',
         component: ForgotPassword,
+        auth: {
+          shouldLogout: true,
+        },
       },
     ],
   },
