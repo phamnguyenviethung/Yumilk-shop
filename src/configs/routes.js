@@ -7,6 +7,7 @@ import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
+import Settings from '@/pages/Settings';
 import Verify from '@/pages/Verify';
 
 const routes = [
@@ -21,6 +22,13 @@ const routes = [
       {
         path: '/cart',
         component: Cart,
+        auth: {
+          shouldLogin: true,
+        },
+      },
+      {
+        path: '/settings',
+        component: Settings,
         auth: {
           shouldLogin: true,
         },

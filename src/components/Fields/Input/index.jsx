@@ -38,14 +38,6 @@ function InputField(props) {
 
       <InputGroup>
         <Input
-          {...props}
-          id={name}
-          {...field}
-          type={showPassword ? 'text' : type}
-          disabled={disabled}
-          placeholder={placeholder}
-          border='1px solid'
-          borderColor='gray.600'
           _hover={{
             borderColor: 'pink.400',
             outline: 0,
@@ -54,6 +46,14 @@ function InputField(props) {
           _focus={{
             outline: 0,
           }}
+          border='1px solid'
+          borderColor='gray.600'
+          {...props}
+          id={name}
+          {...field}
+          type={showPassword ? 'text' : type}
+          disabled={disabled}
+          placeholder={placeholder}
         />
         {type === 'password' && (
           <InputRightElement width={['4rem', '4.5rem']} top='5px'>
