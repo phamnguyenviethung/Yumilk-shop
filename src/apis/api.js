@@ -57,7 +57,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   return result;
 };
 
-const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 1 });
+const baseQueryWithRetry = retry(baseQueryWithReauth, { maxRetries: 0 });
 
 export const api = createApi({
   reducerPath: 'yumilkAPI',
