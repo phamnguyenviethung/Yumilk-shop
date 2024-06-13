@@ -13,7 +13,23 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    autocompleteProduct: build.query({
+      //query này sẽ được gọi khi user nhập từ khóa tìm kiếm
+      query: ({ keyword }) => ({
+        url: `/products`,
+        method: 'GET',
+        params: {
+          SearchTerm: keyword,
+          isActive: true,
+          SortColumn: 'rating',
+          SortOrder: 'desc',
+        },
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
   }),
 });
 
-export const { useGetSellingProductQuery } = productApi;
+export const { useGetSellingProductQuery, useAutocompleteProductQuery } =
+  productApi;
