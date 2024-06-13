@@ -1,6 +1,7 @@
 import { useGetSellingProductQuery } from '@/apis/productApi';
+import Banner from '@/features/Banner';
 import GridProductList from '@/features/Product/ProductList/GridProductList';
-import { Box, Container } from '@chakra-ui/react';
+import { Box, Center, Container } from '@chakra-ui/react';
 const Home = () => {
   const { data = { items: [] }, isLoading } = useGetSellingProductQuery();
 
@@ -8,6 +9,9 @@ const Home = () => {
 
   return (
     <Container maxW='container.xl'>
+      <Center mb={4} pb={8}>
+        <Banner />
+      </Center>
       <Box>
         <GridProductList data={data} />
       </Box>

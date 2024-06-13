@@ -45,7 +45,12 @@ const Product = ({ data }) => {
   return (
     <Flex direction='column' minH='full' userSelect='none'>
       <Box w='full'>
-        <Image w='full' alt={data.name} src='https://placehold.co/200x200' />
+        <Image
+          w='full'
+          alt={data.name}
+          src={data.thumbnail}
+          fallbackSrc='https://placehold.co/200x200'
+        />
       </Box>
       <Flex direction='column' flex='1'>
         <Box
