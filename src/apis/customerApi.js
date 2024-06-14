@@ -45,10 +45,9 @@ export const customerApi = api.injectEndpoints({
       invalidatesTags: ['Address'],
     }),
     deleteMyAddress: build.mutation({
-      query: ({ id, data }) => ({
+      query: id => ({
         url: `/user/account/addresses/${id}`,
         method: 'DELETE',
-        body: data,
       }),
       transformResponse: res => res.data,
       invalidatesTags: ['Address'],
