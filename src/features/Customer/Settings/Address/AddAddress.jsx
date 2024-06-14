@@ -23,36 +23,24 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { FastField, Form, Formik } from 'formik';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 const AddressSelect = ({ formikProps, provincesData, isProvinceLoading }) => {
-  const [province, setProvince] = useState({
-    provinceId: '',
-    provinceName: '',
-    // provinceId: provincesData ? provincesData[0].provinceId : '',
-    // provinceName: provincesData ? provincesData[0].provinceName : '',
-  });
-
   const {
     data: districtData,
     isLoading: districtLoading,
     isFetching: districtFetching,
-  } = useGetDistrictsQuery(province.provinceId * 1, {
-    skip: !province.provinceId,
+  } = useGetDistrictsQuery(formikProps.values.provinceId * 1, {
+    skip: !formikProps.values.provinceId,
     refetchOnMountOrArgChange: true,
   });
-  const [district, setDistrict] = useState({
-    districtId: '',
-    districtName: '',
-    // districtId: districtData ? districtData[0].districtId : null,
-    // districtName: districtData ? districtData[0].districtName : null,
-  });
+
   const {
     data: wardData,
     isLoading: wardLoading,
     isFetching: wardFetching,
-  } = useGetWardsQuery(district.districtId * 1, {
-    skip: !district.districtId,
+  } = useGetWardsQuery(formikProps.values.districtId * 1, {
+    skip: !formikProps.values.districtId,
     refetchOnMountOrArgChange: true,
   });
 
@@ -79,11 +67,10 @@ const AddressSelect = ({ formikProps, provincesData, isProvinceLoading }) => {
             p => p.provinceId === provinceId
           ).provinceName;
           formikProps.setFieldValue('provinceName', provinceName);
-          setProvince({ provinceId, provinceName });
-          formikProps.setFieldValue(
-            'districtId',
-            districtData ? districtData[0].districtId : ''
-          );
+          formikProps.setFieldValue('districtId', '');
+          formikProps.setFieldValue('districtName', '');
+          formikProps.setFieldValue('wardCode', '');
+          formikProps.setFieldValue('wardName', '');
         }}
         options={provincesData.map(p => {
           return {
@@ -105,14 +92,19 @@ const AddressSelect = ({ formikProps, provincesData, isProvinceLoading }) => {
               d => d.districtId === districtId
             ).districtName;
             formikProps.setFieldValue('districtName', districtName);
-            setDistrict({ districtId, districtName });
+            formikProps.setFieldValue('wardCode', '');
+            formikProps.setFieldValue('wardName', '');
           }}
-          options={districtData?.map(d => {
-            return {
-              name: d.districtName,
-              value: String(d.districtId),
-            };
-          })}
+          options={
+            formikProps.values.provinceId === ''
+              ? []
+              : districtData?.map(d => {
+                  return {
+                    name: d.districtName,
+                    value: String(d.districtId),
+                  };
+                })
+          }
         />
         <FastField
           component={SelectField}
@@ -128,12 +120,16 @@ const AddressSelect = ({ formikProps, provincesData, isProvinceLoading }) => {
             ).wardName;
             formikProps.setFieldValue('wardName', wardName);
           }}
-          options={wardData?.map(w => {
-            return {
-              name: w.wardName,
-              value: String(w.wardCode),
-            };
-          })}
+          options={
+            formikProps.values.distirctId === ''
+              ? []
+              : wardData?.map(w => {
+                  return {
+                    name: w.wardName,
+                    value: String(w.wardCode),
+                  };
+                })
+          }
         />
       </InputGroup>
     </>
@@ -156,8 +152,6 @@ const AddressForm = () => {
           initialValues={{
             provinceId: '',
             provinceName: '',
-            // provinceId: provincesData ? provincesData[0].provinceId : '',
-            // provinceName: provincesData ? provincesData[0].provinceName : '',
             districtId: '',
             districtName: '',
             wardCode: '',
