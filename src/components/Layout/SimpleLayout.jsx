@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Center, Image } from '@chakra-ui/react';
 import logo from '@/assets/logo.png';
 const SimpleLayout = () => {
@@ -6,7 +6,9 @@ const SimpleLayout = () => {
     <>
       <Center h='100px' mb={4}>
         <Center h='full'>
-          <Image w='200px' src={logo} />
+          <Link to='/'>
+            <Image w='200px' src={logo} />
+          </Link>
         </Center>
       </Center>
       <Outlet />

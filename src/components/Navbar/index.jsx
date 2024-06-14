@@ -18,9 +18,18 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import data from './data';
+import data, { noAuthData } from './data';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+  const [userMenu, setUserMenu] = useState(data);
+  const authState = useSelector(state => state.auth);
+
+  useEffect(() => {
+    setUserMenu(authState?.isAuthenticated ? data : noAuthData);
+  }, [setUserMenu, authState?.isAuthenticated]);
+
   return (
     <Container maxW='container.xl' maxH='150px' mb={8}>
       <HStack w='full' maxH='full'>
@@ -48,7 +57,7 @@ const Navbar = () => {
                 variant='outline'
               />
               <MenuList>
-                {data.map(item => {
+                {userMenu.map(item => {
                   if (item.handleClick) {
                     return (
                       <MenuItem key={item.name} onClick={item.handleClick}>

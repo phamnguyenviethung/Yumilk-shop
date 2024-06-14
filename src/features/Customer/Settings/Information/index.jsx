@@ -73,7 +73,12 @@ const Information = () => {
                 pb={4}
                 alignItems='center'
                 justifyContent='center'
-                flexDirection={['column-reverse', 'column-reverse', 'row']}
+                flexDirection={[
+                  'column-reverse',
+                  'column-reverse',
+                  'column-reverse',
+                  'row',
+                ]}
                 gap='4'
               >
                 <Box flex='1' w='full'>
