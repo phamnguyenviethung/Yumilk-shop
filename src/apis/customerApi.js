@@ -16,9 +16,51 @@ export const customerApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidateTags: ['Auth', 'Customer'],
+      invalidatesTags: ['Auth', 'Customer'],
+    }),
+    getMyAddress: build.query({
+      query: () => ({
+        url: '/user/account/addresses',
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Address'],
+    }),
+    addNewAddress: build.mutation({
+      query: data => ({
+        url: '/user/account/addresses',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Address'],
+    }),
+    updateMyAddress: build.mutation({
+      query: data => ({
+        url: `/user/account/addresses/${data.id}`,
+        method: 'PATCH',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Address'],
+    }),
+    deleteMyAddress: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/user/account/addresses/${id}`,
+        method: 'DELETE',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Address'],
     }),
   }),
 });
 
-export const { useUpdateProfileMutation, useGetMeQuery } = customerApi;
+export const {
+  useUpdateProfileMutation,
+  useGetMeQuery,
+  useGetMyAddressQuery,
+  useAddNewAddressMutation,
+  useUpdateMyAddressMutation,
+  useDeleteMyAddressMutation,
+} = customerApi;

@@ -7,7 +7,7 @@ export const addressApi = api.injectEndpoints({
         method: 'GET',
       }),
       transformResponse: res => res.data,
-      providesTags: ['Provinces'],
+      providesTags: ['Address'],
     }),
     getDistricts: build.query({
       query: provinceId => ({
@@ -15,7 +15,7 @@ export const addressApi = api.injectEndpoints({
         method: 'GET',
       }),
       transformResponse: res => res.data,
-      providesTags: ['Districts'],
+      providesTags: ['Address'],
     }),
     getWards: build.query({
       query: wardId => ({
