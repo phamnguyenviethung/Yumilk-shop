@@ -1,9 +1,89 @@
 /* eslint-disable react/prop-types */
-import { Box, Flex, Tag, Text, VStack, useDisclosure } from '@chakra-ui/react';
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Box,
+  Button,
+  Flex,
+  Tag,
+  Text,
+  VStack,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 import AddressEditModal from './AddressEditModal';
+import { useRef } from 'react';
+import { useDeleteMyAddressMutation } from '@/apis/customerApi';
+
+function DeleteDialog({ deleteDisclosure, addressID }) {
+  const { isOpen, onClose } = deleteDisclosure;
+  const cancelRef = useRef();
+  const [deleteAddressAPI] = useDeleteMyAddressMutation();
+  const toast = useToast();
+
+  const handleClick = async () => {
+    try {
+      const res = await deleteAddressAPI(addressID);
+      if (res.error) throw res.error.data;
+      toast({
+        title: 'Xoá thành công',
+        status: 'success',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
+    } catch (error) {
+      toast({
+        title: error.message,
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
+
+      console.log(error);
+    }
+  };
+
+  return (
+    <>
+      <AlertDialog
+        motionPreset='slideInBottom'
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Xoá địa chỉ</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>Bạn có muốn xoá địa chỉ này không ?</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose}>
+              Huỷ
+            </Button>
+            <Button colorScheme='pink' ml={3} onClick={handleClick}>
+              Xác nhận
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}
 
 const Address = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const deleteDisclosure = useDisclosure();
 
   return (
     <>
@@ -32,9 +112,23 @@ const Address = ({ data }) => {
               mt={4}
             >{`${data.address} ${data.wardName} ${data.districtName} ${data.provinceName}`}</Text>
           </Box>
-          <Box>
-            <Text color='pink.500' fontSize='1rem' onClick={onOpen}>
+          <Box textAlign='center'>
+            <Text
+              color='pink.500'
+              fontSize='1rem'
+              onClick={onOpen}
+              cursor='pointer'
+            >
               Chỉnh sửa
+            </Text>
+            <Text
+              color='gray.500'
+              fontSize='1rem'
+              mt={2}
+              cursor='pointer'
+              onClick={deleteDisclosure.onOpen}
+            >
+              Xoá
             </Text>
           </Box>
         </Flex>
@@ -45,6 +139,7 @@ const Address = ({ data }) => {
         type='update'
         addressData={data}
       />
+      <DeleteDialog deleteDisclosure={deleteDisclosure} addressID={data.id} />
     </>
   );
 };

@@ -87,7 +87,7 @@ const LoginForm = () => {
                 </VStack>
                 <Flex my={2} justifyContent='flex-end'>
                   <Text color='pink.400' fontSize='14px'>
-                    <Link to='/forgot'>Quên mật khẩu</Link>
+                    <Link to='/forgot-password'>Quên mật khẩu</Link>
                   </Text>
                 </Flex>
                 <Button

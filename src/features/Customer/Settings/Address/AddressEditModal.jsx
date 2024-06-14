@@ -151,6 +151,7 @@ const AddressForm = ({ onClose, addressData, type }) => {
     useUpdateMyAddressMutation();
   const validationSchema = yup.object().shape({
     receiverName: yup.string().required('Vui lòng không bỏ trống'),
+    address: yup.string().required('Vui lòng không bỏ trống'),
 
     receiverPhone: yup
       .string()
@@ -183,7 +184,7 @@ const AddressForm = ({ onClose, addressData, type }) => {
       }
       onSubmit={async data => {
         try {
-          const run = type === 'add ' ? addNewAddressAPI : updateAddressAPI;
+          const run = type === 'add' ? addNewAddressAPI : updateAddressAPI;
           const res = await run(data);
           if (res.error) throw res.error.data;
           onClose();
@@ -207,7 +208,6 @@ const AddressForm = ({ onClose, addressData, type }) => {
       }}
     >
       {formikProps => {
-        console.log(formikProps.values);
         return (
           <VStack as={Form} w='full'>
             <ModalBody pb={6}>
