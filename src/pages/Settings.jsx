@@ -53,7 +53,7 @@ const Settings = () => {
         w='full'
         display='flex'
         flexDirection={['column', 'column', 'row']}
-        gap={['4', '4', '16']}
+        gap={['4', '4', '8']}
       >
         <TabList
           as={TabList}

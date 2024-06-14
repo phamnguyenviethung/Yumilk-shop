@@ -71,6 +71,7 @@ export const api = createApi({
     'Cart',
     'Customer',
     'Image',
+    'Address',
   ],
   endpoints: () => ({}),
 });
