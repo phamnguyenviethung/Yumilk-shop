@@ -1,5 +1,12 @@
+import { VStack } from '@chakra-ui/react';
+import AddAddress from './AddAddress';
+
 const Address = () => {
-  return <div>Address</div>;
+  return (
+    <VStack w='full'>
+      <AddAddress />
+    </VStack>
+  );
 };
 
 export default Address;
