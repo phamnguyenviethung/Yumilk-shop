@@ -44,15 +44,16 @@ const Product = ({ data }) => {
 
   return (
     <Flex direction='column' minH='full' userSelect='none'>
-      <Box w='full'>
+      <Box w='full' flex='1'>
         <Image
           w='full'
+          h='full'
           alt={data.name}
           src={data.thumbnail}
           fallbackSrc='https://placehold.co/200x200'
         />
       </Box>
-      <Flex direction='column' flex='1'>
+      <Flex direction='column'>
         <Box
           flex='1'
           sx={{
