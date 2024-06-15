@@ -7,15 +7,7 @@ import MinusIcon from '@/assets/Icon/minus';
 import PlusIcon from '@/assets/Icon/plus';
 import TrashIcon from '@/assets/Icon/trash';
 import formatMoney from '@/utils/formatMoney';
-import {
-  Box,
-  Center,
-  HStack,
-  Icon,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Center, Icon, Image, Stack, Text } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useThrottle } from 'use-throttle';
 import { increaseQuantity, removeFromCart } from '../cartSlice';

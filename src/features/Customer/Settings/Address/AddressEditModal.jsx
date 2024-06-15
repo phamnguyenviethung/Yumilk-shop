@@ -126,7 +126,9 @@ const AddressSelect = ({ formikProps }) => {
             const wardId = e.target.value * 1;
             formikProps.setFieldValue('wardId', wardId);
 
-            const wardName = wardData.find(w => w.wardCode === wardId).wardName;
+            const wardName = wardData.find(
+              w => w.wardCode * 1 === wardId
+            ).wardName;
             formikProps.setFieldValue('wardName', wardName);
           }}
           options={
@@ -209,6 +211,7 @@ const AddressForm = ({ onClose, addressData, type }) => {
       }}
     >
       {formikProps => {
+        console.log(formikProps.values);
         return (
           <VStack as={Form} w='full'>
             <ModalBody pb={6}>
