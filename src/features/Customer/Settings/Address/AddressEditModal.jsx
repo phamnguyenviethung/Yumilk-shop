@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
+
 import {
   useGetDistrictsQuery,
   useGetProvincesQuery,
   useGetWardsQuery,
-} from '@/apis/address';
+} from '@/apis/addressApi';
 import {
   useAddNewAddressMutation,
   useUpdateMyAddressMutation,

@@ -6,7 +6,7 @@ const CartItems = () => {
   const cartState = useSelector(state => state.cart);
 
   return (
-    <Stack flex='2'>
+    <Stack flex='3'>
       {cartState?.data?.cartItems?.items.map(item => {
         return <CartItem key={item.productName} data={item} />;
       })}

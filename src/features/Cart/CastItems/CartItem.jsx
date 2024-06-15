@@ -42,13 +42,23 @@ const Quantity = ({ value, productID, auth }) => {
   const throttledText = useThrottle(value, 100);
 
   return (
-    <HStack flex='1' gap='4' userSelect='none'>
+    <Stack
+      flexDirection={{
+        base: 'column',
+        lg: 'row',
+      }}
+      flex='1'
+      gap='4'
+      userSelect='none'
+      alignItems='center'
+      justifyContent='center'
+    >
       <Center
         cursor='pointer'
-        p='3'
+        p={[2, 2, 3]}
         bg='gray.200'
         borderRadius='50%'
-        fontSize='1rem'
+        fontSize={['0.9rem', '0.9rem', '1rem']}
         onClick={() => handleIncQuantity(-1)} // Decrease 1
       >
         <Icon as={MinusIcon} />
@@ -56,15 +66,15 @@ const Quantity = ({ value, productID, auth }) => {
       <Box>{throttledText}</Box>
       <Center
         cursor='pointer'
-        p='3'
+        p={[2, 2, 3]}
         bg='gray.200'
         borderRadius='50%'
-        fontSize='1rem'
+        fontSize={['0.9rem', '0.9rem', '1rem']}
         onClick={() => handleIncQuantity(1)} // Increase 1
       >
         <Icon as={PlusIcon} />
       </Center>{' '}
-    </HStack>
+    </Stack>
   );
 };
 
@@ -92,13 +102,32 @@ const CartItem = ({ data }) => {
       gap='2'
       borderBottom='1px solid'
       borderColor='gray.300'
+      fontWeight='500'
     >
-      <Box>
-        <Image src='https://picsum.photos/100' borderRadius='4px' />
-      </Box>
-      <Box alignSelf='center' flex='2'>
-        <Text>{data.productName}</Text>
-      </Box>
+      <Stack
+        flex='4'
+        direction={{
+          base: 'row',
+          lg: 'row',
+        }}
+      >
+        <Box
+          boxSize={{
+            base: '80px',
+            lg: '100px',
+          }}
+        >
+          <Image
+            boxSize='full'
+            src={data.thumbnail}
+            fallbackSrc='https://placehold.co/100'
+            borderRadius='4px'
+          />
+        </Box>
+        <Box alignSelf='center' flex='1'>
+          <Text>{data.productName}</Text>
+        </Box>
+      </Stack>
       <Quantity
         value={data.quantity}
         productID={data.productId}
@@ -110,12 +139,20 @@ const CartItem = ({ data }) => {
             {formatMoney(data.originalPrice * data.quantity)}
           </Text>
         ) : (
-          <HStack justifyContent='center'>
-            <Text>{formatMoney(data.salePrice * data.quantity)} </Text>
-            <Text as='s' fontSize='0.95rem' color='gray.500'>
+          <Stack
+            flexDirection={{
+              base: 'column',
+              lg: 'row',
+            }}
+            justifyContent='center'
+          >
+            <Text color='pink.400'>
+              {formatMoney(data.salePrice * data.quantity)}{' '}
+            </Text>
+            <Text as='s' fontSize='0.9rem' color='gray.500'>
               {formatMoney(data.originalPrice * data.quantity)}
             </Text>
-          </HStack>
+          </Stack>
         )}
       </Box>
       <Box
