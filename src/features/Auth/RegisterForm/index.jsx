@@ -18,18 +18,28 @@ const RegisterForm = () => {
   const toast = useToast();
   const [register] = useRegisterMutation();
   const validationSchema = yup.object().shape({
-    firstName: yup.string().trim().required('Vui lòng không bỏ trống'),
+    firstName: yup
+      .string()
+      .trim()
+      .min(1, 'Phải ít nhất 1 kí tự')
+      .required('Vui lòng không bỏ trống'),
     lastName: yup.string().trim().required('Vui lòng không bỏ trống'),
     phoneNumber: yup
       .string()
       .trim()
+      .min(1, 'Phải ít nhất 1 kí tự')
       .length(10, 'Số điện thoại phải là 10 số')
       .required('Vui lòng không bỏ trống'),
     email: yup
       .string()
       .email('Vui lòng nhập vào 1 email')
       .required('Vui lòng không bỏ trống'),
-    username: yup.string().trim().required('Vui lòng không bỏ trống'),
+    username: yup
+      .string()
+      .trim()
+      .min(1, 'Phải ít nhất 1 kí tự')
+
+      .required('Vui lòng không bỏ trống'),
     password: yup
       .string()
       .min(8, 'Mật khẩu phải tối thiểu 8 kí tự')
