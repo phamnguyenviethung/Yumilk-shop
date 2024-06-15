@@ -2,6 +2,7 @@ import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
 import ActiveMail from '@/pages/ActiveMail';
 import Cart from '@/pages/Cart';
+import Checkout from '@/pages/Checkout';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
@@ -22,6 +23,13 @@ const routes = [
       {
         path: '/cart',
         component: Cart,
+        auth: {
+          shouldLogin: true,
+        },
+      },
+      {
+        path: '/checkout',
+        component: Checkout,
         auth: {
           shouldLogin: true,
         },

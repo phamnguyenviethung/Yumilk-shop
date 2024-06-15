@@ -1,6 +1,15 @@
 import { api } from './api';
 export const orderApi = api.injectEndpoints({
   endpoints: build => ({
+    checkOut: build.mutation({
+      query: data => ({
+        url: '/checkout',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Cart', 'Fee'],
+    }),
     getShippingFee: build.query({
       query: params => ({
         url: '/shipping/fee',
@@ -13,4 +22,4 @@ export const orderApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetShippingFeeQuery } = orderApi;
+export const { useGetShippingFeeQuery, useCheckOutMutation } = orderApi;
