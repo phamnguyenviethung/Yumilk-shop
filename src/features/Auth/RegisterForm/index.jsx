@@ -23,21 +23,28 @@ const RegisterForm = () => {
       .trim()
       .min(1, 'Phải ít nhất 1 kí tự')
       .required('Vui lòng không bỏ trống'),
-    lastName: yup.string().trim().required('Vui lòng không bỏ trống'),
+    lastName: yup
+      .string()
+      .trim()
+      .min(1, 'Phải ít nhất 1 kí tự')
+      .required('Vui lòng không bỏ trống'),
     phoneNumber: yup
       .string()
       .trim()
       .min(1, 'Phải ít nhất 1 kí tự')
       .length(10, 'Số điện thoại phải là 10 số')
+      .matches(/^[^\s]+$/, 'Tên người dùng không được chứa dấu cách')
       .required('Vui lòng không bỏ trống'),
     email: yup
       .string()
       .email('Vui lòng nhập vào 1 email')
+      .matches(/^[^\s]+$/, 'Tên người dùng không được chứa dấu cách')
       .required('Vui lòng không bỏ trống'),
     username: yup
       .string()
       .trim()
       .min(1, 'Phải ít nhất 1 kí tự')
+      .matches(/^[^\s]+$/, 'Tên người dùng không được chứa dấu cách')
 
       .required('Vui lòng không bỏ trống'),
     password: yup
