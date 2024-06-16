@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useGetShippingFeeQuery } from '@/apis/orderApi';
 import formatMoney from '@/utils/formatMoney';
 import { HStack, Text, VStack } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
 
 const Fee = ({ shippingFee, cartState }) => {
   return (

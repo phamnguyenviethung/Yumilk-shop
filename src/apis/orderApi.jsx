@@ -8,7 +8,7 @@ export const orderApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      providesTags: ['Cart', 'Fee'],
+      invalidatesTags: ['Cart', 'Fee'],
     }),
     getShippingFee: build.query({
       query: params => ({
@@ -19,7 +19,20 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Fee'],
     }),
+    getOrderHistory: build.query({
+      query: params => ({
+        url: '/customer/orders',
+        method: 'GET',
+        params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Order'],
+    }),
   }),
 });
 
-export const { useGetShippingFeeQuery, useCheckOutMutation } = orderApi;
+export const {
+  useGetShippingFeeQuery,
+  useCheckOutMutation,
+  useGetOrderHistoryQuery,
+} = orderApi;
