@@ -1,0 +1,20 @@
+import TabInfo from '@/features/Product/ProductDetail/TabInfo';
+import { Box, Container, HStack } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
+
+const ProductDetail = () => {
+  const { id } = useParams();
+  return (
+    <Container maxW='container.xl' boxSize='full'>
+      <HStack>
+        <Box>images</Box>
+        <Box>basic info</Box>
+      </HStack>
+      <Box>
+        <TabInfo productID={id} />
+      </Box>
+    </Container>
+  );
+};
+
+export default ProductDetail;
