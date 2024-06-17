@@ -2,9 +2,11 @@ import MainLayout from '@/components/Layout/MainLayout';
 import SimpleLayout from '@/components/Layout/SimpleLayout';
 import ActiveMail from '@/pages/ActiveMail';
 import Cart from '@/pages/Cart';
+import Checkout from '@/pages/Checkout';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
+import ProductDetail from '@/pages/ProductDetail';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
 import Settings from '@/pages/Settings';
@@ -27,10 +29,24 @@ const routes = [
         },
       },
       {
+        path: '/checkout',
+        component: Checkout,
+        auth: {
+          shouldLogin: true,
+        },
+      },
+      {
         path: '/settings',
         component: Settings,
         auth: {
           shouldLogin: true,
+        },
+      },
+      {
+        path: '/product/:id',
+        component: ProductDetail,
+        auth: {
+          shouldLogin: false,
         },
       },
     ],

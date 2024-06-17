@@ -12,6 +12,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Product = ({ data }) => {
   const [addToCartAPI] = useAddToCartMutation();
@@ -43,7 +44,13 @@ const Product = ({ data }) => {
   };
 
   return (
-    <Flex direction='column' minH='full' userSelect='none'>
+    <Link
+      to={`/product/${data.id}`}
+      as={Flex}
+      direction='column'
+      minH='full'
+      userSelect='none'
+    >
       <Box w='full' flex='1'>
         <Image
           w='full'
@@ -97,7 +104,7 @@ const Product = ({ data }) => {
           </Box>
         </Flex>
       </Flex>
-    </Flex>
+    </Link>
   );
 };
 

@@ -188,7 +188,7 @@ const AddressForm = ({ onClose, addressData, type }) => {
       onSubmit={async data => {
         try {
           const run = type === 'add' ? addNewAddressAPI : updateAddressAPI;
-          const res = await run(data);
+          const res = await run({ ...data, wardCode: String(data.wardId) });
           if (res.error) throw res.error.data;
           onClose();
           toast({
