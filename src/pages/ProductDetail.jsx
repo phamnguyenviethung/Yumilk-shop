@@ -1,3 +1,4 @@
+import TabInfo from '@/features/Product/ProductDetail/TabInfo';
 import { Box, Container, HStack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
@@ -9,7 +10,9 @@ const ProductDetail = () => {
         <Box>images</Box>
         <Box>basic info</Box>
       </HStack>
-      <Box>tab info</Box>
+      <Box>
+        <TabInfo productID={id} />
+      </Box>
     </Container>
   );
 };
