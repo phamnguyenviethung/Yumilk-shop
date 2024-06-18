@@ -13,6 +13,22 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    searchProduct: build.query({
+      //query này sẽ được gọi khi user nhập từ khóa tìm kiếm
+      query: keyword => ({
+        url: `/products`,
+        method: 'GET',
+        params: {
+          SearchTerm: keyword,
+          isActive: true,
+          SortColumn: 'rating',
+          SortOrder: 'desc',
+          pageSize: 5,
+        },
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
     getProductDetail: build.query({
       query: id => ({
         url: `/products/${id}`,
@@ -23,5 +39,4 @@ export const productApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetSellingProductQuery, useGetProductDetailQuery } =
-  productApi;
+export const { useGetSellingProductQuery } = productApi;
