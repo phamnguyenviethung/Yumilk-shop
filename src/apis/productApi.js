@@ -14,7 +14,6 @@ export const productApi = api.injectEndpoints({
       providesTags: ['Product'],
     }),
     searchProduct: build.query({
-      //query này sẽ được gọi khi user nhập từ khóa tìm kiếm
       query: keyword => ({
         url: `/products`,
         method: 'GET',
@@ -39,4 +38,8 @@ export const productApi = api.injectEndpoints({
   }),
 });
 
-export const { useGetSellingProductQuery } = productApi;
+export const {
+  useGetSellingProductQuery,
+  useSearchProductQuery,
+  useGetProductDetailQuery,
+} = productApi;
