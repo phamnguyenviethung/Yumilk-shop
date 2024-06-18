@@ -1,52 +1,12 @@
 /* eslint-disable react/prop-types */
-import { useAddToCartMutation } from '@/apis/cartApi';
-import AddToCartIcon from '@/assets/Icon/addtocart';
-import { addToCart } from '@/features/Cart/cartSlice';
-import {
-  Box,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-  Tag,
-  useToast,
-} from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Box, Flex, Heading, Image, Tag } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Product = ({ data }) => {
-  const [addToCartAPI] = useAddToCartMutation();
-  const authState = useSelector(state => state.auth);
-  const dispatch = useDispatch();
-  const toast = useToast();
-  const handleAddtoCart = async productData => {
-    try {
-      dispatch(addToCart(productData));
-
-      const res = await addToCartAPI({
-        userID: authState?.userData?.userID,
-        data: {
-          productId: productData.productID,
-          quantity: 1,
-        },
-      });
-      if (res.error) throw res.error.data;
-      toast({
-        title: 'Đã thêm vào giỏ hàng',
-        status: 'success',
-        duration: 800,
-        isClosable: true,
-        position: 'top-right',
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <Link
+    <Flex
       to={`/product/${data.id}`}
-      as={Flex}
+      as={Link}
       direction='column'
       minH='full'
       userSelect='none'
@@ -87,24 +47,9 @@ const Product = ({ data }) => {
               </Tag>
             )}
           </Flex>
-          <Box
-            cursor='pointer'
-            onClick={() =>
-              handleAddtoCart({
-                productID: data.id,
-                productName: data.name,
-                quantity: 1,
-                originalPrice: data.originalPrice,
-                salePrice: data.salePrice,
-                thumbnail: data.thumbnail,
-              })
-            }
-          >
-            <Icon as={AddToCartIcon} fontSize='1.6rem' />
-          </Box>
         </Flex>
       </Flex>
-    </Link>
+    </Flex>
   );
 };
 

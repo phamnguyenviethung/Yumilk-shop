@@ -13,7 +13,15 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    getProductDetail: build.query({
+      query: id => ({
+        url: `/products/${id}`,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
   }),
 });
 
-export const { useGetSellingProductQuery } = productApi;
+export const { useGetSellingProductQuery, useGetProductDetailQuery } =
+  productApi;
