@@ -36,7 +36,14 @@ const Navbar = () => {
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
         </ChakraLink>
-        <Box flex='4'>
+        <Box
+          display={{
+            base: 'none',
+            lg: 'block',
+          }}
+          w='full'
+          flex='4'
+        >
           <SearchForm />
         </Box>
         <Flex alignItems='center' gap='3' flex='1' justifyContent='flex-end'>
