@@ -1,17 +1,19 @@
 import SearchIcon from '@/assets/Icon/search';
-import { Box, Button, HStack, Icon, Input, VStack } from '@chakra-ui/react';
+import { Box, Button, HStack, Icon, Input } from '@chakra-ui/react';
+import { useState } from 'react';
 import SearchHint from './SearchHint';
-import { useEffect, useState } from 'react';
+import { useSearchProductQuery } from '@/apis/productApi';
+import { useThrottle } from 'use-throttle';
 
 const SearchForm = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(null);
+  const throttledText = useThrottle(searchValue, 500);
 
-  const handleChange = (event) => {
-    setSearchValue(event.target.value);
-  };
-
+  const { data: searchData, isLoading } = useSearchProductQuery(throttledText);
+  const [focus, setFocus] = useState(false);
+  if (isLoading) return <p>Loading...</p>;
   return (
-    <>
+    <Box w='full' pos='relative'>
       <HStack alignItems='center' gap='0'>
         <Input
           placeholder='Tìm kiếm'
@@ -24,7 +26,9 @@ const SearchForm = () => {
           boxShadow='none'
           borderTopLeftRadius='10px'
           borderBottomLeftRadius='10px'
-          onChange={handleChange}
+          onChange={e => setSearchValue(e.target.value.trim())}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
           _focus={{
             outline: 0,
             borderColor: 'pink.600',
@@ -43,11 +47,12 @@ const SearchForm = () => {
           <Icon as={SearchIcon} fontSize='1.6rem' fontWeight='bold' />
         </Button>
       </HStack>
-      <Box position={"relative"}>
-        <SearchHint keyword={searchValue} />
-      </Box>
-
-    </>
+      {searchData?.items?.length > 0 && focus && (
+        <Box position='absolute' w='full' top='120%'>
+          <SearchHint data={searchData} keyword={throttledText} />
+        </Box>
+      )}
+    </Box>
   );
 };
 

@@ -1,26 +1,37 @@
-import { useAutocompleteProductQuery } from '@/apis/productApi';
-import { Box, List, ListItem } from '@chakra-ui/react';
-import React from 'react';
+/* eslint-disable react/prop-types */
+import { Box, Highlight, List, ListItem } from '@chakra-ui/react';
 
-const SearchHint = ({ keyword }) => {
-    // if keyword is fewer than 3 letters, don't return
-    if (keyword.length < 3) return null;
+const SearchHint = ({ data, keyword }) => {
+  if (!keyword) return <></>;
 
-    const { data: autocompleteData, error, isLoading } = useAutocompleteProductQuery({ keyword });
-
-    if (isLoading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
-    const items = autocompleteData?.items;
-
-    return (
-
-        <List >
-            {items?.slice(0, 5).map((item, index) => (
-                <ListItem key={index}>{item.name}</ListItem>
-            ))}
-        </List>
-    );
+  return (
+    <Box
+      w='full'
+      borderRadius='10px'
+      bgColor='white'
+      border='0.5px solid'
+      borderColor='gray.100'
+      boxShadow='rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px'
+    >
+      <List>
+        {data?.items.map(item => (
+          <ListItem
+            cursor='pointer'
+            py={4}
+            px={2}
+            key={item.name}
+            _hover={{
+              bgColor: 'gray.200',
+            }}
+          >
+            <Highlight query={keyword} styles={{ fontWeight: 'bold' }}>
+              {item.name}
+            </Highlight>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 };
 
 export default SearchHint;
