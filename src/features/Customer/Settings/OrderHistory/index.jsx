@@ -8,7 +8,12 @@ import {
   Th,
   Thead,
   Tr,
+  Link as ChakraLink,
+  Tag,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import orderConstant from '@/constants/order';
+import dayjs from 'dayjs';
 
 const OrderHistory = () => {
   const { data, isLoading } = useGetOrderHistoryQuery();
@@ -16,26 +21,50 @@ const OrderHistory = () => {
   return (
     <TableContainer>
       <Table variant='simple'>
-        <Thead>
+        <Thead bgColor='pink.200'>
           <Tr>
             <Th>#</Th>
             <Th>Sản phẩm</Th>
             <Th>Tổng tiền</Th>
             <Th>Ngày tạo</Th>
             <Th>Trạng thái</Th>
-            <Th></Th>
+            <Th>Chi tiết</Th>
           </Tr>
         </Thead>
         <Tbody>
           {data.items.map(order => {
             return (
               <Tr key={order.orderId}>
-                <Td>{order.orderId.slice(-4)}</Td>
+                <Td>
+                  <ChakraLink
+                    as={Link}
+                    to={`/order/${order.orderId}`}
+                    color='pink.400'
+                  >
+                    {order.orderId.slice(-5)}
+                  </ChakraLink>
+                </Td>
                 <Td>{order.productList.length} sản phẩm</Td>
                 <Td>{formatMoney(order.totalAmount)}</Td>
-                <Td>20/12/2024</Td>
-                <Td>{order.orderStatus}</Td>
-                <Td></Td>
+                <Td>{dayjs(order.createdAt).format('HH:mm DD/MM/YYYY')}</Td>
+                <Td>
+                  <Tag
+                    colorScheme={
+                      orderConstant[order.orderStatus.toUpperCase()].color
+                    }
+                  >
+                    {orderConstant[order.orderStatus.toUpperCase()].text}
+                  </Tag>
+                </Td>
+                <Td>
+                  <ChakraLink
+                    as={Link}
+                    to={`/order/${order.orderId}`}
+                    color='pink.400'
+                  >
+                    Xem chi tiết
+                  </ChakraLink>
+                </Td>
               </Tr>
             );
           })}

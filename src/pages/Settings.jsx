@@ -17,7 +17,7 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 
 const tabs = [
   {
@@ -45,6 +45,8 @@ const tabs = [
 ];
 
 const Settings = () => {
+  const tabRef = useRef();
+  console.log(tabRef?.current?.onclick());
   return (
     <Container maxW='container.xl'>
       <Tabs
@@ -87,7 +89,7 @@ const Settings = () => {
           {tabs.map(tab => {
             const Content = tab.content || Fragment;
             return (
-              <TabPanel key={tab.name}>
+              <TabPanel ref={tabRef} key={tab.name}>
                 <Content />
               </TabPanel>
             );

@@ -32,6 +32,7 @@ const Checkout = () => {
     {
       fromDistrictId: data ? data[selectIndex].districtId : '',
       fromWardCode: data ? data[selectIndex].wardCode : '',
+      totalWeight: cartState?.data?.totalGram || 2000,
     },
     {
       skip: isLoading || isFetching,
