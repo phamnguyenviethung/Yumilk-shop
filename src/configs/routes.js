@@ -6,6 +6,7 @@ import Checkout from '@/pages/Checkout';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
+import OrderDetail from '@/pages/OrderDetail';
 import ProductDetail from '@/pages/ProductDetail';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
@@ -47,6 +48,13 @@ const routes = [
         component: ProductDetail,
         auth: {
           shouldLogin: false,
+        },
+      },
+      {
+        path: '/order/:id',
+        component: OrderDetail,
+        auth: {
+          shouldLogin: true,
         },
       },
     ],

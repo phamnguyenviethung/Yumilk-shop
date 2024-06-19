@@ -6,6 +6,7 @@ const config = {
   useSystemColorMode: false,
 };
 const theme = extendTheme({
+  navbarHeight: '180px',
   fonts: {
     heading: `'Be Vietnam Pro', sans-serif`,
     body: `'Be Vietnam Pro', sans-serif`,
