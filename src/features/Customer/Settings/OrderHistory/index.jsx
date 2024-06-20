@@ -16,7 +16,9 @@ import orderConstant from '@/constants/order';
 import dayjs from 'dayjs';
 
 const OrderHistory = () => {
-  const { data, isLoading } = useGetOrderHistoryQuery();
+  const { data, isLoading } = useGetOrderHistoryQuery({
+    pageSize: 20,
+  });
   if (isLoading) return <p>Loading...</p>;
   return (
     <TableContainer>

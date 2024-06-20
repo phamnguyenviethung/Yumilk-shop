@@ -27,7 +27,7 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState(order.COD_PAYMENT);
 
   const { data, isLoading, isFetching } = useGetMyAddressQuery();
-  const [checkoutAPI, checkOutResult] = useCheckOutMutation();
+  const [checkoutAPI] = useCheckOutMutation();
   const { data: shippingFee, isLoading: cartLoading } = useGetShippingFeeQuery(
     {
       fromDistrictId: data ? data[selectIndex].districtId : '',
@@ -38,7 +38,6 @@ const Checkout = () => {
       skip: isLoading || isFetching,
     }
   );
-  console.log(data);
   const handleSelect = n => {
     setSelectIndex(n);
   };
