@@ -1,5 +1,6 @@
 import { useGetMyAddressQuery } from '@/apis/customerApi';
 import { useCheckOutMutation, useGetShippingFeeQuery } from '@/apis/orderApi';
+import NoAddressDialog from '@/components/Dialog/NoAddressDialog';
 import order from '@/constants/order';
 import AddressSelect from '@/features/Checkout/AddressSelect';
 import Fee from '@/features/Checkout/Fee';
@@ -15,10 +16,13 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
+  const nav = useNavigate();
+
   const cartState = useSelector(state => state.cart);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -30,14 +34,21 @@ const Checkout = () => {
   const [checkoutAPI] = useCheckOutMutation();
   const { data: shippingFee, isLoading: cartLoading } = useGetShippingFeeQuery(
     {
-      fromDistrictId: data ? data[selectIndex].districtId : '',
-      fromWardCode: data ? data[selectIndex].wardCode : '',
+      fromDistrictId: data?.length > 0 ? data[selectIndex].districtId : '',
+      fromWardCode: data?.length > 0 ? data[selectIndex].wardCode : '',
       totalWeight: cartState?.data?.totalGram || 2000,
     },
     {
       skip: isLoading || isFetching,
     }
   );
+
+  useEffect(() => {
+    if (cartState.data.cartItems.totalCount === 0) {
+      nav('/cart');
+    }
+  }, [cartState.data.cartItems.totalCount, nav]);
+
   const handleSelect = n => {
     setSelectIndex(n);
   };
@@ -83,21 +94,25 @@ const Checkout = () => {
         </VStack>
 
         <VStack flex='1' gap='4'>
-          <HStack justify='space-between' w='full' fontWeight='500'>
-            <Text color='gray.500' userSelect='none'>
-              Giao tới
-            </Text>
-            <Text color='pink.400' cursor='pointer' onClick={onOpen}>
-              Thay đổi
-            </Text>
-          </HStack>
-          <AddressSelect
-            addressSelected={data[selectIndex]}
-            addressList={data}
-            isOpen={isOpen}
-            onClose={onClose}
-            handleSelect={handleSelect}
-          />
+          {data.length > 0 && (
+            <>
+              <HStack justify='space-between' w='full' fontWeight='500'>
+                <Text color='gray.500' userSelect='none'>
+                  Giao tới
+                </Text>
+                <Text color='pink.400' cursor='pointer' onClick={onOpen}>
+                  Thay đổi
+                </Text>
+              </HStack>
+              <AddressSelect
+                addressSelected={data[selectIndex]}
+                addressList={data}
+                isOpen={isOpen}
+                onClose={onClose}
+                handleSelect={handleSelect}
+              />
+            </>
+          )}
           <Fee
             handleSelect={handleSelect}
             cartState={cartState}
@@ -114,6 +129,7 @@ const Checkout = () => {
           </Button>
         </VStack>
       </Stack>
+      <NoAddressDialog isOpen={data.length === 0} />
     </Container>
   );
 };
