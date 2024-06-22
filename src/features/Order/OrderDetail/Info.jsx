@@ -3,6 +3,12 @@ import { useCancelOrderMutation } from '@/apis/orderApi';
 import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   ButtonGroup,
@@ -12,8 +18,11 @@ import {
   Tag,
   Text,
   VStack,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import { useRef } from 'react';
 const DetailsText = ({ data, isTag, tagColor, color }) => {
   return (
     <HStack
@@ -45,9 +54,44 @@ const DetailsText = ({ data, isTag, tagColor, color }) => {
   );
 };
 
+function DeleteDialog({ isOpen, onClose, handleClick }) {
+  const cancelRef = useRef();
+
+  return (
+    <>
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              Huỷ đơn hàng
+            </AlertDialogHeader>
+
+            <AlertDialogBody>Bạn có muốn huỷ đơn hàng?</AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                Trở về
+              </Button>
+              <Button colorScheme='red' onClick={handleClick} ml={3}>
+                Xác nhận huỷ
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
+    </>
+  );
+}
+
 const Info = ({ data, id }) => {
   const [cancelOrderAPI, { isLoading }] = useCancelOrderMutation();
-
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const orderInfo = [
     {
       name: 'Mã đơn hàng',
@@ -102,8 +146,23 @@ const Info = ({ data, id }) => {
     try {
       const res = await cancelOrderAPI(id);
       if (res.error) throw res.error.data;
+      onClose();
+      toast({
+        title: 'Huỷ thành công',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
     } catch (error) {
       console.log(error);
+      toast({
+        title: 'Huỷ thất bại',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
   };
 
@@ -163,17 +222,20 @@ const Info = ({ data, id }) => {
             }}
             mt='6'
           >
-            <Button flex='1' colorScheme='pink'>
-              Theo dõi đơn hàng
-            </Button>
+            {data.paymentMethod === order.PAYOS_PAYMENT &&
+              data.orderStatus === order.PENDING.name && (
+                <Button flex='1' colorScheme='pink'>
+                  Thanh toán lại
+                </Button>
+              )}
             <Button
               flex='1'
               colorScheme='red'
               variant='outline'
               isLoading={isLoading}
-              onClick={handleCancel}
+              onClick={onOpen}
               isDisabled={
-                ![order.PENDING.text, order.PROCESSING.text].includes(
+                ![order.PENDING.name, order.PROCESSING.name].includes(
                   data.orderStatus
                 )
               }
@@ -183,6 +245,11 @@ const Info = ({ data, id }) => {
           </ButtonGroup>
         </VStack>
       </Stack>
+      <DeleteDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        handleClick={handleCancel}
+      />
     </>
   );
 };
