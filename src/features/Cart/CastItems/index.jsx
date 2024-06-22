@@ -1,10 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Stack } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
 import CartItem from './CartItem';
 
-const CartItems = () => {
-  const cartState = useSelector(state => state.cart);
-
+const CartItems = ({ cartState }) => {
   return (
     <Stack flex='3'>
       {cartState?.data?.cartItems?.items.map(item => {
