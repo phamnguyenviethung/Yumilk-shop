@@ -214,10 +214,24 @@ const ProductInfo = ({ productData }) => {
             </Button>
           </Box>
         </Stack>
-        <VStack mt={[8, 8, 0]} w='full' gap='4'>
+        <VStack
+          mt={[8, 8, 0]}
+          w='full'
+          gap='4'
+          p={4}
+          border='1px solid'
+          borderColor='pink.400'
+          borderRadius='10px'
+        >
           {policies.map(item => {
             return (
-              <Box w='full' key={item.value} fontSize='1.2rem'>
+              <Flex
+                alignItems='center'
+                w='full'
+                key={item.value}
+                fontSize='1rem'
+                fontWeight='500'
+              >
                 <Icon
                   as={item.icon}
                   mr={2}
@@ -225,7 +239,7 @@ const ProductInfo = ({ productData }) => {
                   fontSize='1.5rem'
                 />
                 {item.value}
-              </Box>
+              </Flex>
             );
           })}
         </VStack>
