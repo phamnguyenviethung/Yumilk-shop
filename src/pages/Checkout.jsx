@@ -16,13 +16,10 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
-  const nav = useNavigate();
-
   const cartState = useSelector(state => state.cart);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,7 +28,10 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState(order.COD_PAYMENT);
 
   const { data, isLoading, isFetching } = useGetMyAddressQuery();
-  const [checkoutAPI] = useCheckOutMutation();
+  const [
+    checkoutAPI,
+    { isLoading: checkoutLoading, isFetching: checkoutFetching },
+  ] = useCheckOutMutation();
   const { data: shippingFee, isLoading: cartLoading } = useGetShippingFeeQuery(
     {
       fromDistrictId: data?.length > 0 ? data[selectIndex].districtId : '',
@@ -42,12 +42,6 @@ const Checkout = () => {
       skip: isLoading || isFetching,
     }
   );
-
-  useEffect(() => {
-    if (cartState.data.cartItems.totalCount === 0) {
-      nav('/cart');
-    }
-  }, [cartState.data.cartItems.totalCount, nav]);
 
   const handleSelect = n => {
     setSelectIndex(n);
@@ -64,11 +58,12 @@ const Checkout = () => {
       };
       const res = await checkoutAPI(d);
       if (res.error) throw res.error.data;
-      console.log(d);
+      window.location.href = res.data.checkoutUrl;
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <Container maxW='container.xl' pt='2rem'>
       <Stack
@@ -124,6 +119,8 @@ const Checkout = () => {
             colorScheme='pink'
             w='full'
             onClick={handleClick}
+            isDisabled={cartState.data.cartItems.totalCount === 0}
+            isLoading={checkoutLoading || checkoutFetching}
           >
             Đặt hàng
           </Button>

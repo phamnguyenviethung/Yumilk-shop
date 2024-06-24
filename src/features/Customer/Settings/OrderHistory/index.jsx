@@ -32,9 +32,9 @@ const OrderHistory = () => {
   });
   if (isLoading) return <p>Loading...</p>;
   return (
-    <>
-      <TableContainer>
-        <Table variant='simple'>
+    <Box boxSize='full'>
+      <TableContainer maxW='full'>
+        <Table variant='simple' size='md'>
           <Thead bgColor='pink.200'>
             <Tr>
               <Th>#</Th>
@@ -91,7 +91,8 @@ const OrderHistory = () => {
                       as={Link}
                       to={`/order/${order.orderId}`}
                       color='pink.400'
-                      fontWeight='600'
+                      fontWeight='500'
+                      fontSize='0.95rem'
                     >
                       Xem chi tiết
                     </ChakraLink>
@@ -104,7 +105,7 @@ const OrderHistory = () => {
       </TableContainer>
       <Flex w='full' justifyContent='space-between' my={4}>
         <Box>
-          <Text>
+          <Text fontSize='0.9rem'>
             Trang {page}/{(data.totalCount / data.pageSize).toFixed()}
           </Text>
         </Box>
@@ -112,10 +113,7 @@ const OrderHistory = () => {
           <Button
             isDisabled={!data.hasPreviousPage}
             variant='outline'
-            size={{
-              base: 'sm',
-              lg: 'md',
-            }}
+            size='sm'
             colorScheme='pink'
             onClick={() => setPage(prev => prev - 1)}
           >
@@ -124,10 +122,7 @@ const OrderHistory = () => {
           <Button
             isDisabled={!data.hasNextPage}
             variant='outline'
-            size={{
-              base: 'sm',
-              lg: 'md',
-            }}
+            size='sm'
             colorScheme='pink'
             onClick={() => setPage(prev => prev + 1)}
           >
@@ -135,7 +130,7 @@ const OrderHistory = () => {
           </Button>
         </ButtonGroup>
       </Flex>
-    </>
+    </Box>
   );
 };
 
