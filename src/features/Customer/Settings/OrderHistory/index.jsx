@@ -19,8 +19,12 @@ import {
 import { Link } from 'react-router-dom';
 import orderConstant from '@/constants/order';
 import dayjs from 'dayjs';
+import 'dayjs/locale/vi';
+import utc from 'dayjs/plugin/utc'; // ES 2015
 import { PiArrowLeft, PiArrowRight } from 'react-icons/pi';
 import { useState } from 'react';
+dayjs.locale('vi'); // use loaded locale globally
+dayjs.extend(utc);
 
 const OrderHistory = () => {
   const [page, setPage] = useState(1);
@@ -48,6 +52,7 @@ const OrderHistory = () => {
           </Thead>
           <Tbody>
             {data.items.map(order => {
+              console.log(dayjs().utcOffset());
               return (
                 <Tr key={order.orderId}>
                   <Td>
@@ -61,7 +66,11 @@ const OrderHistory = () => {
                   </Td>
                   <Td>{order.productList.length} sản phẩm</Td>
                   <Td>{formatMoney(order.totalAmount)}</Td>
-                  <Td>{dayjs(order.createdAt).format('HH:mm DD/MM/YYYY')}</Td>
+                  <Td>
+                    {dayjs(order.createdAt)
+                      .add(dayjs().utcOffset(), 'minutes')
+                      .format('HH:mm DD/MM/YYYY')}
+                  </Td>
                   <Td>
                     <Tag
                       variant='solid'
@@ -72,7 +81,7 @@ const OrderHistory = () => {
                           : 'green'
                       }
                     >
-                      {order.paymentMethod === orderConstant.COD_PAYMENT
+                      {order.paymentMethod !== orderConstant.COD_PAYMENT
                         ? 'Thanh toán qua ngân hàng'
                         : 'Thanh toán bằng tiền mặt'}
                     </Tag>
