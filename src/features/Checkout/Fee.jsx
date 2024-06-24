@@ -10,7 +10,7 @@ const Fee = ({ shippingFee, cartState }) => {
           Phí vận chuyển
         </Text>
         <Text fontSize='1.15rem' fontWeight='400'>
-          {formatMoney(shippingFee.total)}
+          {formatMoney(shippingFee?.total || 0)}
         </Text>
       </HStack>
       <HStack w='full' justifyContent='space-between' mt={2}>
@@ -18,7 +18,7 @@ const Fee = ({ shippingFee, cartState }) => {
           Tạm tính
         </Text>
         <Text fontSize='1.15rem' fontWeight='400'>
-          {formatMoney(cartState?.data?.totalPrice)}
+          {formatMoney(cartState?.data?.totalPrice || 0)}
         </Text>
       </HStack>
       <HStack w='full' justifyContent='space-between' mt={2}>
@@ -26,7 +26,9 @@ const Fee = ({ shippingFee, cartState }) => {
           Tổng tiền
         </Text>
         <Text fontSize='1.5rem' color='pink.400'>
-          {formatMoney(cartState?.data?.totalPrice + shippingFee.total)}
+          {formatMoney(
+            cartState?.data?.totalPrice || 0 + shippingFee?.total || 0
+          )}
         </Text>
       </HStack>
     </VStack>
