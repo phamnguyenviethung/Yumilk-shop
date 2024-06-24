@@ -171,9 +171,9 @@ const ProductInfo = ({ productData }) => {
             gap='2'
           >
             <NumberInput
-              defaultValue={1}
-              value={quantity}
-              min={1}
+              defaultValue={productData.quantity > 0 ? 1 : 0}
+              value={productData.quantity > 0 ? quantity : 0}
+              min={productData.quantity > 0 ? 1 : 0}
               max={productData.quantity}
               onChange={setQuantity}
             >
@@ -210,9 +210,7 @@ const ProductInfo = ({ productData }) => {
               onClick={handleAddtoCart}
               isDisabled={productData.quantity === 0}
             >
-              {productData.quantity === 0
-                ? 'Sản phẩm đã hết hàng'
-                : 'Thêm vào giỏ hàng'}
+              {productData.quantity === 0 ? 'Đã hết hàng' : 'Thêm vào giỏ hàng'}
             </Button>
           </Box>
         </Stack>
