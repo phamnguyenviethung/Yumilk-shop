@@ -72,7 +72,7 @@ const OrderHistory = () => {
                           : 'green'
                       }
                     >
-                      {order.paymentMethod === orderConstant.COD_PAYMENT
+                      {order.paymentMethod !== orderConstant.COD_PAYMENT
                         ? 'Thanh toán qua ngân hàng'
                         : 'Thanh toán bằng tiền mặt'}
                     </Tag>
