@@ -171,9 +171,9 @@ const ProductInfo = ({ productData }) => {
             gap='2'
           >
             <NumberInput
-              defaultValue={1}
-              value={quantity}
-              min={1}
+              defaultValue={productData.quantity > 0 ? 1 : 0}
+              value={productData.quantity > 0 ? quantity : 0}
+              min={productData.quantity > 0 ? 1 : 0}
               max={productData.quantity}
               onChange={setQuantity}
             >
@@ -210,16 +210,28 @@ const ProductInfo = ({ productData }) => {
               onClick={handleAddtoCart}
               isDisabled={productData.quantity === 0}
             >
-              {productData.quantity === 0
-                ? 'Sản phẩm đã hết hàng'
-                : 'Thêm vào giỏ hàng'}
+              {productData.quantity === 0 ? 'Đã hết hàng' : 'Thêm vào giỏ hàng'}
             </Button>
           </Box>
         </Stack>
-        <VStack mt={[8, 8, 0]} w='full' gap='4'>
+        <VStack
+          mt={[8, 8, 0]}
+          w='full'
+          gap='4'
+          p={4}
+          border='1px solid'
+          borderColor='pink.400'
+          borderRadius='10px'
+        >
           {policies.map(item => {
             return (
-              <Box w='full' key={item.value} fontSize='1.2rem'>
+              <Flex
+                alignItems='center'
+                w='full'
+                key={item.value}
+                fontSize='1rem'
+                fontWeight='500'
+              >
                 <Icon
                   as={item.icon}
                   mr={2}
@@ -227,7 +239,7 @@ const ProductInfo = ({ productData }) => {
                   fontSize='1.5rem'
                 />
                 {item.value}
-              </Box>
+              </Flex>
             );
           })}
         </VStack>
