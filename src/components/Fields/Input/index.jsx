@@ -1,9 +1,12 @@
+import EyeIcon from '@/assets/Icon/eye';
+import EyeHideIcon from '@/assets/Icon/eyehide';
 import {
   Button,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Icon,
   Input,
   InputGroup,
   InputRightElement,
@@ -58,7 +61,7 @@ function InputField(props) {
         {type === 'password' && (
           <InputRightElement width={['4rem', '4.5rem']} top='5px'>
             <Button h='1.75rem' size='sm' onClick={handleShowPassword}>
-              {showPassword ? 'Hide' : 'Show'}
+              {showPassword ? <Icon as={EyeHideIcon} /> : <Icon as={EyeIcon} />}
             </Button>
           </InputRightElement>
         )}

@@ -26,7 +26,7 @@ const LoginForm = () => {
   });
 
   return (
-    <Center flex='1'>
+    <Center flex='1' px={4}>
       <Formik
         validationSchema={validationSchema}
         initialValues={{
@@ -68,7 +68,7 @@ const LoginForm = () => {
                 <VStack>
                   <FastField
                     component={InputField}
-                    placeholder='username'
+                    placeholder='Tên đăng nhập'
                     label='Tên đăng nhập'
                     name='username'
                     required={true}
@@ -77,8 +77,8 @@ const LoginForm = () => {
                   />
                   <FastField
                     component={InputField}
-                    placeholder='Your Password'
-                    label='Password'
+                    placeholder='Mật khẩu'
+                    label='Mật khẩu'
                     name='password'
                     type='password'
                     required={true}
@@ -95,7 +95,7 @@ const LoginForm = () => {
                   disabled={formikProps.isSubmitting}
                   isLoading={formikProps.isSubmitting}
                   type='submit'
-                  bg={'pink.400'}
+                  colorScheme='pink'
                   w='full'
                 >
                   Gửi
