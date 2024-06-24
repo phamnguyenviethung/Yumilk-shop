@@ -3,12 +3,14 @@ import { useCancelOrderMutation } from '@/apis/orderApi';
 import order from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
 import {
+  Alert,
   AlertDialog,
   AlertDialogBody,
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
+  AlertIcon,
   Box,
   Button,
   ButtonGroup,
@@ -25,14 +27,7 @@ import dayjs from 'dayjs';
 import { useRef } from 'react';
 const DetailsText = ({ data, isTag, tagColor, color }) => {
   return (
-    <HStack
-      w='full'
-      justifyContent='space-between'
-      fontSize={{
-        base: '1rem',
-        lg: '1.1rem',
-      }}
-    >
+    <HStack w='full' justifyContent='space-between' fontSize='1rem'>
       <Text flex='1' fontWeight='400'>
         {data.name}:
       </Text>
@@ -169,6 +164,14 @@ const Info = ({ data, id }) => {
   return (
     <>
       <Box w='full'>
+        {data.paymentMethod === order.PAYOS_PAYMENT &&
+          data.orderStatus === order.PENDING.name && (
+            <Alert status='info' mb={4}>
+              <AlertIcon />
+              Hệ thống sẽ cần một lúc để xử lý thanh toán của bạn.
+            </Alert>
+          )}
+
         <Heading variant='h6' fontSize='1.6rem' fontWeight='500'>
           Chi tiết đơn hàng
         </Heading>
