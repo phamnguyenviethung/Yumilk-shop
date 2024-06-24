@@ -8,7 +8,7 @@ const MainLayout = () => {
     <>
       <Navbar />
       <Outlet />
-      <Box mt='auto'>
+      <Box mt='auto' pt={12}>
         <Footer />
       </Box>
     </>

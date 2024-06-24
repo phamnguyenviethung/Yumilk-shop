@@ -1,26 +1,45 @@
-import { Box, Icon, Stack, Text, Link, VStack, HStack, Divider, Grid, GridItem, Flex, Spacer, Image, Heading } from "@chakra-ui/react";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import logo from '@/assets/logo.png';
-import { IoLocationOutline } from "react-icons/io5";
-import { MdLocalPhone } from "react-icons/md";
-import { MdOutlineAlternateEmail } from "react-icons/md";
+import {
+  Box,
+  Flex,
+  HStack,
+  Heading,
+  Icon,
+  Image,
+  Link,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
+import { IoLocationOutline } from 'react-icons/io5';
+import { MdLocalPhone, MdOutlineAlternateEmail } from 'react-icons/md';
 
 const Footer = () => {
   return (
-    <Box as="footer"
-      borderTop="1px solid"
-      borderColor="gray.300"
-      py="2.5rem"
-      fontSize="0.875rem">
-      <Box maxW="64rem"
-        marginX="auto"
-        pb="2rem"
-        mb="1.5rem"
+    <Box
+      as='footer'
+      mt='8'
+      borderTop='0.8px solid'
+      borderColor='gray.200'
+      py={4}
+    >
+      <Box
+        maxW='64rem'
+        marginX='auto'
+        pb='2rem'
+        mb='1.5rem'
         px={10}
-        borderBottom="1px solid"
-        borderColor="gray.300">
-        <Flex flexWrap={'wrap'} alignItems={'start'} justifyContent={'space-between'}>
-          <Box w={{ base: '100%', sm: '50%', md: 'max-content' }} mb={{ base: '1.5rem', lg: '0' }}>
+        borderBottom='1px solid'
+        borderColor='gray.300'
+      >
+        <Flex
+          flexWrap={'wrap'}
+          alignItems={'start'}
+          justifyContent={'space-between'}
+        >
+          <Box
+            w={{ base: '100%', sm: '50%', md: 'max-content' }}
+            mb={{ base: '1.5rem', lg: '0' }}
+          >
             <Image src={logo} boxSize='100px'></Image>
             <Stack>
               <Text>"Cửa hàng sữa cho mẹ bầu và em bé"</Text>
@@ -41,8 +60,16 @@ const Footer = () => {
               </HStack>
             </Stack>
           </Box>
-          <Box w={{ base: '100%', sm: '50%', md: 'max-content' }} mb={{ base: '1.5rem', lg: '0' }}>
-            <Heading color="gray.700" mb="0.5rem" fontSize="0.875rem" fontWeight="600">
+          <Box
+            w={{ base: '100%', sm: '50%', md: 'max-content' }}
+            mb={{ base: '1.5rem', lg: '0' }}
+          >
+            <Heading
+              color='gray.700'
+              mb='0.5rem'
+              fontSize='0.875rem'
+              fontWeight='600'
+            >
               Về chúng tôi
             </Heading>
             <Stack>
@@ -52,8 +79,16 @@ const Footer = () => {
               <Link>Dịch vụ</Link>
             </Stack>
           </Box>
-          <Box w={{ base: '100%', sm: '50%', md: 'max-content' }} mb={{ base: '1.5rem', lg: '0' }}>
-            <Heading color="gray.700" mb="0.5rem" fontSize="0.875rem" fontWeight="600">
+          <Box
+            w={{ base: '100%', sm: '50%', md: 'max-content' }}
+            mb={{ base: '1.5rem', lg: '0' }}
+          >
+            <Heading
+              color='gray.700'
+              mb='0.5rem'
+              fontSize='0.875rem'
+              fontWeight='600'
+            >
               Hỗ trợ khách hàng
             </Heading>
             <Stack>
@@ -63,13 +98,13 @@ const Footer = () => {
           </Box>
         </Flex>
       </Box>
-      <Flex maxW="64rem" mx="auto" alignItems="center" px={10}>
-        <Text color="gray.600" fontSize="0.875rem" pl="0.5rem">
+      <Flex maxW='64rem' mx='auto' alignItems='center' px={10}>
+        <Text color='gray.600' fontSize='0.875rem' pl='0.5rem'>
           &copy; 2024 Yumilk. All rights reserved.
         </Text>
       </Flex>
     </Box>
   );
-}
+};
 
 export default Footer;
