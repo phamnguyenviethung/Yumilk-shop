@@ -23,6 +23,13 @@ const routes = [
         component: Home,
       },
       {
+        path: '/active-mail',
+        component: ActiveMail,
+        auth: {
+          shouldLogin: true,
+        },
+      },
+      {
         path: '/cart',
         component: Cart,
         auth: {
@@ -83,13 +90,7 @@ const routes = [
           shouldLogout: true,
         },
       },
-      {
-        path: '/active-mail',
-        component: ActiveMail,
-        auth: {
-          shouldLogout: true,
-        },
-      },
+
       {
         path: '/reset-password',
         component: ResetPassword,

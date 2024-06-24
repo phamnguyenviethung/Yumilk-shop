@@ -2,7 +2,24 @@ import NotFound from '@/pages/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import routes from './configs/routes';
 import AuthCheck from './components/Auth/AuthCheck';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetMeQuery } from './apis/customerApi';
+import { updateUserData } from './features/Auth/authSlice';
 function App() {
+  const authState = useSelector(state => state.auth);
+
+  const { data, isLoading } = useGetMeQuery(null, {
+    skip: !authState?.isAuthenticated,
+  });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!isLoading) {
+      dispatch(updateUserData(data));
+    }
+  }, [isLoading, data, dispatch]);
+
   return (
     <Routes>
       {routes.map((route, i) => {

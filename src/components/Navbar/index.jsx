@@ -32,7 +32,7 @@ const Navbar = () => {
   }, [setUserMenu, authState?.isAuthenticated]);
 
   return (
-    <Container maxW='container.xl' maxH={theme.navbarHeight} mb={8}>
+    <Container maxW='container.xl' maxH={theme.navbarHeight} mb={2}>
       <HStack w='full' maxH='full'>
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
