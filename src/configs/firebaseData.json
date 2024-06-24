@@ -1,0 +1,18 @@
+{
+    "web": {
+        "client_id": "221425865980-5c2lrhd1jema9b2jstkgr4u7a8il9cb9.apps.googleusercontent.com",
+        "project_id": "milkshop-b90d7",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_secret": "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",
+        "redirect_uris": [
+            "https://milkshop-b90d7.firebaseapp.com/__/auth/handler"
+        ],
+        "javascript_origins": [
+            "http://localhost",
+            "http://localhost:5000",
+            "https://milkshop-b90d7.firebaseapp.com"
+        ]
+    }
+}
