@@ -9,7 +9,9 @@ const SearchForm = () => {
   const [searchValue, setSearchValue] = useState(null);
   const throttledText = useThrottle(searchValue, 500);
 
-  const { data: searchData, isLoading } = useSearchProductQuery(throttledText);
+  const { data: searchData, isLoading } = useSearchProductQuery(throttledText, {
+    skip: !throttledText,
+  });
   const [focus, setFocus] = useState(false);
   if (isLoading) return <p>Loading...</p>;
   return (
@@ -20,6 +22,7 @@ const SearchForm = () => {
           id='search'
           name='search'
           size='lg'
+          autoComplete='off'
           border='2px solid'
           borderRadius='0'
           borderColor='pink.400'
@@ -48,7 +51,7 @@ const SearchForm = () => {
         </Button>
       </HStack>
       {searchData?.items?.length > 0 && focus && (
-        <Box position='absolute' w='full' top='120%'>
+        <Box position='absolute' w='full' top='120%' zIndex={99}>
           <SearchHint data={searchData} keyword={throttledText} />
         </Box>
       )}

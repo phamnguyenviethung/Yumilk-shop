@@ -7,6 +7,7 @@ const SearchHint = ({ data, keyword }) => {
   return (
     <Box
       w='full'
+      p={1}
       borderRadius='10px'
       bgColor='white'
       border='0.5px solid'
@@ -20,11 +21,17 @@ const SearchHint = ({ data, keyword }) => {
             py={4}
             px={2}
             key={item.name}
+            borderRadius='8px'
+            fontSize='0.9rem'
+            fontWeight='500'
             _hover={{
-              bgColor: 'gray.200',
+              bgColor: 'pink.100',
             }}
           >
-            <Highlight query={keyword} styles={{ fontWeight: 'bold' }}>
+            <Highlight
+              query={keyword}
+              styles={{ fontWeight: 'bold', color: 'pink.400' }}
+            >
               {item.name}
             </Highlight>
           </ListItem>
