@@ -16,6 +16,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  useTheme,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import data, { noAuthData } from './data';
@@ -25,18 +26,25 @@ import { useSelector } from 'react-redux';
 const Navbar = () => {
   const [userMenu, setUserMenu] = useState(data);
   const authState = useSelector(state => state.auth);
-
+  const theme = useTheme();
   useEffect(() => {
     setUserMenu(authState?.isAuthenticated ? data : noAuthData);
   }, [setUserMenu, authState?.isAuthenticated]);
 
   return (
-    <Container maxW='container.xl' maxH='150px' mb={8}>
+    <Container maxW='container.xl' maxH={theme.navbarHeight} mb={8}>
       <HStack w='full' maxH='full'>
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
         </ChakraLink>
-        <Box flex='4'>
+        <Box
+          display={{
+            base: 'none',
+            lg: 'block',
+          }}
+          w='full'
+          flex='4'
+        >
           <SearchForm />
         </Box>
         <Flex alignItems='center' gap='3' flex='1' justifyContent='flex-end'>

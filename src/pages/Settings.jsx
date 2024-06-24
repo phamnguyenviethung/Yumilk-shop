@@ -17,7 +17,7 @@ import {
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 
 const tabs = [
   {
@@ -45,6 +45,7 @@ const tabs = [
 ];
 
 const Settings = () => {
+  const tabRef = useRef();
   return (
     <Container maxW='container.xl'>
       <Tabs
@@ -53,7 +54,7 @@ const Settings = () => {
         w='full'
         display='flex'
         flexDirection={['column', 'column', 'row']}
-        gap={['4', '4', '8']}
+        gap={['2', '2', '4']}
       >
         <TabList
           as={TabList}
@@ -68,8 +69,15 @@ const Settings = () => {
                 key={tab.name}
                 w='full'
                 borderRadius='6px'
-                fontSize='1.2rem'
-                p={4}
+                fontSize={{
+                  base: '1rem',
+                  md: '1.1rem',
+                }}
+                p={[
+                  {
+                    base: 4,
+                  },
+                ]}
                 whiteSpace='nowrap'
                 onClick={tab.handler}
                 justifyContent={{
@@ -83,11 +91,11 @@ const Settings = () => {
             );
           })}
         </TabList>
-        <TabPanels flex='5'>
+        <TabPanels flex='8' overflow='auto'>
           {tabs.map(tab => {
             const Content = tab.content || Fragment;
             return (
-              <TabPanel key={tab.name}>
+              <TabPanel ref={tabRef} key={tab.name}>
                 <Content />
               </TabPanel>
             );

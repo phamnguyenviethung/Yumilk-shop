@@ -41,6 +41,28 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    searchProduct: build.query({
+      query: keyword => ({
+        url: `/products`,
+        method: 'GET',
+        params: {
+          SearchTerm: keyword,
+          isActive: true,
+          SortColumn: 'rating',
+          SortOrder: 'desc',
+          pageSize: 5,
+        },
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
+    getProductDetail: build.query({
+      query: id => ({
+        url: `/products/${id}`,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
   }),
 });
 
@@ -50,4 +72,6 @@ export const {
   useGetAttributeValueByIdQuery,
   useGetBrandInfoByIdQuery,
   useGetFeedbackByProductIdQuery,
+  useSearchProductQuery,
+  useGetProductDetailQuery,
 } = productApi;
