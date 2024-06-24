@@ -1,6 +1,23 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Container, Tab, TabList, TabPanel, TabPanels, Table, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
+import React from 'react';
+import { useGetDescriptionInfoByIdQuery, useGetAttributeValueByIdQuery, useGetBrandInfoByIdQuery, useGetFeedbackByProductIdQuery } from '@/apis/productApi';
+import DetailTab from './DetailTab';
+import AttributeTab from './AttributeTab';
+import BrandTab from './BrandTab';
+import ReviewTab from './ReviewTab';
 
-const TabInfo = ({productID}) => {
+const TabInfo = ({ productID }) => {
+  const { data } = useGetDescriptionInfoByIdQuery(productID);
+  const { data: brandInfo } = useGetBrandInfoByIdQuery(data?.brandId, {
+    skip: !data?.brandId,
+  });
+  const { data: attributeValues } = useGetAttributeValueByIdQuery(productID);
+  const { data: feedback } = useGetFeedbackByProductIdQuery(productID);
+
+  // console.log(data)
+  // console.log(attributeValues)
+  // console.log(brandInfo)
+  // console.log(feedback)
   return (
     <Tabs variant='soft-rounded' colorScheme='green'>
       <TabList>
@@ -11,19 +28,20 @@ const TabInfo = ({productID}) => {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>chi tiet!</p>
+          {/* <Container>{data?.description}</Container> */}
+          <DetailTab description={data?.description} />
         </TabPanel>
         <TabPanel>
-          <p>thong tin them!</p>
+          <AttributeTab />
         </TabPanel>
         <TabPanel>
-          <p>nhan hand!</p>
+          {brandInfo?.id && <BrandTab brandId={brandInfo?.id} />}
         </TabPanel>
         <TabPanel>
-          <p>danh gia!</p>
+          <ReviewTab />
         </TabPanel>
       </TabPanels>
-    </Tabs>
+    </Tabs >
   );
 };
 
