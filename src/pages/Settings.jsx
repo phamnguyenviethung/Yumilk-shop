@@ -18,6 +18,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Fragment, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const tabs = [
   {
@@ -46,9 +47,12 @@ const tabs = [
 
 const Settings = () => {
   const tabRef = useRef();
+  let [searchParams] = useSearchParams();
+  const index = searchParams.get('id') * 1 || 0;
   return (
     <Container maxW='container.xl'>
       <Tabs
+        defaultIndex={index >= 0 && index < tabs.length - 1 ? index : 0}
         variant='soft-rounded'
         colorScheme='pink'
         w='full'

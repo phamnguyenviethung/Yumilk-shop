@@ -20,7 +20,7 @@ export default [
 
   {
     name: 'Đơn hàng',
-    path: '/settings',
+    path: '/settings?id=2',
   },
   {
     name: 'Đăng xuất',
