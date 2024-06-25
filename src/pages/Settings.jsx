@@ -1,9 +1,6 @@
 import AddressIcon from '@/assets/Icon/address';
 import Cart2Icon from '@/assets/Icon/cart2';
-import LogoutIcon from '@/assets/Icon/logout';
 import UserIcon from '@/assets/Icon/user';
-import store from '@/configs/store';
-import { logout } from '@/features/Auth/authSlice';
 import Address from '@/features/Customer/Settings/Address';
 import Information from '@/features/Customer/Settings/Information';
 import OrderHistory from '@/features/Customer/Settings/OrderHistory';
@@ -22,7 +19,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const tabs = [
   {
-    name: 'Thông tin tài khoản',
+    name: 'Thông tin cá nhân',
     icon: UserIcon,
     content: Information,
   },
@@ -32,17 +29,17 @@ const tabs = [
     content: Address,
   },
   {
-    name: 'Đơn hàng của tôi',
+    name: 'Đơn hàng',
     icon: Cart2Icon,
     content: OrderHistory,
   },
-  {
-    name: 'Đăng xuất',
-    icon: LogoutIcon,
-    handler: () => {
-      store.dispatch(logout());
-    },
-  },
+  // {
+  //   name: 'Đăng xuất',
+  //   icon: LogoutIcon,
+  //   handler: () => {
+  //     store.dispatch(logout());
+  //   },
+  // },
 ];
 
 const Settings = () => {
@@ -57,15 +54,21 @@ const Settings = () => {
         colorScheme='pink'
         w='full'
         display='flex'
-        flexDirection={['column', 'column', 'row']}
+        flexDirection={['column', 'column', 'column', 'row']}
         gap={['2', '2', '4']}
       >
         <TabList
           as={TabList}
           flex='1'
           display='flex'
-          flexDirection='column'
-          gap='4'
+          flexDirection={{
+            base: 'row',
+            lg: 'column',
+          }}
+          gap={{
+            base: 1,
+            lg: 4,
+          }}
         >
           {tabs.map(tab => {
             return (

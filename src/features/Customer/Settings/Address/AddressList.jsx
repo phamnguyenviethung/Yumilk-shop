@@ -47,7 +47,6 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
         position: 'top-right',
       });
       onClose();
-
       console.log(error);
     }
   };
@@ -89,7 +88,10 @@ const Address = ({ data }) => {
     <>
       <Box
         w='full'
-        fontSize='1.1rem'
+        fontSize={{
+          base: '1rem',
+          lg: '1.1rem',
+        }}
         p={4}
         border='1px solid'
         borderColor={data.isDefault ? 'pink.400' : 'gray.300'}
