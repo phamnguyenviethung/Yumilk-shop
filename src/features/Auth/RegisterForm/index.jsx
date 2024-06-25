@@ -58,6 +58,7 @@ const RegisterForm = () => {
       }),
     confirmPassword: yup
       .string()
+      .required('Vui lòng không bỏ trống')
       .oneOf([yup.ref('password'), null], 'Mật khẩu không trùng khớp'),
   });
   return (

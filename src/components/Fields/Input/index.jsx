@@ -37,7 +37,17 @@ function InputField(props) {
   const handleShowPassword = () => setShowPassword(!showPassword);
   return (
     <FormControl isInvalid={showError} isRequired={required}>
-      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+      {label && (
+        <FormLabel
+          htmlFor={name}
+          fontSize={{
+            base: '0.9rem',
+            lg: '1rem',
+          }}
+        >
+          {label}
+        </FormLabel>
+      )}
 
       <InputGroup>
         <Input

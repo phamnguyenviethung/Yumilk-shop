@@ -15,6 +15,7 @@ import { FastField, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import UpdatePasswordForm from './UpdatePasswordForm';
 
 const Information = () => {
   const authState = useSelector(state => state.auth);
@@ -66,7 +67,7 @@ const Information = () => {
       >
         {formikProps => {
           return (
-            <VStack>
+            <VStack w='full'>
               <Stack
                 w='full'
                 mb={2}
@@ -188,6 +189,7 @@ const Information = () => {
           );
         }}
       </Formik>
+      <UpdatePasswordForm />
     </Box>
   );
 };
