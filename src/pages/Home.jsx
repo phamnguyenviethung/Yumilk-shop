@@ -17,7 +17,7 @@ const Home = () => {
           heading='Đang giảm giá'
           params={{
             onSale: true,
-            pageSize: 20,
+            pageSize: 10,
           }}
         />
       </Box>

@@ -20,6 +20,13 @@ const Product = ({ data }) => {
       direction='column'
       minH='250px'
       userSelect='none'
+      border='0.3px solid'
+      borderColor='gray.200'
+      p={1}
+      _hover={{
+        bgColor: 'gray.100',
+      }}
+      borderRadius='10'
     >
       <Center flex='1' boxSize='full'>
         <Image

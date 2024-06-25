@@ -14,7 +14,7 @@ const SliderProductList = ({ params, heading }) => {
   if (isLoading) return <Skeleton />;
   return (
     <Box my={4}>
-      <Box w='full' mb={8}>
+      <Box w='full' mb={4}>
         <Heading as='h6' fontWeight='600' fontSize='1.25rem'>
           {heading}
         </Heading>
