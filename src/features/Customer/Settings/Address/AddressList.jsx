@@ -114,18 +114,32 @@ const Address = ({ data }) => {
               mt={4}
             >{`${data.address} ${data.wardName} ${data.districtName} ${data.provinceName}`}</Text>
           </Box>
-          <Box textAlign='center'>
+          <Box
+            textAlign='center'
+            fontSize={{
+              base: '0.9rem',
+              lg: '1rem',
+            }}
+          >
             <Text
               color='pink.500'
-              fontSize='1rem'
+              display={!data.isDefault ? 'block' : 'none'}
+              onClick={onOpen}
+              cursor='pointer'
+            >
+              Đặt làm mặc định
+            </Text>
+            <Text
+              color={data.isDefault ? 'pink.500' : 'gray.500'}
               onClick={onOpen}
               cursor='pointer'
             >
               Chỉnh sửa
             </Text>
+
             <Text
               color='gray.500'
-              fontSize='1rem'
+              display={data.isDefault ? 'block' : 'none'}
               mt={2}
               cursor='pointer'
               onClick={deleteDisclosure.onOpen}
