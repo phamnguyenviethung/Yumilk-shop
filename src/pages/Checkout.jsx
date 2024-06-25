@@ -18,11 +18,12 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const cartState = useSelector(state => state.cart);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const nav = useNavigate();
   const [selectIndex, setSelectIndex] = useState(0);
   const [note, setNote] = useState('');
   const [paymentMethod, setPaymentMethod] = useState(order.COD_PAYMENT);
@@ -58,7 +59,11 @@ const Checkout = () => {
       };
       const res = await checkoutAPI(d);
       if (res.error) throw res.error.data;
-      window.location.href = res.data.checkoutUrl;
+      if (paymentMethod === order.PAYOS_PAYMENT) {
+        window.location.href = res.data.checkoutUrl;
+      } else {
+        nav(`/order/${res.data.orderId}`);
+      }
     } catch (error) {
       console.log(error);
     }

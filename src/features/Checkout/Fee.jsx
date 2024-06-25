@@ -26,9 +26,7 @@ const Fee = ({ shippingFee, cartState }) => {
           Tổng tiền
         </Text>
         <Text fontSize='1.5rem' color='pink.400'>
-          {formatMoney(
-            cartState?.data?.totalPrice || 0 + shippingFee?.total || 0
-          )}
+          {formatMoney(cartState?.data?.totalPrice + shippingFee?.total)}
         </Text>
       </HStack>
     </VStack>

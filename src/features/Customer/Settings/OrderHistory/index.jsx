@@ -1,29 +1,29 @@
 import { useGetOrderHistoryQuery } from '@/apis/orderApi';
+import orderConstant from '@/constants/order';
 import formatMoney from '@/utils/formatMoney';
 import {
+  Box,
+  Button,
+  ButtonGroup,
+  Link as ChakraLink,
+  Flex,
   Table,
   TableContainer,
+  Tag,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-  Link as ChakraLink,
-  Tag,
-  Flex,
-  Button,
-  ButtonGroup,
-  Box,
-  Text,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import orderConstant from '@/constants/order';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import utc from 'dayjs/plugin/utc'; // ES 2015
-import { PiArrowLeft, PiArrowRight } from 'react-icons/pi';
 import { useState } from 'react';
-dayjs.locale('vi'); // use loaded locale globally
+import { PiArrowLeft, PiArrowRight } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
+dayjs.locale('vi');
 dayjs.extend(utc);
 
 const OrderHistory = () => {
