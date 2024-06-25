@@ -25,6 +25,7 @@ import {
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
+
 const DetailsText = ({ data, isTag, tagColor, color }) => {
   return (
     <HStack w='full' justifyContent='space-between' fontSize='1rem'>
@@ -94,7 +95,9 @@ const Info = ({ data, id }) => {
     },
     {
       name: 'Ngày đặt hàng',
-      value: dayjs(data.createdAt).format('HH:mm DD/MM/YYYY'),
+      value: dayjs(data.createdAt)
+        .add(dayjs().utcOffset(), 'minutes')
+        .format('HH:mm DD/MM/YYYY'),
     },
     {
       name: 'Ghi chú',
@@ -130,6 +133,10 @@ const Info = ({ data, id }) => {
     {
       name: 'Số điện thoại',
       value: data.phoneNumber,
+    },
+    {
+      name: 'Email',
+      value: data.email,
     },
     {
       name: 'Địa chỉ',
