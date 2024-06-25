@@ -1,13 +1,9 @@
-import { useGetSellingProductQuery } from '@/apis/productApi';
 import Banner from '@/features/Banner';
 import BrandBanner from '@/features/Banner/BrandBanner';
 import GridProductList from '@/features/Product/ProductList/GridProductList';
+import SliderProductList from '@/features/Product/ProductList/SliderProductList';
 import { Box, Center, Container } from '@chakra-ui/react';
 const Home = () => {
-  const { data = { items: [] }, isLoading } = useGetSellingProductQuery();
-
-  if (isLoading) return <p>loading..........!</p>;
-
   return (
     <Container maxW='container.xl'>
       <Center mb={4} pb={8}>
@@ -17,7 +13,21 @@ const Home = () => {
         <BrandBanner />
       </Center>
       <Box>
-        <GridProductList data={data} />
+        <SliderProductList
+          heading='Đang giảm giá'
+          params={{
+            onSale: true,
+            pageSize: 20,
+          }}
+        />
+      </Box>
+      <Box>
+        <GridProductList
+          heading='Có thể bạn quan tâm'
+          params={{
+            pageSize: 20,
+          }}
+        />
       </Box>
     </Container>
   );
