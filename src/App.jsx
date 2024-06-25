@@ -15,10 +15,10 @@ function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && authState?.isAuthenticated) {
       dispatch(updateUserData(data));
     }
-  }, [isLoading, data, dispatch]);
+  }, [isLoading, data, dispatch, authState?.isAuthenticated]);
 
   return (
     <Routes>

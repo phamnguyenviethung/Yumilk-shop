@@ -18,6 +18,15 @@ export const customerApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Auth', 'Customer'],
     }),
+    updatePassword: build.mutation({
+      query: data => ({
+        url: '/user/account/change-password',
+        method: 'PATCH',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Auth', 'Customer'],
+    }),
     getMyAddress: build.query({
       query: () => ({
         url: '/user/account/addresses',
@@ -60,6 +69,7 @@ export const {
   useGetMeQuery,
   useGetMyAddressQuery,
   useAddNewAddressMutation,
+  useUpdatePasswordMutation,
   useUpdateMyAddressMutation,
   useDeleteMyAddressMutation,
 } = customerApi;

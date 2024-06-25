@@ -21,6 +21,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Skeleton,
+  Stack,
   VStack,
   useToast,
 } from '@chakra-ui/react';
@@ -62,7 +64,14 @@ const AddressSelect = ({ formikProps }) => {
     wardLoading ||
     wardFetching
   )
-    return <p>loading...</p>;
+    return (
+      <Stack boxSize='full' gap='2'>
+        <Skeleton height='20px' />
+        <Skeleton height='20px' />
+        <Skeleton height='20px' />
+        <Skeleton height='20px' />
+      </Stack>
+    );
   return (
     <>
       <FastField
@@ -152,10 +161,10 @@ const AddressForm = ({ onClose, addressData, type }) => {
     useAddNewAddressMutation();
   const [updateAddressAPI, { isLoading: updateLoading }] =
     useUpdateMyAddressMutation();
+
   const validationSchema = yup.object().shape({
     receiverName: yup.string().required('Vui lòng không bỏ trống'),
     address: yup.string().required('Vui lòng không bỏ trống'),
-
     receiverPhone: yup
       .string()
       .length(10, 'Số điện thoại phải là 10 số')
@@ -164,7 +173,9 @@ const AddressForm = ({ onClose, addressData, type }) => {
     districtId: yup.string().required('Vui lòng không bỏ trống'),
     wardId: yup.string().required('Vui lòng không bỏ trống'),
   });
+
   const toast = useToast();
+
   const initValues = {
     provinceId: '',
     provinceName: '',
@@ -211,11 +222,10 @@ const AddressForm = ({ onClose, addressData, type }) => {
       }}
     >
       {formikProps => {
-        console.log(formikProps.values);
         return (
           <VStack as={Form} w='full'>
-            <ModalBody pb={6}>
-              <VStack gap='4'>
+            <ModalBody pb={6} w='full'>
+              <VStack gap='4' w='full'>
                 <FastField
                   component={InputField}
                   name='receiverName'
@@ -269,6 +279,7 @@ function AdressEditModal({ isOpen, onClose, type, addressData }) {
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
+        isCentered
       >
         <ModalOverlay />
         <ModalContent>
