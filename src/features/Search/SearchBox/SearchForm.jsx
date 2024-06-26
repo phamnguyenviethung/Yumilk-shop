@@ -4,6 +4,7 @@ import { useState } from 'react';
 import SearchHint from './SearchHint';
 import { useSearchProductQuery } from '@/apis/productApi';
 import { useThrottle } from 'use-throttle';
+import { Link } from 'react-router-dom';
 
 const SearchForm = () => {
   const [searchValue, setSearchValue] = useState(null);
@@ -13,15 +14,13 @@ const SearchForm = () => {
     skip: !throttledText,
   });
   const [focus, setFocus] = useState(false);
-  if (isLoading) return <p>Loading...</p>;
   return (
     <Box w='full' pos='relative'>
-      <HStack alignItems='center' gap='0'>
+      <HStack as='form' alignItems='center' gap='0'>
         <Input
           placeholder='Tìm kiếm'
-          id='search'
-          name='search'
           size='lg'
+          name='keyword'
           autoComplete='off'
           border='2px solid'
           borderRadius='0'
@@ -41,6 +40,9 @@ const SearchForm = () => {
           }}
         />
         <Button
+          type='submit'
+          to={`/search?keyword=${searchValue}`}
+          as={Link}
           colorScheme='pink'
           size='lg'
           borderRadius='0'
@@ -50,7 +52,7 @@ const SearchForm = () => {
           <Icon as={SearchIcon} fontSize='1.6rem' fontWeight='bold' />
         </Button>
       </HStack>
-      {searchData?.items?.length > 0 && focus && (
+      {searchData?.items?.length > 0 && focus && isLoading && (
         <Box position='absolute' w='full' top='120%' zIndex={99}>
           <SearchHint data={searchData} keyword={throttledText} />
         </Box>

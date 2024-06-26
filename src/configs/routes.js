@@ -10,6 +10,7 @@ import OrderDetail from '@/pages/OrderDetail';
 import ProductDetail from '@/pages/ProductDetail';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
+import Search from '@/pages/Search';
 import Settings from '@/pages/Settings';
 import Verify from '@/pages/Verify';
 
@@ -53,6 +54,13 @@ const routes = [
       {
         path: '/product/:id',
         component: ProductDetail,
+        auth: {
+          shouldLogin: false,
+        },
+      },
+      {
+        path: '/search',
+        component: Search,
         auth: {
           shouldLogin: false,
         },

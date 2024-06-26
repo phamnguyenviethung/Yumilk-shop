@@ -15,7 +15,7 @@ const GridProductList = ({ heading, params }) => {
 
   const { data, isLoading, isFetching } = useGetSellingProductQuery({
     ...params,
-    pageSize: params.pageSize * page,
+    pageSize: params?.pageSize ? params.pageSize * page : 10 * page,
   });
 
   if (isLoading) return <Skeleton />;
