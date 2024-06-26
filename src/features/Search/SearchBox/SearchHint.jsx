@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Box, Highlight, List, ListItem } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
-const SearchHint = ({ data, keyword }) => {
+const SearchHint = ({ data, keyword, setFocus }) => {
+  const nav = useNavigate();
+
   if (!keyword) return <></>;
-
   return (
     <Box
       w='full'
@@ -17,6 +19,11 @@ const SearchHint = ({ data, keyword }) => {
       <List>
         {data?.items.map(item => (
           <ListItem
+            onClick={() => {
+              setFocus(false);
+              nav(`/product/${item.id}`);
+            }}
+            display='block'
             cursor='pointer'
             py={4}
             px={2}
