@@ -72,7 +72,6 @@ const LoginForm = () => {
                     label='Tên đăng nhập'
                     name='username'
                     required={true}
-                    size='lg'
                     mb={2}
                   />
                   <FastField
@@ -82,7 +81,6 @@ const LoginForm = () => {
                     name='password'
                     type='password'
                     required={true}
-                    size='lg'
                   />
                 </VStack>
                 <Flex my={2} justifyContent='flex-end'>

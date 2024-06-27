@@ -19,7 +19,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const tabs = [
   {
-    name: 'Thông tin cá nhân',
+    name: 'Tài khoản',
     icon: UserIcon,
     content: Information,
   },
