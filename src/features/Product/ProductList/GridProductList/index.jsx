@@ -10,12 +10,15 @@ import {
 } from '@chakra-ui/react';
 import Product from '../Product';
 import { useState } from 'react';
-const GridProductList = ({ heading, params }) => {
+const GridProductList = ({ heading, params, queryStr }) => {
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isFetching } = useGetSellingProductQuery({
-    ...params,
-    pageSize: params?.pageSize ? params.pageSize * page : 10 * page,
+    params: {
+      ...params,
+      pageSize: params?.pageSize ? params.pageSize * page : 10 * page,
+    },
+    queryStr,
   });
 
   if (isLoading) return <Skeleton />;

@@ -31,7 +31,7 @@ const SearchForm = () => {
       <HStack
         as='form'
         onSubmit={() => {
-          nav(`/search?keyword=${searchValue}`);
+          nav(`/search?keyword=${searchValue ?? ''}`);
         }}
         alignItems='center'
         gap='0'
@@ -59,7 +59,7 @@ const SearchForm = () => {
         />
         <Button
           type='submit'
-          to={`/search?keyword=${searchValue}`}
+          to={`/search?keyword=${searchValue ?? ''}`}
           as={Link}
           colorScheme='pink'
           size='lg'
