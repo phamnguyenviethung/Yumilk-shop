@@ -1,19 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useGetSellingProductQuery } from '@/apis/productApi';
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  SimpleGrid,
-  Skeleton,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import Product from '../Product';
 import { useState } from 'react';
+import SliderProductListSkeleton from '../SliderProductList/Skeleton';
 const GridProductList = ({ heading, params, queryStr }) => {
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, isFetching } = useGetSellingProductQuery({
+  const { data, isLoading, isFetching, isError } = useGetSellingProductQuery({
     params: {
       ...params,
       pageSize: params?.pageSize ? params.pageSize * page : 10 * page,
@@ -21,7 +15,13 @@ const GridProductList = ({ heading, params, queryStr }) => {
     queryStr,
   });
 
-  if (isLoading) return <Skeleton />;
+  if (isLoading) return <SliderProductListSkeleton />;
+  if (isError)
+    return (
+      <Box w='full'>
+        <Text>Có lỗi xảy ra</Text>
+      </Box>
+    );
   return (
     <Box my={4}>
       <Box w='full' mb={4}>
@@ -30,7 +30,7 @@ const GridProductList = ({ heading, params, queryStr }) => {
         </Heading>
       </Box>
       <SimpleGrid columns={[1, 2, 4, 5]} gap='4'>
-        {data.items.map(product => {
+        {data?.items.map(product => {
           return <Product key={product.id} data={product} />;
         })}
       </SimpleGrid>
