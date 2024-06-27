@@ -3,8 +3,8 @@ import PRODUCT from '@/constants/product';
 export const productApi = api.injectEndpoints({
   endpoints: build => ({
     getSellingProduct: build.query({
-      query: params => ({
-        url: `/products`,
+      query: ({ params, queryStr }) => ({
+        url: `/products?` + queryStr,
         params: {
           isActive: true,
           status: PRODUCT.SELLING_STATUS,

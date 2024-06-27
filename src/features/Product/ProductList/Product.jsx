@@ -41,7 +41,10 @@ const Product = ({ data }) => {
         <Box
           as='h2'
           flex='1'
-          fontSize='0.9rem'
+          fontSize={{
+            base: '0.85rem',
+            lg: '0.9rem',
+          }}
           sx={{
             WebkitLineClamp: '2',
             WebkitBoxOrient: 'vertical',
@@ -57,7 +60,10 @@ const Product = ({ data }) => {
             <Flex gap='2' w='full'>
               <Heading
                 as='p'
-                fontSize='1.1rem'
+                fontSize={{
+                  base: '1rem',
+                  lg: '1.1rem',
+                }}
                 fontWeight='600'
                 color={data.salePrice === 0 ? 'inherit' : 'pink.400'}
               >
@@ -66,7 +72,13 @@ const Product = ({ data }) => {
                 )}
               </Heading>
               {data.salePrice > 0 && (
-                <Tag colorScheme='pink'>
+                <Tag
+                  colorScheme='pink'
+                  size={{
+                    base: 'sm',
+                    lg: 'md',
+                  }}
+                >
                   -{' '}
                   {Number.parseInt(
                     100 - (data.salePrice * 100) / data.originalPrice
@@ -79,7 +91,10 @@ const Product = ({ data }) => {
             <Box w='full'>
               <Heading
                 as='s'
-                fontSize='1.1rem'
+                fontSize={{
+                  base: '1rem',
+                  lg: '1.1rem',
+                }}
                 fontWeight='400'
                 color='gray.500'
               >

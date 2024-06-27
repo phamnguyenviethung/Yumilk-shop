@@ -1,3 +1,3 @@
 export default {
-  SELLING_STATUS: 'Selling',
+  SELLING_STATUS: 1,
 };
