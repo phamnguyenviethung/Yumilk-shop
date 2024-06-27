@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import FilterIcon from '@/assets/Icon/filter';
 import {
   Box,
   Button,
@@ -12,12 +13,10 @@ import {
   ModalHeader,
   ModalOverlay,
   VStack,
-  filter,
   useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import BrandFilter from './BrandFilter';
-import FilterIcon from '@/assets/Icon/filter';
 import CategoryFilter from './CategoryFilter';
 import PriceFilter from './PriceFilter';
 

@@ -1,5 +1,6 @@
 import { useGetMyAddressQuery } from '@/apis/customerApi';
 import { useCheckOutMutation, useGetShippingFeeQuery } from '@/apis/orderApi';
+import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 import NoAddressDialog from '@/components/Dialog/NoAddressDialog';
 import order from '@/constants/order';
 import AddressSelect from '@/features/Checkout/AddressSelect';
@@ -22,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const cartState = useSelector(state => state.cart);
+  const authState = useSelector(state => state.auth);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const nav = useNavigate();
   const [selectIndex, setSelectIndex] = useState(0);
@@ -132,6 +134,7 @@ const Checkout = () => {
         </VStack>
       </Stack>
       <NoAddressDialog isOpen={data.length === 0} />
+      <NeedActiveDialog isOpen={!authState?.userData?.isActive} />
     </Container>
   );
 };

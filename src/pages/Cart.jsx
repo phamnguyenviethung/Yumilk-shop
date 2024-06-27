@@ -1,3 +1,4 @@
+import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 import CartInfo from '@/features/Cart/CartInfo';
 import CartItems from '@/features/Cart/CastItems';
 import EmptyCart from '@/features/Cart/EmptyCart';
@@ -6,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 const Cart = () => {
   const cartState = useSelector(state => state.cart);
+  const authState = useSelector(state => state.auth);
 
   return (
     <Container maxW='container.xl' pt='2rem'>
@@ -19,6 +21,7 @@ const Cart = () => {
           <CartInfo />
         </Stack>
       )}
+      <NeedActiveDialog isOpen={!authState?.userData?.isActive} />
     </Container>
   );
 };
