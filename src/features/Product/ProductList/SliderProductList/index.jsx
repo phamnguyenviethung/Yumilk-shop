@@ -9,7 +9,7 @@ import { useGetSellingProductQuery } from '@/apis/productApi';
 import Skeleton from './Skeleton';
 import './nav.css';
 const SliderProductList = ({ params, heading }) => {
-  const { data, isLoading } = useGetSellingProductQuery(params);
+  const { data, isLoading } = useGetSellingProductQuery({ params });
 
   if (isLoading) return <Skeleton />;
   return (

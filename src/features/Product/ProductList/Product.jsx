@@ -4,12 +4,15 @@ import {
   Box,
   Center,
   Flex,
+  HStack,
   Heading,
+  Icon,
   Image,
   Tag,
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { PiStarFill } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
 const Product = ({ data }) => {
@@ -18,7 +21,7 @@ const Product = ({ data }) => {
       to={`/product/${data.id}`}
       as={Link}
       direction='column'
-      minH='250px'
+      minH='400px'
       userSelect='none'
       border='0.3px solid'
       borderColor='gray.200'
@@ -28,7 +31,7 @@ const Product = ({ data }) => {
       }}
       borderRadius='10'
     >
-      <Center flex='1' boxSize='full'>
+      <Center flex='1' boxSize='full' pos='relative'>
         <Image
           boxSize='full'
           alt={data.name}
@@ -36,25 +39,49 @@ const Product = ({ data }) => {
           fallbackSrc='https://placehold.co/200x200'
           objectFit='none'
         />
+        <VStack pos='absolute' top='1' right='1'>
+          {data.salePrice > 0 && (
+            <Tag colorScheme='red' variant='solid'>
+              Hot
+            </Tag>
+          )}
+          {data.orderCount > 3 && (
+            <Tag colorScheme='blue' variant='solid'>
+              Bán chạy
+            </Tag>
+          )}
+        </VStack>
       </Center>
-      <Flex direction='column' flex='1' justifyContent='space-between'>
+      <Flex w direction='column' flex='1' justifyContent='space-between'>
         <Box
-          as='h2'
           flex='1'
           fontSize={{
             base: '0.85rem',
             lg: '0.9rem',
           }}
-          sx={{
-            WebkitLineClamp: '2',
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            display: '-webkit-box',
-          }}
           textAlign='left'
         >
-          <Text> {data.name}</Text>
+          <Text
+            sx={{
+              WebkitLineClamp: '2',
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              display: '-webkit-box',
+            }}
+          >
+            {' '}
+            {data.name}
+          </Text>
+          <HStack w='full' gap='1' my={1}>
+            <Icon as={PiStarFill} color='yellow.500' />
+            <Icon as={PiStarFill} color='yellow.500' />
+            <Icon as={PiStarFill} color='yellow.500' />
+            <Icon as={PiStarFill} color='yellow.500' />
+            <Icon as={PiStarFill} color='yellow.500' />
+          </HStack>
+          <Text fontSize='0.85rem'>Đã bán {data.orderCount}</Text>
         </Box>
+
         <Flex justifyContent='space-between' my={2} alignItems='center'>
           <VStack w='full'>
             <Flex gap='2' w='full'>
@@ -88,7 +115,7 @@ const Product = ({ data }) => {
               )}
             </Flex>
 
-            <Box w='full'>
+            <Flex justifyContent='space-between' w='full' alignItems='center'>
               <Heading
                 as='s'
                 fontSize={{
@@ -100,7 +127,7 @@ const Product = ({ data }) => {
               >
                 {data.salePrice === 0 ? '' : formatMoney(data.originalPrice)}
               </Heading>
-            </Box>
+            </Flex>
           </VStack>
         </Flex>
       </Flex>

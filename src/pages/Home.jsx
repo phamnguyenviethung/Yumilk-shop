@@ -26,6 +26,8 @@ const Home = () => {
           heading='Có thể bạn quan tâm'
           params={{
             pageSize: 20,
+            SortColumn: 'ordercount',
+            SortOrder: 'desc',
           }}
         />
       </Box>
