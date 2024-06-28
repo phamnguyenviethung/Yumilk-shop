@@ -31,6 +31,13 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    getProductImgages: build.query({
+      query: id => ({
+        url: `/products/${id}/images/`,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
     getBrandInfoById: build.query({
       query: id => ({
         url: `/products/brands/${id}`,
@@ -78,4 +85,5 @@ export const {
   useGetFeedbackByProductIdQuery,
   useSearchProductQuery,
   useGetProductDetailQuery,
+  useGetProductImgagesQuery,
 } = productApi;

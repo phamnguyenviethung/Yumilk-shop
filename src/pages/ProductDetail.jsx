@@ -26,7 +26,7 @@ const ProductDetail = () => {
         minH='200px'
       >
         <Box flex='2' px={2}>
-          <ProductImages />
+          <ProductImages id={id} />
         </Box>
         <Box flex='3' minH='full'>
           <ProductInfo productData={data} />
