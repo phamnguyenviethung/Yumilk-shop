@@ -4,6 +4,7 @@ import AuthIcon from '@/assets/Icon/auth';
 import CartIcon from '@/assets/Icon/cart';
 import MoneyBackIcon from '@/assets/Icon/moneyback';
 import PackageSearchIcon from '@/assets/Icon/packagesearch';
+import NeedLoginDialog from '@/components/Dialog/NeedLoginDialog';
 import { addToCart } from '@/features/Cart/cartSlice';
 import formatMoney from '@/utils/formatMoney';
 import {
@@ -21,6 +22,7 @@ import {
   Stack,
   Text,
   VStack,
+  useDisclosure,
   useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -48,6 +50,7 @@ const ProductInfo = ({ productData }) => {
   const authState = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const toast = useToast();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const handleAddtoCart = async () => {
     try {
@@ -207,7 +210,7 @@ const ProductInfo = ({ productData }) => {
               size={['sm', 'md', 'lg']}
               colorScheme='pink'
               leftIcon={<Icon as={CartIcon} fontWeight='800' />}
-              onClick={handleAddtoCart}
+              onClick={authState.isAuthenticated ? handleAddtoCart : onOpen}
               isDisabled={productData.quantity === 0}
             >
               {productData.quantity === 0 ? 'Đã hết hàng' : 'Thêm vào giỏ hàng'}
@@ -244,6 +247,7 @@ const ProductInfo = ({ productData }) => {
           })}
         </VStack>
       </Stack>
+      <NeedLoginDialog onClose={onClose} isOpen={isOpen} />
     </VStack>
   );
 };

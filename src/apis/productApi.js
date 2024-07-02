@@ -3,15 +3,17 @@ import PRODUCT from '@/constants/product';
 export const productApi = api.injectEndpoints({
   endpoints: build => ({
     getSellingProduct: build.query({
-      query: ({ params, queryStr }) => ({
-        url: `/products?` + queryStr,
-        params: {
-          isActive: true,
-          status: PRODUCT.SELLING_STATUS,
-          pageSize: 15,
-          ...params,
-        },
-      }),
+      query: ({ params, queryStr }) => {
+        return {
+          url: `/products?` + (queryStr ? queryStr : ''),
+          params: {
+            isActive: true,
+            status: PRODUCT.SELLING_STATUS,
+            pageSize: 15,
+            ...params,
+          },
+        };
+      },
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
@@ -27,6 +29,18 @@ export const productApi = api.injectEndpoints({
         url: `/products/${id}/attributes/values`,
       }),
       transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
+    getProductImgages: build.query({
+      query: id => ({
+        url: `/products/${id}/images`,
+        params: {
+          isActive: true,
+        },
+      }),
+
+      transformResponse: res => res.data,
+
       providesTags: ['Product'],
     }),
     getBrandInfoById: build.query({
@@ -76,4 +90,5 @@ export const {
   useGetFeedbackByProductIdQuery,
   useSearchProductQuery,
   useGetProductDetailQuery,
+  useGetProductImgagesQuery,
 } = productApi;

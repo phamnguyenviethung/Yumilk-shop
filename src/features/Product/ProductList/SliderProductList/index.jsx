@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Heading, Text } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Product from '../Product';
 import { Navigation } from 'swiper/modules';
@@ -9,9 +9,15 @@ import { useGetSellingProductQuery } from '@/apis/productApi';
 import Skeleton from './Skeleton';
 import './nav.css';
 const SliderProductList = ({ params, heading }) => {
-  const { data, isLoading } = useGetSellingProductQuery(params);
+  const { data, isLoading, isError } = useGetSellingProductQuery({ params });
 
   if (isLoading) return <Skeleton />;
+  if (isError)
+    return (
+      <Box w='full'>
+        <Text>Có lỗi xảy ra</Text>
+      </Box>
+    );
   return (
     <Box my={4}>
       <Box w='full' mb={4}>
