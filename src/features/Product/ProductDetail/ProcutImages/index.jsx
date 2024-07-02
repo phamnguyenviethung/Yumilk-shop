@@ -5,7 +5,6 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 
 const ProductImages = ({ id }) => {
   const { data, isLoading } = useGetProductImgagesQuery(id);
-  console.log(data);
   if (isLoading) return <p>loading</p>;
   return (
     <ImageGallery

@@ -33,9 +33,14 @@ export const productApi = api.injectEndpoints({
     }),
     getProductImgages: build.query({
       query: id => ({
-        url: `/products/${id}/images/`,
+        url: `/products/${id}/images`,
+        params: {
+          isActive: true,
+        },
       }),
+
       transformResponse: res => res.data,
+
       providesTags: ['Product'],
     }),
     getBrandInfoById: build.query({
