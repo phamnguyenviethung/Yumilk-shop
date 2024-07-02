@@ -1,7 +1,5 @@
 import store from '@/configs/store';
 import { logout } from '@/features/Auth/authSlice';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/configs/firebase';
 
 export const noAuthData = [
   {
@@ -29,7 +27,6 @@ export default [
     path: '/',
     handleClick: () => {
       store.dispatch(logout());
-      signOut(auth);
     },
   },
 ];

@@ -1,13 +1,13 @@
+import { useLoginWithGoogleMutation } from '@/apis/authApi';
+import GoogleIcon from '@/assets/Icon/google';
+import { auth, googleProvider } from '@/configs/firebase';
 import LoginForm from '@/features/Auth/LoginForm';
+import { login as loginSlice } from '@/features/Auth/authSlice';
+import { Box, Button, Center, Icon, VStack, useToast } from '@chakra-ui/react';
+import { signInWithPopup } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { googleProvider, auth } from '@/configs/firebase';
-import { signInWithPopup } from 'firebase/auth';
-import { Box, Button, Center, Icon, VStack, useToast } from '@chakra-ui/react';
-import GoogleIcon from '@/assets/Icon/google';
-import { useLoginWithGoogleMutation } from '@/apis/authApi';
-import { login as loginSlice } from '@/features/Auth/authSlice';
 
 const Login = () => {
   const authState = useSelector(state => state.auth);
@@ -20,6 +20,7 @@ const Login = () => {
       const firebaseRes = await signInWithPopup(auth, googleProvider);
       const res = await loginWithGoogleAPI(firebaseRes.user.accessToken);
       if (res.error) throw res.error.data;
+      console.log(res.data);
       dispatch(loginSlice(res.data));
       toast({
         title: 'Đăng nhập thành công',

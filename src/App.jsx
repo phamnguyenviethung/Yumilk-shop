@@ -6,19 +6,28 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetMeQuery } from './apis/customerApi';
 import { updateUserData } from './features/Auth/authSlice';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './configs/firebase';
 function App() {
   const authState = useSelector(state => state.auth);
 
-  const { data, isLoading } = useGetMeQuery(null, {
+  const { data, isLoading } = useGetMeQuery(authState, {
     skip: !authState?.isAuthenticated,
   });
-
   const dispatch = useDispatch();
   useEffect(() => {
     if (!isLoading && authState?.isAuthenticated) {
       dispatch(updateUserData(data));
     }
   }, [isLoading, data, dispatch, authState?.isAuthenticated]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, () => {
+      signOut(auth);
+    });
+
+    return unsubscribe;
+  }, []);
 
   return (
     <Routes>
