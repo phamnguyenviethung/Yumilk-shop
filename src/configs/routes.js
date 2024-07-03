@@ -7,6 +7,7 @@ import ForgotPassword from '@/pages/ForgotPassword';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import OrderDetail from '@/pages/OrderDetail';
+import PreOrderProductDetail from '@/pages/PreOrderProductDetail';
 import ProductDetail from '@/pages/ProductDetail';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
@@ -54,6 +55,13 @@ const routes = [
       {
         path: '/product/:id',
         component: ProductDetail,
+        auth: {
+          shouldLogin: false,
+        },
+      },
+      {
+        path: '/preorder/:id',
+        component: PreOrderProductDetail,
         auth: {
           shouldLogin: false,
         },

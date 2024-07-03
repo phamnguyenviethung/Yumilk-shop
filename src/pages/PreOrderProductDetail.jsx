@@ -1,19 +1,14 @@
 import { useGetProductDetailQuery } from '@/apis/productApi';
-import product from '@/constants/product';
-import ProductImages from '@/features/Product/ProductDetail/ProcutImages';
-import ProductInfo from '@/features/Product/ProductDetail/ProductInfo';
+import PreOrderProductImages from '@/features/Product/ProductDetail/ProcutImages/PreOrderProductImages';
+import PreOrderProductInfo from '@/features/Product/ProductDetail/ProductInfo/PreOrderProductInfo';
 import TabInfo from '@/features/Product/ProductDetail/TabInfo';
 import { Box, Container, Stack } from '@chakra-ui/react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-const ProductDetail = () => {
-  const nav = useNavigate();
+const PreOrderProductDetail = () => {
   const { id } = useParams();
   const { data, isLoading } = useGetProductDetailQuery(id);
   if (isLoading) return <p>ss</p>;
-  if (data.statusId === product.PRE_ORDER_STATUS) {
-    nav(`/preorder/${id}`);
-  }
   return (
     <Container maxW='container.xl' boxSize='full'>
       <Stack
@@ -31,10 +26,10 @@ const ProductDetail = () => {
         minH='200px'
       >
         <Box flex='2' px={2}>
-          <ProductImages id={id} />
+          <PreOrderProductImages id={id} />
         </Box>
         <Box flex='3' minH='full'>
-          <ProductInfo productData={data} />
+          <PreOrderProductInfo productData={data} />
         </Box>
       </Stack>
       <Box>
@@ -44,4 +39,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default PreOrderProductDetail;

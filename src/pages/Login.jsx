@@ -20,7 +20,6 @@ const Login = () => {
       const firebaseRes = await signInWithPopup(auth, googleProvider);
       const res = await loginWithGoogleAPI(firebaseRes.user.accessToken);
       if (res.error) throw res.error.data;
-      console.log(res.data);
       dispatch(loginSlice(res.data));
       toast({
         title: 'Đăng nhập thành công',
