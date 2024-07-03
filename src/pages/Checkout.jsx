@@ -115,11 +115,7 @@ const Checkout = () => {
               />
             </>
           )}
-          <Fee
-            handleSelect={handleSelect}
-            cartState={cartState}
-            shippingFee={shippingFee}
-          />
+          <Fee cartState={cartState} shippingFee={shippingFee} />
           <Button
             mt={2}
             size='lg'

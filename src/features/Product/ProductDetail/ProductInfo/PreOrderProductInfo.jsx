@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import CartIcon from '@/assets/Icon/cart';
+import PreOrderCheckoutModal from '@/features/Checkout/PreOrderCheckoutModal';
 import formatMoney from '@/utils/formatMoney';
 import {
   Box,
@@ -9,9 +10,11 @@ import {
   Stack,
   Text,
   VStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 
 const PreOrderProductInfo = ({ productData }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <VStack
       boxSize='full'
@@ -72,11 +75,16 @@ const PreOrderProductInfo = ({ productData }) => {
               size={['sm', 'md', 'lg']}
               colorScheme='pink'
               leftIcon={<Icon as={CartIcon} fontWeight='800' />}
-              onClick={console.log}
+              onClick={onOpen}
               isDisabled={productData.quantity === 0}
             >
               Đặt trước ngay
             </Button>
+            <PreOrderCheckoutModal
+              isOpen={isOpen}
+              onClose={onClose}
+              productData={productData}
+            />
           </Box>
         </Stack>
       </Stack>

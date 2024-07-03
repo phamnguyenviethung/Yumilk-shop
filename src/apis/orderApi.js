@@ -10,6 +10,16 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Cart', 'Fee'],
     }),
+    preOrderCheckOut: build.mutation({
+      query: data => ({
+        url: '/checkout/preorder',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Cart', 'Fee'],
+    }),
+
     cancelOrder: build.mutation({
       query: id => ({
         url: `/customer/orders/${id}/cancel`,
@@ -53,4 +63,5 @@ export const {
   useGetOrderHistoryQuery,
   useGetOrderDetailQuery,
   useCancelOrderMutation,
+  usePreOrderCheckOutMutation,
 } = orderApi;

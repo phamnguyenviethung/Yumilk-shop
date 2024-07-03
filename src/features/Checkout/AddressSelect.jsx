@@ -37,11 +37,11 @@ function AddressModal({
                     onClick={() => handleSelect(index)}
                     w='full'
                     p={4}
-                    border='2px double'
+                    border='0.5px dashed'
                     borderColor={
                       addressSelected.id === addressList[index].id
                         ? 'pink.400'
-                        : 'gray.500'
+                        : 'gray.200'
                     }
                     borderRadius='6px'
                     _hover={{

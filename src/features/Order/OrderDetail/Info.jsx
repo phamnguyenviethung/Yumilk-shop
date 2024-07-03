@@ -16,6 +16,7 @@ import {
   ButtonGroup,
   HStack,
   Heading,
+  Link,
   Stack,
   Tag,
   Text,
@@ -175,7 +176,7 @@ const Info = ({ data, id }) => {
           data.orderStatus === order.PENDING.name && (
             <Alert status='info' mb={4}>
               <AlertIcon />
-              Hệ thống sẽ cần một lúc để xử lý thanh toán của bạn.
+              Hệ thống sẽ cần một lúc để xử lý sau khi thanh toán.
             </Alert>
           )}
 
@@ -234,7 +235,14 @@ const Info = ({ data, id }) => {
           >
             {data.paymentMethod === order.PAYOS_PAYMENT &&
               data.orderStatus === order.PENDING.name && (
-                <Button flex='1' colorScheme='pink'>
+                <Button
+                  target='_blank'
+                  href={`https://pay.payos.vn/web/` + data.paymentData.id}
+                  as={Link}
+                  flex='1'
+                  colorScheme='pink'
+                  textDecoration='none'
+                >
                   Thanh toán lại
                 </Button>
               )}
