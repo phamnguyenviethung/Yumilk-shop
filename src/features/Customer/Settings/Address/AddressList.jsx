@@ -18,7 +18,10 @@ import {
 } from '@chakra-ui/react';
 import AddressEditModal from './AddressEditModal';
 import { useRef } from 'react';
-import { useDeleteMyAddressMutation } from '@/apis/customerApi';
+import {
+  useDeleteMyAddressMutation,
+  useUpdateMyAddressMutation,
+} from '@/apis/customerApi';
 
 function DeleteDialog({ deleteDisclosure, addressID }) {
   const { isOpen, onClose } = deleteDisclosure;
@@ -26,7 +29,7 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
   const [deleteAddressAPI] = useDeleteMyAddressMutation();
   const toast = useToast();
 
-  const handleClick = async () => {
+  const handleDelete = async () => {
     try {
       const res = await deleteAddressAPI(addressID);
       if (res.error) throw res.error.data;
@@ -70,7 +73,7 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
             <Button ref={cancelRef} onClick={onClose}>
               Huỷ
             </Button>
-            <Button colorScheme='pink' ml={3} onClick={handleClick}>
+            <Button colorScheme='pink' ml={3} onClick={handleDelete}>
               Xác nhận
             </Button>
           </AlertDialogFooter>
@@ -83,6 +86,32 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
 const Address = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const deleteDisclosure = useDisclosure();
+  const [changeDefaultAPI] = useUpdateMyAddressMutation();
+  const toast = useToast();
+  const handleSetDefault = async () => {
+    try {
+      const res = await changeDefaultAPI({ ...data, isDefault: true });
+      if (res.error) throw res.error.data;
+      toast({
+        title: 'Cập nhật thành công',
+        status: 'success',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
+    } catch (error) {
+      toast({
+        title: error.message,
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -124,7 +153,7 @@ const Address = ({ data }) => {
             <Text
               color='pink.500'
               display={!data.isDefault ? 'block' : 'none'}
-              onClick={onOpen}
+              onClick={handleSetDefault}
               cursor='pointer'
             >
               Đặt làm mặc định
