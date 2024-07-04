@@ -246,20 +246,19 @@ const Info = ({ data, id }) => {
                   Thanh toán lại
                 </Button>
               )}
-            <Button
-              flex='1'
-              colorScheme='red'
-              variant='outline'
-              isLoading={isLoading}
-              onClick={onOpen}
-              isDisabled={
-                ![order.PENDING.name, order.PROCESSING.name].includes(
-                  data.orderStatus
-                )
-              }
-            >
-              Huỷ đơn hàng
-            </Button>
+            {[order.PENDING.name, order.PROCESSING.name].includes(
+              data.orderStatus
+            ) && (
+              <Button
+                flex='1'
+                colorScheme='red'
+                variant='outline'
+                isLoading={isLoading}
+                onClick={onOpen}
+              >
+                Huỷ đơn hàng
+              </Button>
+            )}
           </ButtonGroup>
         </VStack>
       </Stack>

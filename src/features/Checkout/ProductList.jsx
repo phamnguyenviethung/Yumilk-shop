@@ -24,7 +24,14 @@ const ProductList = () => {
               />
             </Box>
             <Box w='full' alignSelf='center' flex='2'>
-              <Text fontSize='1.2rem'>{product.productName}</Text>
+              <Text
+                fontSize={{
+                  base: '1rem',
+                  lg: '1.2rem',
+                }}
+              >
+                {product.productName}
+              </Text>
               <Text my={2} fontSize='0.9rem' color='gray.500'>
                 Số lượng: {product.quantity}
               </Text>
