@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import formatMoney from '@/utils/formatMoney';
-import { HStack, Text, VStack } from '@chakra-ui/react';
+import { Divider, HStack, Text, VStack } from '@chakra-ui/react';
 
 const Fee = ({ shippingFee, cartState }) => {
   return (
@@ -21,6 +21,7 @@ const Fee = ({ shippingFee, cartState }) => {
           {formatMoney(cartState?.data?.totalPrice || 0)}
         </Text>
       </HStack>
+      <Divider />
       <HStack w='full' justifyContent='space-between' mt={2}>
         <Text color='gray.700' fontSize='0.95rem' fontWeight='600'>
           Tổng tiền

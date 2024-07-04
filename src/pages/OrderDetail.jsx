@@ -14,7 +14,7 @@ const OrderDetail = () => {
     <Container maxW='container.xl'>
       <VStack w='full' gap='8'>
         <Info id={id} data={data} />
-        <ProductTable data={data} />
+        <ProductTable data={data} orderId={id} />
       </VStack>
     </Container>
   );

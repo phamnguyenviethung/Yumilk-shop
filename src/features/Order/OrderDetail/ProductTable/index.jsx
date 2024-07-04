@@ -4,20 +4,19 @@ import {
   Box,
   Divider,
   Flex,
-  HStack,
-  Image,
   Table,
   TableContainer,
   Tbody,
-  Td,
   Text,
   Th,
   Thead,
   Tr,
   VStack,
 } from '@chakra-ui/react';
+import ProductRow from './ProductRow';
+import order from '@/constants/order';
 
-const ProductTable = ({ data }) => {
+const ProductTable = ({ data, orderId }) => {
   return (
     <Box w='full'>
       <TableContainer>
@@ -28,41 +27,19 @@ const ProductTable = ({ data }) => {
               <Th isNumeric>Số lượng</Th>
               <Th isNumeric>Giá</Th>
               <Th isNumeric>Tổng tiền</Th>
+              {data.orderStatus === order.DELIVERED.name && (
+                <Th isNumeric>Đánh giá</Th>
+              )}
             </Tr>
           </Thead>
           <Tbody>
             {data.orderDetail.map(product => {
               return (
-                <Tr key={product.productId}>
-                  <Td>
-                    <HStack>
-                      <Box
-                        boxSize={{
-                          base: '80px',
-                          lg: '100px',
-                        }}
-                      >
-                        <Image
-                          boxSize='full'
-                          src={product.thumbnail}
-                          fallbackSrc='https://placehold.co/100'
-                          borderRadius='4px'
-                        />
-                      </Box>
-                      <Text fontWeight='600'>{product.productName}</Text>
-                    </HStack>
-                  </Td>
-                  <Td isNumeric>{product.quantity}</Td>
-                  <Td isNumeric>{formatMoney(product.unitPrice)}</Td>
-                  <Td
-                    isNumeric
-                    color='pink.400'
-                    fontWeight='600'
-                    fontSize='1.2rem'
-                  >
-                    {formatMoney(product.itemPrice)}
-                  </Td>
-                </Tr>
+                <ProductRow
+                  key={product.productId}
+                  orderId={orderId}
+                  product={product}
+                />
               );
             })}
           </Tbody>
