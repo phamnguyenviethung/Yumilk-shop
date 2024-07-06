@@ -7,6 +7,7 @@ import 'swiper/css/scrollbar';
 import { A11y, Grid, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useGetAllBrandQuery } from '@/apis/brandApi';
+import { Image } from '@chakra-ui/react';
 
 const BrandBanner = () => {
   const { data: brandData } = useGetAllBrandQuery();
@@ -23,108 +24,42 @@ const BrandBanner = () => {
   return (
     <Swiper
       modules={[Navigation, Pagination, Scrollbar, A11y, Grid]}
-      spaceBetween={10}
-      slidesPerView={8}
+      spaceBetween={4}
+      slidesPerView={4}
+      breakpoints={{
+        480: {
+          slidesPerView: 2,
+        },
+        768: {
+          slidesPerView: 3,
+        },
+        992: {
+          slidesPerView: 5,
+        },
+      }}
       navigation={true}
       pagination={{ clickable: true }}
       scrollbar={{ draggable: true }}
-      onSwiper={swiper => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
       grid={{
         fill: 'row',
         rows: 2,
       }}
       slideToClickedSlide={true}
-      className='mySwiper'
     >
-      {(brandData?.items || []).map((brand, index) => (
-        <SwiperSlide key={index} style={slideStyle}>
-          <img src={brand.logo || 'null'} alt={brand.name} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+      {(brandData?.items || []).map(brand => (
+        <SwiperSlide key={brand.logo} style={slideStyle}>
+          <Image
+            boxSize={200}
+            src={
+              brand.logo ||
+              'https://cdn-v2.kidsplaza.vn/media/amasty/shopby/option_images/slider/bobby-logo-.jpg'
+            }
+            alt={brand.name}
+          />
         </SwiperSlide>
       ))}
     </Swiper>
   );
 };
-  return (
-    <Swiper
-      modules={[Navigation, Pagination, Scrollbar, A11y, Grid]}
-      spaceBetween={10}
-      slidesPerView={3}
-      navigation={true}
-      pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
-      onSwiper={swiper => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
-      grid={{
-        fill: 'row',
-        rows: 2,
-      }}
-      slideToClickedSlide={true}
-      className='mySwiper'
-    >
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img
-          src='https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/'
-          alt='brand'
-        />
-      </SwiperSlide>
-    </Swiper>
-  );
-};
 
 export default BrandBanner;
-;
