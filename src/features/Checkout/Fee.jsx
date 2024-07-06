@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import formatMoney from '@/utils/formatMoney';
-import { HStack, Text, VStack } from '@chakra-ui/react';
+import { Divider, HStack, Text, VStack } from '@chakra-ui/react';
 
 const Fee = ({ shippingFee, cartState }) => {
   return (
@@ -10,7 +10,7 @@ const Fee = ({ shippingFee, cartState }) => {
           Phí vận chuyển
         </Text>
         <Text fontSize='1.15rem' fontWeight='400'>
-          {formatMoney(shippingFee.total)}
+          {formatMoney(shippingFee?.total || 0)}
         </Text>
       </HStack>
       <HStack w='full' justifyContent='space-between' mt={2}>
@@ -18,15 +18,16 @@ const Fee = ({ shippingFee, cartState }) => {
           Tạm tính
         </Text>
         <Text fontSize='1.15rem' fontWeight='400'>
-          {formatMoney(cartState?.data?.totalPrice)}
+          {formatMoney(cartState?.data?.totalPrice || 0)}
         </Text>
       </HStack>
+      <Divider />
       <HStack w='full' justifyContent='space-between' mt={2}>
         <Text color='gray.700' fontSize='0.95rem' fontWeight='600'>
           Tổng tiền
         </Text>
         <Text fontSize='1.5rem' color='pink.400'>
-          {formatMoney(cartState?.data?.totalPrice + shippingFee.total)}
+          {formatMoney(cartState?.data?.totalPrice + shippingFee?.total)}
         </Text>
       </HStack>
     </VStack>

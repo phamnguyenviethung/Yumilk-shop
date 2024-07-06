@@ -1,9 +1,12 @@
+import EyeIcon from '@/assets/Icon/eye';
+import EyeHideIcon from '@/assets/Icon/eyehide';
 import {
   Button,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Icon,
   Input,
   InputGroup,
   InputRightElement,
@@ -33,11 +36,22 @@ function InputField(props) {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   return (
-    <FormControl isInvalid={showError} isRequired={required}>
-      {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+    <FormControl isInvalid={showError} isRequired={required} w='full'>
+      {label && (
+        <FormLabel
+          htmlFor={name}
+          fontSize={{
+            base: '0.75rem',
+            lg: '1rem',
+          }}
+        >
+          {label}
+        </FormLabel>
+      )}
 
-      <InputGroup>
+      <InputGroup w='full'>
         <Input
+          w='full'
           _hover={{
             borderColor: 'pink.400',
             outline: 0,
@@ -54,11 +68,28 @@ function InputField(props) {
           type={showPassword ? 'text' : type}
           disabled={disabled}
           placeholder={placeholder}
+          size={{
+            base: 'md',
+            lg: 'lg',
+          }}
         />
         {type === 'password' && (
-          <InputRightElement width={['4rem', '4.5rem']} top='5px'>
-            <Button h='1.75rem' size='sm' onClick={handleShowPassword}>
-              {showPassword ? 'Hide' : 'Show'}
+          <InputRightElement
+            width={['3.8rem', '4rem', '4.5rem']}
+            top={{
+              base: '2px',
+              lg: '5px',
+            }}
+          >
+            <Button
+              h={{
+                base: '1.25rem',
+                lg: '1.75rem',
+              }}
+              size='sm'
+              onClick={handleShowPassword}
+            >
+              {showPassword ? <Icon as={EyeHideIcon} /> : <Icon as={EyeIcon} />}
             </Button>
           </InputRightElement>
         )}

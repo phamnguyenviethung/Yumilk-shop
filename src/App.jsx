@@ -2,7 +2,33 @@ import NotFound from '@/pages/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import routes from './configs/routes';
 import AuthCheck from './components/Auth/AuthCheck';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetMeQuery } from './apis/customerApi';
+import { updateUserData } from './features/Auth/authSlice';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from './configs/firebase';
 function App() {
+  const authState = useSelector(state => state.auth);
+
+  const { data, isLoading } = useGetMeQuery(authState, {
+    skip: !authState?.isAuthenticated,
+  });
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!isLoading && authState?.isAuthenticated) {
+      dispatch(updateUserData(data));
+    }
+  }, [isLoading, data, dispatch, authState?.isAuthenticated]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, () => {
+      signOut(auth);
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <Routes>
       {routes.map((route, i) => {

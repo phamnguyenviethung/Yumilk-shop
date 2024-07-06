@@ -10,6 +10,24 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Cart', 'Fee'],
     }),
+    preOrderCheckOut: build.mutation({
+      query: data => ({
+        url: '/checkout/preorder',
+        method: 'POST',
+        body: data,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Cart', 'Fee'],
+    }),
+
+    cancelOrder: build.mutation({
+      query: id => ({
+        url: `/customer/orders/${id}/cancel`,
+        method: 'PATCH',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Order'],
+    }),
     getShippingFee: build.query({
       query: params => ({
         url: '/shipping/fee',
@@ -28,6 +46,14 @@ export const orderApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Order'],
     }),
+    getOrderDetail: build.query({
+      query: id => ({
+        url: `/customer/orders/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Order'],
+    }),
   }),
 });
 
@@ -35,4 +61,7 @@ export const {
   useGetShippingFeeQuery,
   useCheckOutMutation,
   useGetOrderHistoryQuery,
+  useGetOrderDetailQuery,
+  useCancelOrderMutation,
+  usePreOrderCheckOutMutation,
 } = orderApi;

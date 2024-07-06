@@ -10,6 +10,17 @@ export const authApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidateTags: ['Auth'],
     }),
+    loginWithGoogle: build.mutation({
+      query: token => ({
+        url: '/authentication/google-login',
+        method: 'POST',
+        params: {
+          token,
+        },
+      }),
+      transformResponse: res => res.data,
+      invalidateTags: ['Auth'],
+    }),
     register: build.mutation({
       query: data => ({
         url: '/authentication/sign-up',
@@ -65,4 +76,5 @@ export const {
   useVerifyAccountMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useLoginWithGoogleMutation,
 } = authApi;

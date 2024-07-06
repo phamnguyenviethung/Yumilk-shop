@@ -2,9 +2,13 @@ import { VStack } from '@chakra-ui/react';
 import AddAddress from './AddAddress';
 import AddressList from './AddressList';
 import { useGetMyAddressQuery } from '@/apis/customerApi';
+import { useSelector } from 'react-redux';
 
 const Address = () => {
-  const { data, isLoading } = useGetMyAddressQuery();
+  const authState = useSelector(state => state.auth);
+  const { data, isLoading } = useGetMyAddressQuery(authState, {
+    refetchOnMountOrArgChange: true,
+  });
   if (isLoading) return <p>Loading...</p>;
 
   return (

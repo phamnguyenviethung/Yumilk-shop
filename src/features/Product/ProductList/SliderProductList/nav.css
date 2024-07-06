@@ -1,0 +1,13 @@
+.swiper-button-prev,
+.swiper-button-next {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 4px;
+  color: var(--chakra-colors-pink-300);
+}
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  font-size: 1rem;
+  font-weight: 700;
+}

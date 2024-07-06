@@ -42,6 +42,7 @@ const AuthenticatedCartIcon = ({ userID }) => {
 
 const CartNavbarIcon = () => {
   const authState = useSelector(state => state.auth);
+
   if (!authState.isAuthenticated) return <Cart />;
   return <AuthenticatedCartIcon userID={authState?.userData?.userID} />;
 };

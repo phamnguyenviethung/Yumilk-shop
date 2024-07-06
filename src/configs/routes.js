@@ -6,9 +6,12 @@ import Checkout from '@/pages/Checkout';
 import ForgotPassword from '@/pages/ForgotPassword';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
+import OrderDetail from '@/pages/OrderDetail';
+import PreOrderProductDetail from '@/pages/PreOrderProductDetail';
 import ProductDetail from '@/pages/ProductDetail';
 import Register from '@/pages/Register';
 import ResetPassword from '@/pages/ResetPassword';
+import Search from '@/pages/Search';
 import Settings from '@/pages/Settings';
 import Verify from '@/pages/Verify';
 
@@ -20,6 +23,13 @@ const routes = [
         path: '/',
         isIndex: true,
         component: Home,
+      },
+      {
+        path: '/active-mail',
+        component: ActiveMail,
+        auth: {
+          shouldLogin: true,
+        },
       },
       {
         path: '/cart',
@@ -49,6 +59,27 @@ const routes = [
           shouldLogin: false,
         },
       },
+      {
+        path: '/preorder/:id',
+        component: PreOrderProductDetail,
+        auth: {
+          shouldLogin: false,
+        },
+      },
+      {
+        path: '/search',
+        component: Search,
+        auth: {
+          shouldLogin: false,
+        },
+      },
+      {
+        path: '/order/:id',
+        component: OrderDetail,
+        auth: {
+          shouldLogin: true,
+        },
+      },
     ],
   },
   {
@@ -75,13 +106,7 @@ const routes = [
           shouldLogout: true,
         },
       },
-      {
-        path: '/active-mail',
-        component: ActiveMail,
-        auth: {
-          shouldLogout: true,
-        },
-      },
+
       {
         path: '/reset-password',
         component: ResetPassword,

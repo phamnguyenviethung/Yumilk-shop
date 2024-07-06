@@ -1,26 +1,68 @@
+/* eslint-disable react/prop-types */
+import {
+  useGetBrandInfoByIdQuery,
+  useGetDescriptionInfoByIdQuery,
+} from '@/apis/productApi';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import AttributeTab from './AttributeTab';
+import BrandTab from './BrandTab';
+import DetailTab from './DetailTab';
+import ReviewTab from './ReviewTab';
 
-const TabInfo = ({productID}) => {
+const TabInfo = ({ productID }) => {
+  const { data } = useGetDescriptionInfoByIdQuery(productID);
+  const { data: brandInfo } = useGetBrandInfoByIdQuery(data?.brandId, {
+    skip: !data?.brandId,
+  });
+
   return (
-    <Tabs variant='soft-rounded' colorScheme='green'>
+    <Tabs variant='soft-rounded' colorScheme='pink'>
       <TabList>
-        <Tab>Chi tiết</Tab>
-        <Tab>Thông tin thêm</Tab>
-        <Tab>Nhãn hàng</Tab>
-        <Tab>Đánh giá</Tab>
+        <Tab
+          fontSize={{
+            base: '0.85rem',
+            lg: '0.9rem',
+          }}
+        >
+          Chi tiết
+        </Tab>
+        <Tab
+          fontSize={{
+            base: '0.85rem',
+            lg: '0.9rem',
+          }}
+        >
+          Thông tin thêm
+        </Tab>
+        <Tab
+          fontSize={{
+            base: '0.85rem',
+            lg: '0.9rem',
+          }}
+        >
+          Nhãn hàng
+        </Tab>
+        <Tab
+          fontSize={{
+            base: '0.85rem',
+            lg: '0.9rem',
+          }}
+        >
+          Đánh giá
+        </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <p>chi tiet!</p>
+          <DetailTab description={data?.description} />
         </TabPanel>
         <TabPanel>
-          <p>thong tin them!</p>
+          <AttributeTab />
         </TabPanel>
         <TabPanel>
-          <p>nhan hand!</p>
+          {brandInfo?.id && <BrandTab brandId={brandInfo?.id} />}
         </TabPanel>
         <TabPanel>
-          <p>danh gia!</p>
+          <ReviewTab />
         </TabPanel>
       </TabPanels>
     </Tabs>

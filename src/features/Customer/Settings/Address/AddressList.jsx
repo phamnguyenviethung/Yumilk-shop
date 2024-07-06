@@ -18,7 +18,10 @@ import {
 } from '@chakra-ui/react';
 import AddressEditModal from './AddressEditModal';
 import { useRef } from 'react';
-import { useDeleteMyAddressMutation } from '@/apis/customerApi';
+import {
+  useDeleteMyAddressMutation,
+  useUpdateMyAddressMutation,
+} from '@/apis/customerApi';
 
 function DeleteDialog({ deleteDisclosure, addressID }) {
   const { isOpen, onClose } = deleteDisclosure;
@@ -26,7 +29,7 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
   const [deleteAddressAPI] = useDeleteMyAddressMutation();
   const toast = useToast();
 
-  const handleClick = async () => {
+  const handleDelete = async () => {
     try {
       const res = await deleteAddressAPI(addressID);
       if (res.error) throw res.error.data;
@@ -47,7 +50,6 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
         position: 'top-right',
       });
       onClose();
-
       console.log(error);
     }
   };
@@ -71,7 +73,7 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
             <Button ref={cancelRef} onClick={onClose}>
               Huỷ
             </Button>
-            <Button colorScheme='pink' ml={3} onClick={handleClick}>
+            <Button colorScheme='pink' ml={3} onClick={handleDelete}>
               Xác nhận
             </Button>
           </AlertDialogFooter>
@@ -84,12 +86,41 @@ function DeleteDialog({ deleteDisclosure, addressID }) {
 const Address = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const deleteDisclosure = useDisclosure();
+  const [changeDefaultAPI] = useUpdateMyAddressMutation();
+  const toast = useToast();
+  const handleSetDefault = async () => {
+    try {
+      const res = await changeDefaultAPI({ ...data, isDefault: true });
+      if (res.error) throw res.error.data;
+      toast({
+        title: 'Cập nhật thành công',
+        status: 'success',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
+    } catch (error) {
+      toast({
+        title: error.message,
+        status: 'error',
+        duration: 1000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      onClose();
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <Box
         w='full'
-        fontSize='1.1rem'
+        fontSize={{
+          base: '1rem',
+          lg: '1.1rem',
+        }}
         p={4}
         border='1px solid'
         borderColor={data.isDefault ? 'pink.400' : 'gray.300'}
@@ -112,18 +143,32 @@ const Address = ({ data }) => {
               mt={4}
             >{`${data.address} ${data.wardName} ${data.districtName} ${data.provinceName}`}</Text>
           </Box>
-          <Box textAlign='center'>
+          <Box
+            textAlign='center'
+            fontSize={{
+              base: '0.9rem',
+              lg: '1rem',
+            }}
+          >
             <Text
               color='pink.500'
-              fontSize='1rem'
+              display={!data.isDefault ? 'block' : 'none'}
+              onClick={handleSetDefault}
+              cursor='pointer'
+            >
+              Đặt làm mặc định
+            </Text>
+            <Text
+              color={data.isDefault ? 'pink.500' : 'gray.500'}
               onClick={onOpen}
               cursor='pointer'
             >
               Chỉnh sửa
             </Text>
+
             <Text
               color='gray.500'
-              fontSize='1rem'
+              display={data.isDefault ? 'block' : 'none'}
               mt={2}
               cursor='pointer'
               onClick={deleteDisclosure.onOpen}
