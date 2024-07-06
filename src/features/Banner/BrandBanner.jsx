@@ -1,64 +1,48 @@
-import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y, Grid } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import 'swiper/css/grid';
-import { Box } from '@chakra-ui/react';
+import { A11y, Grid, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { useGetAllBrandQuery } from '@/apis/brandApi';
 
 const BrandBanner = () => {
-    return (
-        <Swiper
-            // install Swiper modules
-            modules={[Navigation, Pagination, Scrollbar, A11y, Grid]}
-            spaceBetween={10}
-            slidesPerView={3}
-            navigation={true}
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}
-            grid={{
-                fill: 'row',
-                rows: 2,
-            }}
-            slideToClickedSlide={true}
-            className="mySwiper"
-        >
-            <SwiperSlide >
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img src="https://cdn1.concung.com/img/adds/2024/05/1716552222-HOME(1).png/" alt="brand" />
-            </SwiperSlide>
-        </Swiper>
-    )
-}
+  const { data: brandData } = useGetAllBrandQuery();
 
-export default BrandBanner
+  // Inline style for slides
+  const slideStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%', // Adjust width as needed
+    height: '200px', // Adjust height as needed
+  };
+
+  return (
+    <Swiper
+      modules={[Navigation, Pagination, Scrollbar, A11y, Grid]}
+      spaceBetween={10}
+      slidesPerView={8}
+      navigation={true}
+      pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
+      onSwiper={swiper => console.log(swiper)}
+      onSlideChange={() => console.log('slide change')}
+      grid={{
+        fill: 'row',
+        rows: 2,
+      }}
+      slideToClickedSlide={true}
+      className='mySwiper'
+    >
+      {(brandData?.items || []).map((brand, index) => (
+        <SwiperSlide key={index} style={slideStyle}>
+          <img src={brand.logo || 'null'} alt={brand.name} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+export default BrandBanner;
