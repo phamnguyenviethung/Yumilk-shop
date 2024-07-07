@@ -57,6 +57,14 @@ export const productApi = api.injectEndpoints({
       transformResponse: res => res.data,
       providesTags: ['Product'],
     }),
+    getAllReviews: build.query({
+      query: params => ({
+        url: `/products/reviews`,
+        params,
+      }),
+      transformResponse: res => res.data,
+      providesTags: ['Product'],
+    }),
     sendFeedback: build.mutation({
       query: ({ productId, body }) => ({
         url: `/products/${productId}/reviews`,
@@ -101,4 +109,5 @@ export const {
   useGetProductDetailQuery,
   useGetProductImgagesQuery,
   useSendFeedbackMutation,
+  useGetAllReviewsQuery,
 } = productApi;

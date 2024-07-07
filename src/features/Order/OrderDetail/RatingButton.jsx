@@ -19,11 +19,11 @@ import {
 import { useRef, useState } from 'react';
 import { PiStar, PiStarFill } from 'react-icons/pi';
 
-const RatingButton = ({ productId, orderId, productName }) => {
+const RatingButton = ({ productId, orderId, productName, data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = useRef(null);
-  const [rate, setRate] = useState(0);
-  const [review, setReview] = useState('');
+  const [rate, setRate] = useState(data?.rating ?? 0);
+  const [review, setReview] = useState(data?.review ?? '');
   const [sendFeedbackAPI, { isLoading }] = useSendFeedbackMutation();
   const toast = useToast();
 
@@ -60,9 +60,15 @@ const RatingButton = ({ productId, orderId, productName }) => {
 
   return (
     <>
-      <Text color='pink.400' onClick={onOpen} cursor='pointer'>
-        Đánh giá
-      </Text>
+      <Button
+        variant='ghost'
+        color='pink.400'
+        fontWeight={400}
+        onClick={onOpen}
+        cursor='pointer'
+      >
+        {!data ? 'Đánh gíá' : 'Xem đánh giá'}
+      </Button>
       <Modal
         finalFocusRef={finalRef}
         isOpen={isOpen}
@@ -94,8 +100,8 @@ const RatingButton = ({ productId, orderId, productName }) => {
                     }}
                     color='yellow.400'
                     cursor='pointer'
-                    onMouseEnter={() => setRate(n)}
-                    onClick={() => setRate(n)}
+                    onMouseEnter={() => setRate(data?.rating ?? n)}
+                    onClick={() => setRate(data?.rating ?? n)}
                   />
                 );
               })}
@@ -111,24 +117,28 @@ const RatingButton = ({ productId, orderId, productName }) => {
               colorScheme='pink'
               size='lg'
               rows='8'
+              readOnly={data}
             />
           </ModalBody>
           <ModalFooter>
-            <Button
-              colorScheme='red'
-              mr={3}
-              onClick={onClose}
-              variant='outline'
-            >
-              Huỷ
-            </Button>
+            {!data && (
+              <Button
+                colorScheme='red'
+                mr={3}
+                onClick={onClose}
+                variant='outline'
+              >
+                Huỷ
+              </Button>
+            )}
+
             <Button
               colorScheme='pink'
-              onClick={handeSubmit}
+              onClick={data ? onClose : handeSubmit}
               isDisabled={rate === 0}
               isLoading={isLoading}
             >
-              Gửi
+              {data ? 'Đóng' : 'Gửi'}
             </Button>
           </ModalFooter>
         </ModalContent>

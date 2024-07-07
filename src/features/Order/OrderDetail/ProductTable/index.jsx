@@ -36,6 +36,7 @@ const ProductTable = ({ data, orderId }) => {
             {data.orderDetail.map(product => {
               return (
                 <ProductRow
+                  isDelivered={data.orderStatus === order.DELIVERED.name}
                   key={product.productId}
                   orderId={orderId}
                   product={product}

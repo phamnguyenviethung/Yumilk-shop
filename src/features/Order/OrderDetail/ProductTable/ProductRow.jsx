@@ -1,9 +1,15 @@
 /* eslint-disable react/prop-types */
+import { useGetAllReviewsQuery } from '@/apis/productApi';
 import formatMoney from '@/utils/formatMoney';
-import { Box, HStack, Image, Td, Text, Tr } from '@chakra-ui/react';
+import { Box, Heading, HStack, Image, Td, Tr } from '@chakra-ui/react';
 import RatingButton from '../RatingButton';
 
-const ProductRow = ({ product, orderId }) => {
+const ProductRow = ({ product, orderId, isDelivered }) => {
+  const { data, isLoading } = useGetAllReviewsQuery({
+    orderId,
+    productId: product.productId,
+  });
+  if (isLoading) return <p>Loading...</p>;
   return (
     <Tr key={product.productId}>
       <Td>
@@ -21,7 +27,9 @@ const ProductRow = ({ product, orderId }) => {
               borderRadius='4px'
             />
           </Box>
-          <Text fontWeight='600'>{product.productName}</Text>
+          <Heading as='h6' fontSize='1rem' fontWeight='600'>
+            {product.productName}
+          </Heading>
         </HStack>
       </Td>
       <Td isNumeric>{product.quantity}</Td>
@@ -29,13 +37,16 @@ const ProductRow = ({ product, orderId }) => {
       <Td isNumeric color='pink.400' fontWeight='600' fontSize='1.2rem'>
         {formatMoney(product.itemPrice)}
       </Td>
-      <Td isNumeric>
-        <RatingButton
-          productId={product.productId}
-          orderId={orderId}
-          productName={product.productName}
-        />
-      </Td>
+      {isDelivered && (
+        <Td isNumeric>
+          <RatingButton
+            productId={product.productId}
+            orderId={orderId}
+            productName={product.productName}
+            data={data?.items.find(p => p.productId === product.productId)}
+          />
+        </Td>
+      )}
     </Tr>
   );
 };
