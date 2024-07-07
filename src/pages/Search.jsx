@@ -1,5 +1,6 @@
 import GridProductList from '@/features/Product/ProductList/GridProductList';
 import Filter from '@/features/Search/Filter';
+import Sort from '@/features/Search/Sort';
 import { Box, Container, Flex, Text } from '@chakra-ui/react';
 import queryString from 'query-string';
 import { useState } from 'react';
@@ -15,9 +16,9 @@ const Search = () => {
           Kết quả tìm kiếm <b>{searchPararm.get('keyword') || ''}</b>
         </Text>
       </Box>
-      <Flex mt={16} justifyContent='space-between'>
+      <Flex mt={16} mb={2} justifyContent='space-between'>
         <Filter setQueryStr={setQueryStr} />
-        <Box>delete</Box>
+        <Sort setQueryStr={setQueryStr} />
       </Flex>
       <GridProductList
         queryStr={queryString.stringify(queryStr)}
