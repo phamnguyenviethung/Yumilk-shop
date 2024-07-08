@@ -1,5 +1,5 @@
 import { useGetAllBrandQuery } from '@/apis/brandApi';
-import { Image } from '@chakra-ui/react';
+import { Center, Image } from '@chakra-ui/react';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
@@ -11,19 +11,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 const BrandBanner = () => {
   const { data: brandData } = useGetAllBrandQuery();
 
-  // Inline style for slides
-  const slideStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%', // Adjust width as needed
-  };
-
   return (
     <Swiper
       modules={[Pagination, A11y, Grid]}
       spaceBetween={4}
-      slidesPerView={4}
+      slidesPerView={2}
       breakpoints={{
         480: {
           slidesPerView: 2,
@@ -32,11 +24,10 @@ const BrandBanner = () => {
           slidesPerView: 3,
         },
         992: {
-          slidesPerView: 5,
+          slidesPerView: 4,
         },
       }}
       pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
       grid={{
         fill: 'row',
         rows: 2,
@@ -44,15 +35,18 @@ const BrandBanner = () => {
       slideToClickedSlide={true}
     >
       {(brandData?.items || []).map(brand => (
-        <SwiperSlide key={brand.logo} style={slideStyle}>
-          <Image
-            boxSize={[100, 120, 150]}
-            src={
-              brand.logo ||
-              'https://cdn-v2.kidsplaza.vn/media/amasty/shopby/option_images/slider/bobby-logo-.jpg'
-            }
-            alt={brand.name}
-          />
+        <SwiperSlide key={brand.logo} style={{ minHeight: '120px' }}>
+          <Center boxSize='full'>
+            <Image
+              borderRadius='10px'
+              boxSize={100}
+              src={
+                brand.logo ||
+                'https://cdn-v2.kidsplaza.vn/media/amasty/shopby/option_images/slider/bobby-logo-.jpg'
+              }
+              alt={brand.name}
+            />
+          </Center>
         </SwiperSlide>
       ))}
     </Swiper>
