@@ -50,6 +50,11 @@ const Product = ({ data }) => {
               Bán chạy
             </Tag>
           )}
+          {data.statusId === 2 && (
+            <Tag colorScheme='pink' variant='solid'>
+              Đặt trước
+            </Tag>
+          )}
         </VStack>
       </Center>
       <Flex w direction='column' flex='1' justifyContent='space-between'>
@@ -72,14 +77,18 @@ const Product = ({ data }) => {
             {' '}
             {data.name}
           </Text>
-          <HStack w='full' gap='1' my={1}>
-            <Icon as={PiStarFill} color='yellow.500' />
-            <Icon as={PiStarFill} color='yellow.500' />
-            <Icon as={PiStarFill} color='yellow.500' />
-            <Icon as={PiStarFill} color='yellow.500' />
-            <Icon as={PiStarFill} color='yellow.500' />
-          </HStack>
-          <Text fontSize='0.85rem'>Đã bán {data.orderCount}</Text>
+          {data.statusId !== 2 && (
+            <>
+              <HStack w='full' gap='1' my={1}>
+                <Icon as={PiStarFill} color='yellow.500' />
+                <Icon as={PiStarFill} color='yellow.500' />
+                <Icon as={PiStarFill} color='yellow.500' />
+                <Icon as={PiStarFill} color='yellow.500' />
+                <Icon as={PiStarFill} color='yellow.500' />
+              </HStack>
+              <Text fontSize='0.85rem'>Đã bán {data.orderCount}</Text>
+            </>
+          )}
         </Box>
 
         <Flex justifyContent='space-between' my={2} alignItems='center'>
@@ -116,17 +125,30 @@ const Product = ({ data }) => {
             </Flex>
 
             <Flex justifyContent='space-between' w='full' alignItems='center'>
-              <Heading
-                as='s'
-                fontSize={{
-                  base: '1rem',
-                  lg: '1.1rem',
-                }}
-                fontWeight='400'
-                color='gray.500'
-              >
-                {data.salePrice === 0 ? '' : formatMoney(data.originalPrice)}
-              </Heading>
+              {data.statusId === 2 ? (
+                <Text
+                  fontSize={{
+                    base: '0.85rem',
+                    lg: '0.9rem',
+                  }}
+                  fontWeight='500'
+                  color='gray.500'
+                >
+                  Đặt trước để nhận giá tốt
+                </Text>
+              ) : (
+                <Heading
+                  as='s'
+                  fontSize={{
+                    base: '1rem',
+                    lg: '1.1rem',
+                  }}
+                  fontWeight='400'
+                  color='gray.500'
+                >
+                  {data.salePrice === 0 ? '' : formatMoney(data.originalPrice)}
+                </Heading>
+              )}
             </Flex>
           </VStack>
         </Flex>

@@ -23,14 +23,16 @@ const GridProductList = ({ heading, params, queryStr }) => {
       </Box>
     );
   return (
-    <Box my={4}>
+    <Box my={8}>
       <Box w='full' mb={4}>
         <Heading
           as='h6'
-          fontWeight='600'
+          color='black.500'
+          fontWeight='400'
+          fontFamily="'Paytone One', sans-serif"
           fontSize={{
-            base: '1.2rem',
-            lg: '1.5rem',
+            base: '1.4rem',
+            lg: '1.6rem',
           }}
         >
           {heading}

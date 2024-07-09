@@ -1,5 +1,4 @@
 import { api } from './api';
-import PRODUCT from '@/constants/product';
 export const productApi = api.injectEndpoints({
   endpoints: build => ({
     getSellingProduct: build.query({
@@ -8,7 +7,6 @@ export const productApi = api.injectEndpoints({
           url: `/products?` + (queryStr ? queryStr : ''),
           params: {
             isActive: true,
-            status: PRODUCT.SELLING_STATUS,
             pageSize: 15,
             ...params,
           },

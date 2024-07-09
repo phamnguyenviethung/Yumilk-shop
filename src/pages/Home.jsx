@@ -22,6 +22,15 @@ const Home = () => {
         />
       </Box>
       <Box>
+        <SliderProductList
+          heading='Đặt trước'
+          params={{
+            pageSize: 10,
+            statusIds: [2],
+          }}
+        />
+      </Box>
+      <Box>
         <GridProductList
           heading='Có thể bạn quan tâm'
           params={{
