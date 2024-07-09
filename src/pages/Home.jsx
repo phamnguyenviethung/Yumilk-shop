@@ -18,6 +18,7 @@ const Home = () => {
           params={{
             onSale: true,
             pageSize: 10,
+            statusIds: [1],
           }}
         />
       </Box>
@@ -37,6 +38,7 @@ const Home = () => {
             pageSize: 20,
             SortColumn: 'ordercount',
             SortOrder: 'desc',
+            statusIds: [1],
           }}
         />
       </Box>

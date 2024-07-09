@@ -5,6 +5,7 @@ import formatMoney from '@/utils/formatMoney';
 import {
   Box,
   Button,
+  HStack,
   Heading,
   Icon,
   Stack,
@@ -12,6 +13,18 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
+import dayjs from 'dayjs';
+
+const InfoText = ({ name, value }) => {
+  return (
+    <HStack justifyContent='space-between'>
+      <Text>{name}</Text>
+      <Text color='pink.400' fontWeight={600}>
+        {value}
+      </Text>
+    </HStack>
+  );
+};
 
 const PreOrderProductInfo = ({ productData }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,6 +69,39 @@ const PreOrderProductInfo = ({ productData }) => {
             )}
           </Text>
         </Box>
+      </VStack>
+      <VStack
+        w='full'
+        gap='4'
+        p={4}
+        border='1px solid'
+        borderColor='pink.400'
+        borderRadius='10px'
+        alignItems='flex-start'
+      >
+        <InfoText
+          name='Ngày mở bán:'
+          value={dayjs(productData.startDate)
+            .add(dayjs().utcOffset(), 'minutes')
+            .format('HH:mm DD/MM/YYYY')}
+        />
+        <InfoText
+          name='Ngày kết thúc:'
+          value={dayjs(productData.endDate)
+            .add(dayjs().utcOffset(), 'minutes')
+            .format('HH:mm DD/MM/YYYY')}
+        />
+        <InfoText
+          name='Số lượng còn lại:'
+          value={productData.maxPreOrderQuantity}
+        />
+        <InfoText
+          name='Dự kiến giao hàng:'
+          value={dayjs(productData.endDate)
+            .add(productData.expectedPreOrderDays, 'day')
+            .add(dayjs().utcOffset(), 'minutes')
+            .format('DD/MM/YYYY')}
+        />
       </VStack>
       <Stack flexDirection='column' w='full' gap='2' flex='2'>
         <Stack
