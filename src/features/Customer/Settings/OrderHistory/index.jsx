@@ -67,7 +67,7 @@ const OrderHistory = () => {
                       to={`/order/${order.orderId}`}
                       color='pink.400'
                     >
-                      {order.orderId.slice(-5)}
+                      {order.id.slice(-5)}
                     </ChakraLink>
                   </Td>
                   <Td>{order.productList.length} sản phẩm</Td>
