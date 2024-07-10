@@ -104,7 +104,7 @@ const OrderHistory = () => {
                   <Td>
                     <ChakraLink
                       as={Link}
-                      to={`/order/${order.orderId}`}
+                      to={`/order/${order.id}`}
                       color='pink.400'
                       fontWeight='500'
                       fontSize='0.95rem'
