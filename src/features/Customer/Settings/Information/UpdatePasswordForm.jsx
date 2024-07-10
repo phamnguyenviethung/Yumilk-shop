@@ -8,15 +8,7 @@ const UpdatePasswordForm = () => {
   const toast = useToast();
   const [updatePasswordAPI, { isLoading }] = useUpdatePasswordMutation();
   const validationSchema = yup.object().shape({
-    oldPassword: yup
-      .string()
-      .min(8, 'Mật khẩu phải tối thiểu 8 kí tự')
-      .max(255, 'Mật khẩu tối đa chỉ được 255 kí tự')
-      .required('Vui lòng không bỏ trống')
-      .matches('^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$', {
-        message:
-          'Mật khẩu phải có ít nhất 1 số, 1 kí tự đặc biệt, 1 chữ hoa và 1 chữ thường',
-      }),
+    oldPassword: yup.string().required('Vui lòng không bỏ trống'),
     newPassword: yup
       .string()
       .min(8, 'Mật khẩu phải tối thiểu 8 kí tự')
