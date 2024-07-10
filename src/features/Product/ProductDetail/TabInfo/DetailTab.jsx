@@ -1,9 +1,11 @@
+import { Box } from '@chakra-ui/react';
+import './style.css';
 // eslint-disable-next-line react/prop-types
 const DetailTab = ({ description }) => {
   return (
-    <div>
-      <p dangerouslySetInnerHTML={{ __html: description }}></p>
-    </div>
+    <Box className='yumilk-product-description'>
+      <div dangerouslySetInnerHTML={{ __html: description }}></div>
+    </Box>
   );
 };
 

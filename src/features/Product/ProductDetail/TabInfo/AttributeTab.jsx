@@ -11,8 +11,8 @@ const AttributeTab = () => {
         <Table variant='simple'>
           <Thead>
             <Tr>
-              <Th>Attribute Name</Th>
-              <Th>Value</Th>
+              <Th>Thuộc tính</Th>
+              <Th>Giá trị</Th>
             </Tr>
           </Thead>
           <Tbody>
