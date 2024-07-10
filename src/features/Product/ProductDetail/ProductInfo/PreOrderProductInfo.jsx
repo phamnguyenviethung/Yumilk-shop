@@ -14,6 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
 const InfoText = ({ name, value }) => {
   return (
@@ -27,6 +28,7 @@ const InfoText = ({ name, value }) => {
 };
 
 const PreOrderProductInfo = ({ productData }) => {
+  const auth = useSelector(state => state.auth);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <VStack
@@ -122,15 +124,19 @@ const PreOrderProductInfo = ({ productData }) => {
               colorScheme='pink'
               leftIcon={<Icon as={CartIcon} fontWeight='800' />}
               onClick={onOpen}
-              isDisabled={productData.quantity === 0}
+              isDisabled={productData.quantity === 0 || !auth.isAuthenticated}
             >
-              Đặt trước ngay
+              {!auth.isAuthenticated
+                ? 'Đăng nhập để tiếp tục'
+                : 'Đặt trước ngay'}
             </Button>
-            <PreOrderCheckoutModal
-              isOpen={isOpen}
-              onClose={onClose}
-              productData={productData}
-            />
+            {auth.isAuthenticated && (
+              <PreOrderCheckoutModal
+                isOpen={isOpen}
+                onClose={onClose}
+                productData={productData}
+              />
+            )}
           </Box>
         </Stack>
       </Stack>
