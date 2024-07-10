@@ -6,9 +6,12 @@ import { useSelector } from 'react-redux';
 
 const Address = () => {
   const authState = useSelector(state => state.auth);
-  const { data, isLoading } = useGetMyAddressQuery(authState, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isLoading } = useGetMyAddressQuery(
+    authState?.userData?.userID,
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   if (isLoading) return <p>Loading...</p>;
 
   return (

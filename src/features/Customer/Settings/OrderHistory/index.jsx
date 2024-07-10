@@ -22,17 +22,23 @@ import 'dayjs/locale/vi';
 import utc from 'dayjs/plugin/utc'; // ES 2015
 import { useState } from 'react';
 import { PiArrowLeft, PiArrowRight } from 'react-icons/pi';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 dayjs.locale('vi');
 dayjs.extend(utc);
 
 const OrderHistory = () => {
+  const authState = useSelector(state => state.auth);
+
   const [page, setPage] = useState(1);
   const { data, isLoading } = useGetOrderHistoryQuery({
-    pageSize: 10,
-    page,
-    sortColumn: 'createdAt',
-    sortOrder: 'desc',
+    id: authState?.userData?.userID,
+    params: {
+      pageSize: 10,
+      page,
+      sortColumn: 'createdAt',
+      sortOrder: 'desc',
+    },
   });
   if (isLoading) return <p>Loading...</p>;
   return (

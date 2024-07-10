@@ -38,8 +38,8 @@ export const orderApi = api.injectEndpoints({
       providesTags: ['Fee'],
     }),
     getOrderHistory: build.query({
-      query: params => ({
-        url: '/customer/orders',
+      query: ({ id, params }) => ({
+        url: `/users/${id}/orders`,
         method: 'GET',
         params,
       }),
@@ -47,8 +47,8 @@ export const orderApi = api.injectEndpoints({
       providesTags: ['Order'],
     }),
     getOrderDetail: build.query({
-      query: id => ({
-        url: `/customer/orders/${id}`,
+      query: ({ id, userID }) => ({
+        url: `/users/${userID}/orders/${id}`,
         method: 'GET',
       }),
       transformResponse: res => res.data,

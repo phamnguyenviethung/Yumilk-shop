@@ -28,8 +28,8 @@ export const customerApi = api.injectEndpoints({
       invalidatesTags: ['Auth', 'Customer'],
     }),
     getMyAddress: build.query({
-      query: () => ({
-        url: '/user/account/addresses',
+      query: id => ({
+        url: `/users/${id}/addresses`,
         method: 'GET',
       }),
       transformResponse: res => res.data,

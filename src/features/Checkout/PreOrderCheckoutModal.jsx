@@ -35,9 +35,12 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { PiArrowLeft, PiArrowRight } from 'react-icons/pi';
+import { useSelector } from 'react-redux';
 
 const PreOrderCheckoutModal = ({ isOpen, onClose, productData }) => {
   const [quantity, setQuantity] = useState(1);
+  const authState = useSelector(state => state.auth);
+
   const [addressIndex, setAddressIndex] = useState(0);
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
@@ -48,7 +51,7 @@ const PreOrderCheckoutModal = ({ isOpen, onClose, productData }) => {
     data: addressData,
     isLoading: addressLoading,
     isFetching: addressFetching,
-  } = useGetMyAddressQuery();
+  } = useGetMyAddressQuery(authState?.userData?.userID);
   const { data: shippingFee, isFetching } = useGetShippingFeeQuery(
     {
       fromDistrictId:

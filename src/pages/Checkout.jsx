@@ -30,7 +30,9 @@ const Checkout = () => {
   const [note, setNote] = useState('');
   const [paymentMethod, setPaymentMethod] = useState(order.COD_PAYMENT);
 
-  const { data, isLoading, isFetching } = useGetMyAddressQuery();
+  const { data, isLoading, isFetching } = useGetMyAddressQuery(
+    authState?.userData?.userID
+  );
   const [
     checkoutAPI,
     { isLoading: checkoutLoading, isFetching: checkoutFetching },
