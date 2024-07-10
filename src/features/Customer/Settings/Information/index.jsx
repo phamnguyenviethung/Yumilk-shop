@@ -15,6 +15,7 @@ import { FastField, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import ChangeUsernameModal from './ChangeUsernameModal';
 import UpdatePasswordForm from './UpdatePasswordForm';
 
 const Information = () => {
@@ -82,7 +83,7 @@ const Information = () => {
                 ]}
                 gap='4'
               >
-                <Box flex='1' w='full'>
+                <VStack alignItems='flex-start' gap='2' flex='1' w='full'>
                   <FastField
                     component={InputField}
                     placeholder='Tên đăng nhập'
@@ -94,6 +95,7 @@ const Information = () => {
                     border='0'
                     outline='0'
                   />
+                  <ChangeUsernameModal />
                   <FastField
                     component={InputField}
                     placeholder='Email'
@@ -105,7 +107,7 @@ const Information = () => {
                     border='0'
                     outline='0'
                   />
-                </Box>
+                </VStack>
                 <VStack flex='1' gap='4'>
                   <Avatar
                     name={

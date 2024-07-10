@@ -33,7 +33,7 @@ export const customerApi = api.injectEndpoints({
         method: 'GET',
       }),
       transformResponse: res => res.data,
-      providesTags: ['Address'],
+      providesTags: ['Auth', 'Customer'],
     }),
     addNewAddress: build.mutation({
       query: data => ({
@@ -42,7 +42,7 @@ export const customerApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Address'],
+      invalidatesTags: ['Auth', 'Customer'],
     }),
     updateMyAddress: build.mutation({
       query: data => ({
@@ -51,7 +51,7 @@ export const customerApi = api.injectEndpoints({
         body: data,
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Address'],
+      invalidatesTags: ['Auth', 'Customer'],
     }),
     deleteMyAddress: build.mutation({
       query: id => ({
@@ -59,7 +59,16 @@ export const customerApi = api.injectEndpoints({
         method: 'DELETE',
       }),
       transformResponse: res => res.data,
-      invalidatesTags: ['Address'],
+      invalidatesTags: ['Auth', 'Customer'],
+    }),
+    changeUsername: build.mutation({
+      query: body => ({
+        url: `/user/account/change-username`,
+        method: 'PATCH',
+        body,
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Auth', 'Customer'],
     }),
   }),
 });
@@ -72,4 +81,5 @@ export const {
   useUpdatePasswordMutation,
   useUpdateMyAddressMutation,
   useDeleteMyAddressMutation,
+  useChangeUsernameMutation,
 } = customerApi;
