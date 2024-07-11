@@ -26,14 +26,14 @@ const sortQueryList = [
   {
     name: 'Giá: Thấp - Cao',
     query: {
-      SortColumn: 'originalPrice',
+      SortColumn: 'salePrice',
       SortOrder: 'asc',
     },
   },
   {
     name: 'Giá: Cao - Thấp',
     query: {
-      SortColumn: 'originalPrice',
+      SortColumn: 'salePrice',
       SortOrder: 'desc',
     },
   },
