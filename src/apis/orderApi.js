@@ -22,7 +22,7 @@ export const orderApi = api.injectEndpoints({
 
     cancelOrder: build.mutation({
       query: id => ({
-        url: `/customer/orders/${id}/cancel`,
+        url: `/user/orders/${id}/cancel`,
         method: 'PATCH',
       }),
       transformResponse: res => res.data,
