@@ -168,7 +168,7 @@ const Address = ({ data }) => {
 
             <Text
               color='gray.500'
-              display={data.isDefault ? 'block' : 'none'}
+              display={!data.isDefault ? 'block' : 'none'}
               mt={2}
               cursor='pointer'
               onClick={deleteDisclosure.onOpen}
