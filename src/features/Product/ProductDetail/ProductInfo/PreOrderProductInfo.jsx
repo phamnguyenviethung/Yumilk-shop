@@ -124,7 +124,9 @@ const PreOrderProductInfo = ({ productData }) => {
               colorScheme='pink'
               leftIcon={<Icon as={CartIcon} fontWeight='800' />}
               onClick={onOpen}
-              isDisabled={productData.quantity === 0 || !auth.isAuthenticated}
+              isDisabled={
+                productData.maxPreOrderQuantity === 0 || !auth.isAuthenticated
+              }
             >
               {!auth.isAuthenticated
                 ? 'Đăng nhập để tiếp tục'
