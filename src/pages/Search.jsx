@@ -25,6 +25,7 @@ const Search = () => {
         params={{
           pageSize: 30,
           searchTerm: searchPararm.get('keyword') || '',
+          statusIds: 1,
         }}
       />
     </Container>

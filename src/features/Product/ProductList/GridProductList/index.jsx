@@ -11,6 +11,7 @@ const GridProductList = ({ heading, params, queryStr }) => {
     params: {
       ...params,
       pageSize: params?.pageSize ? params.pageSize * page : 10 * page,
+      isActive: true,
     },
     queryStr,
   });
