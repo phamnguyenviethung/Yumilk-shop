@@ -2,6 +2,7 @@ import { useGetMyAddressQuery } from '@/apis/customerApi';
 import { useCheckOutMutation, useGetShippingFeeQuery } from '@/apis/orderApi';
 import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 import NoAddressDialog from '@/components/Dialog/NoAddressDialog';
+import Loading from '@/components/Loading';
 import order from '@/constants/order';
 import AddressSelect from '@/features/Checkout/AddressSelect';
 import Fee from '@/features/Checkout/Fee';
@@ -52,7 +53,7 @@ const Checkout = () => {
     setSelectIndex(n);
   };
 
-  if (isLoading || cartLoading) return <p>loading..</p>;
+  if (isLoading || cartLoading) return <Loading />;
   const handleClick = async () => {
     try {
       const d = {

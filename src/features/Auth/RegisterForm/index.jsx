@@ -110,7 +110,7 @@ const RegisterForm = () => {
                   <VStack>
                     <FastField
                       component={InputField}
-                      placeholder='username'
+                      placeholder='Tên đăng nhập'
                       label='Tên đăng nhập'
                       name='username'
                       required={true}
@@ -180,7 +180,7 @@ const RegisterForm = () => {
                     disabled={formikProps.isSubmitting}
                     isLoading={formikProps.isSubmitting}
                     type='submit'
-                    bg={'pink.400'}
+                    colorScheme='pink'
                     w='full'
                   >
                     Đăng ký

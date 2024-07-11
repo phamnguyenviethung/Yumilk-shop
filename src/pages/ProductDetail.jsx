@@ -1,4 +1,5 @@
 import { useGetProductDetailQuery } from '@/apis/productApi';
+import Loading from '@/components/Loading';
 import product from '@/constants/product';
 import ProductImages from '@/features/Product/ProductDetail/ProcutImages';
 import ProductInfo from '@/features/Product/ProductDetail/ProductInfo';
@@ -10,7 +11,7 @@ const ProductDetail = () => {
   const nav = useNavigate();
   const { id } = useParams();
   const { data, isLoading } = useGetProductDetailQuery(id);
-  if (isLoading) return <p>ss</p>;
+  if (isLoading) return <Loading />;
   if (data.statusId === product.PRE_ORDER_STATUS) {
     nav(`/preorder/${id}`);
   }
