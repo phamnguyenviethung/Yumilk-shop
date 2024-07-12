@@ -36,8 +36,6 @@ const OrderHistory = () => {
     params: {
       pageSize: 10,
       page,
-      sortColumn: 'createdAt',
-      sortOrder: 'desc',
     },
   });
   if (isLoading) return <p>Loading...</p>;
@@ -58,7 +56,6 @@ const OrderHistory = () => {
           </Thead>
           <Tbody>
             {data.items.map(order => {
-              console.log(dayjs().utcOffset());
               return (
                 <Tr key={order.orderId}>
                   <Td>
@@ -78,19 +75,25 @@ const OrderHistory = () => {
                       .format('HH:mm DD/MM/YYYY')}
                   </Td>
                   <Td>
-                    <Tag
-                      variant='solid'
-                      size='md'
-                      colorScheme={
-                        order.paymentMethod === orderConstant.COD_PAYMENT
-                          ? 'blue'
-                          : 'green'
-                      }
-                    >
-                      {order.paymentMethod !== orderConstant.COD_PAYMENT
-                        ? 'Thanh toán qua ngân hàng'
-                        : 'Thanh toán bằng tiền mặt'}
-                    </Tag>
+                    {order.isPreorder ? (
+                      <Tag variant='solid' size='md' colorScheme='pink'>
+                        Đặt trước
+                      </Tag>
+                    ) : (
+                      <Tag
+                        variant='solid'
+                        size='md'
+                        colorScheme={
+                          order.paymentMethod === orderConstant.COD_PAYMENT
+                            ? 'blue'
+                            : 'green'
+                        }
+                      >
+                        {order.paymentMethod !== orderConstant.COD_PAYMENT
+                          ? 'Thanh toán qua ngân hàng'
+                          : 'Thanh toán bằng tiền mặt'}
+                      </Tag>
+                    )}
                   </Td>
                   <Td>
                     <Tag
