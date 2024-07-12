@@ -28,7 +28,7 @@ export default {
   },
   RETURNED: {
     name: 'Preordered',
-    text: 'Trả hàng',
+    text: 'Đặt trước',
     color: 'cyan',
   },
 };
