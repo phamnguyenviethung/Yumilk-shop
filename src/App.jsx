@@ -8,6 +8,7 @@ import { useGetMeQuery } from './apis/customerApi';
 import { updateUserData } from './features/Auth/authSlice';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './configs/firebase';
+import ScrollToTop from './components/ScrollToTop';
 function App() {
   const authState = useSelector(state => state.auth);
 
@@ -30,34 +31,37 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      {routes.map((route, i) => {
-        const Layout = route.layout;
+    <>
+      <ScrollToTop />
+      <Routes>
+        {routes.map((route, i) => {
+          const Layout = route.layout;
 
-        return (
-          <Route key={i} element={<Layout />}>
-            {route.data.map(item => {
-              const Component = item.component;
-              return (
-                <Route
-                  key={item.path}
-                  path={item.path}
-                  element={
-                    <AuthCheck
-                      shouldLogin={item?.auth?.shouldLogin}
-                      shouldLogout={item?.auth?.shouldLogout}
-                    >
-                      <Component />
-                    </AuthCheck>
-                  }
-                />
-              );
-            })}
-          </Route>
-        );
-      })}
-      <Route path='*' element={<NotFound />} />
-    </Routes>
+          return (
+            <Route key={i} element={<Layout />}>
+              {route.data.map(item => {
+                const Component = item.component;
+                return (
+                  <Route
+                    key={item.path}
+                    path={item.path}
+                    element={
+                      <AuthCheck
+                        shouldLogin={item?.auth?.shouldLogin}
+                        shouldLogout={item?.auth?.shouldLogout}
+                      >
+                        <Component />
+                      </AuthCheck>
+                    }
+                  />
+                );
+              })}
+            </Route>
+          );
+        })}
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 

@@ -73,7 +73,7 @@ const ApplyVoucher = ({ cartState }) => {
             ? 'Voucher hợp lệ'
             : isError
             ? error.data.message
-            : 'Voucher không hợp lệ'}
+            : 'Voucher không hợp lệ hoặc không đủ điều kiện sử dụng'}
         </Text>
       )}
       <Button
