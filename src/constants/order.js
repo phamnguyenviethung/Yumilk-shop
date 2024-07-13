@@ -3,12 +3,12 @@ export default {
   PAYOS_PAYMENT: 'PAYOS',
   PENDING: {
     name: 'Pending',
-    text: 'Đang chờ thanh toán',
+    text: 'Đang chờ xác nhận',
     color: 'blue',
   },
   PROCESSING: {
     name: 'Processing',
-    text: 'Đang xử lý',
+    text: 'Đang đóng gói',
     color: 'purple',
   },
   SHIPPED: {

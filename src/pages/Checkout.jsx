@@ -8,6 +8,7 @@ import AddressSelect from '@/features/Checkout/AddressSelect';
 import Fee from '@/features/Checkout/Fee';
 import PaymentMethods from '@/features/Checkout/PaymentMethods';
 import ProductList from '@/features/Checkout/ProductList';
+import UsePoint from '@/features/Checkout/UsePoint';
 import {
   Button,
   Container,
@@ -61,6 +62,7 @@ const Checkout = () => {
         paymentMethod,
         addressId: data[selectIndex].id,
         shippingFee: shippingFee.total,
+        isUsingPoint: cartState?.data?.isUsingPoint,
       };
       const res = await checkoutAPI(d);
       if (res.error) throw res.error.data;
@@ -118,6 +120,7 @@ const Checkout = () => {
               />
             </>
           )}
+          <UsePoint />
           <Fee cartState={cartState} shippingFee={shippingFee} />
           <Button
             mt={2}
@@ -125,7 +128,7 @@ const Checkout = () => {
             colorScheme='pink'
             w='full'
             onClick={handleClick}
-            isDisabled={cartState.data.cartItems.totalCount === 0}
+            isDisabled={cartState?.data?.cartItems?.totalCount === 0}
             isLoading={checkoutLoading || checkoutFetching}
           >
             Đặt hàng

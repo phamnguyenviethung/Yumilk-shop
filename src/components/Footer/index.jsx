@@ -1,110 +1,141 @@
-import logo from '@/assets/logo.png';
+/* eslint-disable react/prop-types */
 import {
   Box,
-  Flex,
-  HStack,
-  Heading,
-  Icon,
-  Image,
-  Link,
+  Container,
+  SimpleGrid,
   Stack,
   Text,
+  Flex,
+  Tag,
+  useColorModeValue,
+  Image,
 } from '@chakra-ui/react';
-import { IoLocationOutline } from 'react-icons/io5';
-import { MdLocalPhone, MdOutlineAlternateEmail } from 'react-icons/md';
+import logo from '@/assets/logo.png';
+const Logo = () => {
+  return <Image src={logo} boxSize={[120, 150]} />;
+};
 
-const Footer = () => {
+const ListHeader = ({ children }) => {
   return (
-    <Box
-      as='footer'
-      mt='8'
-      borderTop='0.8px solid'
-      borderColor='gray.200'
-      py={4}
-    >
-      <Box
-        maxW='64rem'
-        marginX='auto'
-        pb='2rem'
-        mb='1.5rem'
-        px={10}
-        borderBottom='1px solid'
-        borderColor='gray.300'
-      >
-        <Flex
-          flexWrap={'wrap'}
-          alignItems={'start'}
-          justifyContent={'space-between'}
-        >
-          <Box
-            w={{ base: '100%', sm: '50%', md: 'max-content' }}
-            mb={{ base: '1.5rem', lg: '0' }}
-          >
-            <Image src={logo} boxSize='100px'></Image>
-            <Stack>
-              <Text>"Cửa hàng sữa cho mẹ bầu và em bé"</Text>
-              <HStack>
-                <Icon as={IoLocationOutline} />
-                <Text fontWeight={'bold'}>Địa chỉ:</Text>
-                <Text>Thành phố Hồ Chí Minh</Text>
-              </HStack>
-              <HStack>
-                <Icon as={MdLocalPhone} />
-                <Text fontWeight={'bold'}>Liên hệ:</Text>
-                <Text>0123456789</Text>
-              </HStack>
-              <HStack>
-                <Icon as={MdOutlineAlternateEmail} />
-                <Text fontWeight={'bold'}>Email:</Text>
-                <Text>yumilk@gmail.com</Text>
-              </HStack>
-            </Stack>
-          </Box>
-          <Box
-            w={{ base: '100%', sm: '50%', md: 'max-content' }}
-            mb={{ base: '1.5rem', lg: '0' }}
-          >
-            <Heading
-              color='gray.700'
-              mb='0.5rem'
-              fontSize='0.875rem'
-              fontWeight='600'
-            >
-              Về chúng tôi
-            </Heading>
-            <Stack>
-              <Link>Trang chủ</Link>
-              <Link>Giới thiệu</Link>
-              <Link>Liên hệ</Link>
-              <Link>Dịch vụ</Link>
-            </Stack>
-          </Box>
-          <Box
-            w={{ base: '100%', sm: '50%', md: 'max-content' }}
-            mb={{ base: '1.5rem', lg: '0' }}
-          >
-            <Heading
-              color='gray.700'
-              mb='0.5rem'
-              fontSize='0.875rem'
-              fontWeight='600'
-            >
-              Hỗ trợ khách hàng
-            </Heading>
-            <Stack>
-              <Link>Tra cứu hoá đơn</Link>
-              <Link>Hình thức thanh toán</Link>
-            </Stack>
-          </Box>
-        </Flex>
-      </Box>
-      <Flex maxW='64rem' mx='auto' alignItems='center' px={10}>
-        <Text color='gray.600' fontSize='0.875rem' pl='0.5rem'>
-          &copy; 2024 Yumilk. All rights reserved.
-        </Text>
-      </Flex>
-    </Box>
+    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
+      {children}
+    </Text>
   );
 };
 
-export default Footer;
+export default function LargeWithLogoCentered() {
+  return (
+    <Box bg={'gray.50'} color={'gray.700'}>
+      <Container as={Stack} maxW={'6xl'} py={10}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
+          <Stack align={'flex-start'}>
+            <ListHeader>Product</ListHeader>
+            <Box as='a' href={'#'}>
+              Overview
+            </Box>
+            <Stack direction={'row'} align={'center'} spacing={2}>
+              <Box as='a' href={'#'}>
+                Features
+              </Box>
+              <Tag
+                size={'sm'}
+                bg={useColorModeValue('green.300', 'green.800')}
+                ml={2}
+                color={'white'}
+              >
+                New
+              </Tag>
+            </Stack>
+            <Box as='a' href={'#'}>
+              Tutorials
+            </Box>
+            <Box as='a' href={'#'}>
+              Pricing
+            </Box>
+            <Box as='a' href={'#'}>
+              Releases
+            </Box>
+          </Stack>
+          <Stack align={'flex-start'}>
+            <ListHeader>Company</ListHeader>
+            <Box as='a' href={'#'}>
+              About Us
+            </Box>
+            <Box as='a' href={'#'}>
+              Press
+            </Box>
+            <Box as='a' href={'#'}>
+              Careers
+            </Box>
+            <Box as='a' href={'#'}>
+              Contact Us
+            </Box>
+            <Box as='a' href={'#'}>
+              Partners
+            </Box>
+          </Stack>
+          <Stack align={'flex-start'}>
+            <ListHeader>Legal</ListHeader>
+            <Box as='a' href={'#'}>
+              Cookies Policy
+            </Box>
+            <Box as='a' href={'#'}>
+              Privacy Policy
+            </Box>
+            <Box as='a' href={'#'}>
+              Terms of Service
+            </Box>
+            <Box as='a' href={'#'}>
+              Law Enforcement
+            </Box>
+            <Box as='a' href={'#'}>
+              Status
+            </Box>
+          </Stack>
+          <Stack align={'flex-start'}>
+            <ListHeader>Follow Us</ListHeader>
+            <Box as='a' href={'#'}>
+              Facebook
+            </Box>
+            <Box as='a' href={'#'}>
+              Twitter
+            </Box>
+            <Box as='a' href={'#'}>
+              Dribbble
+            </Box>
+            <Box as='a' href={'#'}>
+              Instagram
+            </Box>
+            <Box as='a' href={'#'}>
+              LinkedIn
+            </Box>
+          </Stack>
+        </SimpleGrid>
+      </Container>
+      <Box py={10}>
+        <Flex
+          align={'center'}
+          _before={{
+            content: '""',
+            borderBottom: '1px solid',
+            borderColor: useColorModeValue('gray.200', 'gray.700'),
+            flexGrow: 1,
+            mr: 8,
+          }}
+          _after={{
+            content: '""',
+            borderBottom: '1px solid',
+            borderColor: useColorModeValue('gray.200', 'gray.700'),
+            flexGrow: 1,
+            ml: 8,
+          }}
+        >
+          <Logo />
+        </Flex>
+        <Text pt={6} fontSize={'sm'} textAlign={'center'}>
+          © 2022 Chakra Templates. All rights reserved
+        </Text>
+      </Box>
+    </Box>
+  );
+}

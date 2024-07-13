@@ -2,9 +2,13 @@ import { api } from './api';
 export const cartApi = api.injectEndpoints({
   endpoints: build => ({
     getCart: build.query({
-      query: ({ userID }) => ({
+      query: ({ userID, params }) => ({
         url: `/user/${userID}/cart`,
         method: 'GET',
+        params: {
+          isUsingPoint: false,
+          ...params,
+        },
       }),
       transformResponse: res => res.data,
       providesTags: ['Cart'],

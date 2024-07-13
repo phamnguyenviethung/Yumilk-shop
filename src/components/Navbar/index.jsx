@@ -16,6 +16,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Tag,
   useTheme,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
@@ -37,6 +38,7 @@ const Navbar = () => {
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
           <Image src={logo} boxSize='180px' objectFit='cover'></Image>
         </ChakraLink>
+
         <Box
           display={{
             base: 'none',
@@ -51,6 +53,7 @@ const Navbar = () => {
           <Link to='/cart'>
             <CartNavbarIcon />
           </Link>
+
           <Box>
             <Menu>
               <MenuButton
@@ -83,6 +86,11 @@ const Navbar = () => {
               </MenuList>
             </Menu>
           </Box>
+          {authState?.isAuthenticated && (
+            <Tag size='md' colorScheme='green'>
+              {authState?.userData?.point} xu
+            </Tag>
+          )}
         </Flex>
       </HStack>
     </Container>

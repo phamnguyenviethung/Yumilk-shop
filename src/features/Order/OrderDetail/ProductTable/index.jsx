@@ -55,11 +55,15 @@ const ProductTable = ({ data, orderId }) => {
         >
           <Flex w='full' justifyContent='space-between'>
             <Text>Tạm tính</Text>
-            <Text>{formatMoney(data.totalPrice)}</Text>
+            <Text>{formatMoney(data.totalPriceBeforeDiscount)}</Text>
           </Flex>
           <Flex w='full' justifyContent='space-between'>
             <Text>Phí vận chuyển</Text>
             <Text>{formatMoney(data.shippingFee)}</Text>
+          </Flex>
+          <Flex w='full' justifyContent='space-between'>
+            <Text>Sử dụng xu</Text>
+            <Text>-{formatMoney(data.pointDiscount)}</Text>
           </Flex>
           <Divider />
           <Flex w='full' justifyContent='space-between'>
@@ -67,7 +71,7 @@ const ProductTable = ({ data, orderId }) => {
               Tổng tiền
             </Text>
             <Text color='pink.400' fontWeight='600' fontSize='1.5rem'>
-              {formatMoney(data.shippingFee + data.totalPrice)}
+              {formatMoney(data.totalAmount)}
             </Text>
           </Flex>
         </VStack>
