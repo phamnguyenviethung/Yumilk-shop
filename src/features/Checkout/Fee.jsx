@@ -29,6 +29,11 @@ const Fee = ({ shippingFee, cartState }) => {
           money: shippingFee?.total || 0,
         },
         {
+          name: 'Sử dụng voucher',
+          money: cartState?.data?.voucherDiscount || 0,
+          prefix: '-',
+        },
+        {
           name: 'Sử dụng xu',
           money: cartState?.data?.pointDiscount || 0,
           prefix: '-',

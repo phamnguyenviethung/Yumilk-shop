@@ -5,6 +5,7 @@ import NoAddressDialog from '@/components/Dialog/NoAddressDialog';
 import Loading from '@/components/Loading';
 import order from '@/constants/order';
 import AddressSelect from '@/features/Checkout/AddressSelect';
+import ApplyVoucher from '@/features/Checkout/ApplyVoucher';
 import Fee from '@/features/Checkout/Fee';
 import PaymentMethods from '@/features/Checkout/PaymentMethods';
 import ProductList from '@/features/Checkout/ProductList';
@@ -63,6 +64,7 @@ const Checkout = () => {
         addressId: data[selectIndex].id,
         shippingFee: shippingFee.total,
         isUsingPoint: cartState?.data?.isUsingPoint,
+        voucherId: cartState?.data?.voucherId,
       };
       const res = await checkoutAPI(d);
       if (res.error) throw res.error.data;
@@ -120,7 +122,8 @@ const Checkout = () => {
               />
             </>
           )}
-          <UsePoint />
+          <ApplyVoucher cartState={cartState} />
+          <UsePoint cartState={cartState} />
           <Fee cartState={cartState} shippingFee={shippingFee} />
           <Button
             mt={2}

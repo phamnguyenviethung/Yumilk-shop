@@ -62,6 +62,10 @@ const ProductTable = ({ data, orderId }) => {
             <Text>{formatMoney(data.shippingFee)}</Text>
           </Flex>
           <Flex w='full' justifyContent='space-between'>
+            <Text>Sử dụng voucher</Text>
+            <Text>-{formatMoney(data.voucherDiscount)}</Text>
+          </Flex>
+          <Flex w='full' justifyContent='space-between'>
             <Text>Sử dụng xu</Text>
             <Text>-{formatMoney(data.pointDiscount)}</Text>
           </Flex>

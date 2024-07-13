@@ -74,6 +74,7 @@ export const api = createApi({
     'Address',
     'Fee',
     'Order',
+    'Voucher',
   ],
   endpoints: () => ({}),
 });

@@ -1,16 +1,18 @@
+/* eslint-disable react/prop-types */
 import { useGetCartQuery } from '@/apis/cartApi';
 import { HStack, Switch, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCartData } from '../Cart/cartSlice';
 
-const UsePoint = () => {
+const UsePoint = ({ cartState }) => {
   const [isUsingPoint, setisUsingPoint] = useState(false);
   const authState = useSelector(state => state.auth);
   const { data } = useGetCartQuery({
     userID: authState?.userData?.userID,
     params: {
       isUsingPoint,
+      voucherId: cartState?.data?.voucherId,
     },
   });
   const dispatch = useDispatch();
