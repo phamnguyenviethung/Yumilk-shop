@@ -57,11 +57,11 @@ const OrderHistory = () => {
           <Tbody>
             {data.items.map(order => {
               return (
-                <Tr key={order.orderId}>
+                <Tr key={order.id}>
                   <Td>
                     <ChakraLink
                       as={Link}
-                      to={`/order/${order.orderId}`}
+                      to={`/order/${order.id}`}
                       color='pink.400'
                     >
                       {order.id.slice(-5)}

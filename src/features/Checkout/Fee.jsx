@@ -2,13 +2,13 @@
 import formatMoney from '@/utils/formatMoney';
 import { Divider, HStack, Text, VStack } from '@chakra-ui/react';
 
-const DetailText = ({ money, name, prefix }) => {
+const DetailText = ({ money, name, prefix, color }) => {
   return (
     <HStack w='full' justifyContent='space-between' mt={2}>
       <Text color='gray.500' fontSize='0.95rem'>
         {name}
       </Text>
-      <Text fontSize='1.1rem' fontWeight='400'>
+      <Text fontSize='1.1rem' fontWeight='400' color={color ?? 'inherit'}>
         {prefix}
         {formatMoney(money)}
       </Text>
@@ -32,11 +32,13 @@ const Fee = ({ shippingFee, cartState }) => {
           name: 'Sử dụng voucher',
           money: cartState?.data?.voucherDiscount || 0,
           prefix: '-',
+          color: 'red.500',
         },
         {
           name: 'Sử dụng xu',
           money: cartState?.data?.pointDiscount || 0,
           prefix: '-',
+          color: 'red.500',
         },
       ].map(text => {
         return <DetailText key={text.name} {...text} />;
