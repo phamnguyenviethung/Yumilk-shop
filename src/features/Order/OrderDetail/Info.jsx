@@ -158,7 +158,6 @@ const Info = ({ data, id }) => {
         position: 'top-right',
       });
     } catch (error) {
-      console.log(error);
       toast({
         title: 'Huỷ thất bại',
         status: 'error',
@@ -234,10 +233,11 @@ const Info = ({ data, id }) => {
             mt='6'
           >
             {data.paymentMethod === order.PAYOS_PAYMENT &&
-              data.orderStatus === order.PENDING.name && (
+              data.orderStatus === order.PENDING.name &&
+              data.paymentData && (
                 <Button
                   target='_blank'
-                  href={`https://pay.payos.vn/web/` + data.paymentData.id}
+                  href={`https://pay.payos.vn/web/` + data.paymentData?.id}
                   as={Link}
                   flex='1'
                   colorScheme='pink'
