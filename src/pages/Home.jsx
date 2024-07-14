@@ -1,4 +1,3 @@
-import Banner from '@/features/Banner';
 import BrandBanner from '@/features/Banner/BrandBanner';
 import GridProductList from '@/features/Product/ProductList/GridProductList';
 import SliderProductList from '@/features/Product/ProductList/SliderProductList';
@@ -6,9 +5,15 @@ import { Box, Center, Container } from '@chakra-ui/react';
 const Home = () => {
   return (
     <Container maxW='container.xl'>
-      <Center mb={4} pb={8}>
-        <Banner />
-      </Center>
+      <Box>
+        <SliderProductList
+          heading='Đặt trước'
+          params={{
+            pageSize: 10,
+            statusIds: [2],
+          }}
+        />
+      </Box>
       <Center mb={4} pb={8}>
         <BrandBanner />
       </Center>
@@ -22,15 +27,7 @@ const Home = () => {
           }}
         />
       </Box>
-      <Box>
-        <SliderProductList
-          heading='Đặt trước'
-          params={{
-            pageSize: 10,
-            statusIds: [2],
-          }}
-        />
-      </Box>
+
       <Box>
         <GridProductList
           heading='Có thể bạn quan tâm'

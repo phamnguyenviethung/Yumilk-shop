@@ -35,7 +35,7 @@ const BrandBanner = () => {
       slideToClickedSlide={true}
     >
       {(brandData?.items || []).map(brand => (
-        <SwiperSlide key={brand.logo} style={{ minHeight: '120px' }}>
+        <SwiperSlide key={brand.id} style={{ minHeight: '120px' }}>
           <Center boxSize='full'>
             <Image
               borderRadius='10px'
