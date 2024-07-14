@@ -19,6 +19,7 @@ import {
   Textarea,
   VStack,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -40,6 +41,7 @@ const Checkout = () => {
     checkoutAPI,
     { isLoading: checkoutLoading, isFetching: checkoutFetching },
   ] = useCheckOutMutation();
+  const toast = useToast();
   const { data: shippingFee, isLoading: cartLoading } = useGetShippingFeeQuery(
     {
       fromDistrictId: data?.length > 0 ? data[selectIndex].districtId : '',
@@ -75,6 +77,13 @@ const Checkout = () => {
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: error.message,
+        status: 'error',
+        duration: 2500,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
   };
 

@@ -1,4 +1,5 @@
 import BrandBanner from '@/features/Banner/BrandBanner';
+import SliderPostList from '@/features/Post/PostList/SliderPostList/SliderPostList';
 import GridProductList from '@/features/Product/ProductList/GridProductList';
 import SliderProductList from '@/features/Product/ProductList/SliderProductList';
 import { Box, Center, Container } from '@chakra-ui/react';
@@ -17,6 +18,7 @@ const Home = () => {
       <Center mb={4} pb={8}>
         <BrandBanner />
       </Center>
+
       <Box>
         <SliderProductList
           heading='Đang giảm giá'
@@ -36,6 +38,14 @@ const Home = () => {
             SortColumn: 'ordercount',
             SortOrder: 'desc',
             statusIds: [1],
+          }}
+        />
+      </Box>
+      <Box>
+        <SliderPostList
+          heading='Bạn nên đọc'
+          params={{
+            pageSize: 10,
           }}
         />
       </Box>
