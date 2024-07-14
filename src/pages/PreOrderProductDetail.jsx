@@ -1,14 +1,28 @@
 import { useGetProductDetailQuery } from '@/apis/productApi';
+import Loading from '@/components/Loading';
 import PreOrderProductImages from '@/features/Product/ProductDetail/ProcutImages/PreOrderProductImages';
 import PreOrderProductInfo from '@/features/Product/ProductDetail/ProductInfo/PreOrderProductInfo';
 import TabInfo from '@/features/Product/ProductDetail/TabInfo';
-import { Box, Container, Stack } from '@chakra-ui/react';
+import { Box, Center, Container, Stack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
 const PreOrderProductDetail = () => {
   const { id } = useParams();
-  const { data, isLoading } = useGetProductDetailQuery(id);
-  if (isLoading) return <p>ss</p>;
+  const { data, isLoading, isError } = useGetProductDetailQuery(id);
+  if (isLoading) {
+    return (
+      <Center boxSize='full'>
+        <Loading />
+      </Center>
+    );
+  }
+  if (isError)
+    return (
+      <Center w='full' h='500px'>
+        Không tìm thấy dữ liệu
+      </Center>
+    );
+
   return (
     <Container maxW='container.xl' boxSize='full'>
       <Stack

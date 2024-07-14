@@ -10,11 +10,27 @@ import { useNavigate, useParams } from 'react-router-dom';
 const ProductDetail = () => {
   const nav = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetProductDetailQuery(id);
+  const { data, isLoading, isError } = useGetProductDetailQuery(id);
 
   if (!isLoading && data.statusId === product.PRE_ORDER_STATUS) {
     nav(`/preorder/${id}`);
   }
+
+  if (isLoading) {
+    return (
+      <Center boxSize='full'>
+        <Loading />
+      </Center>
+    );
+  }
+
+  if (isError)
+    return (
+      <Center w='full' h='500px'>
+        Không tìm thấy dữ liệu
+      </Center>
+    );
+
   return (
     <Container maxW='container.xl' boxSize='full'>
       <Stack

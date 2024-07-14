@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
+import logo from '@/assets/logo.png';
 import {
   Box,
   Container,
+  Flex,
+  Image,
   SimpleGrid,
   Stack,
   Text,
-  Flex,
-  Tag,
   useColorModeValue,
-  Image,
 } from '@chakra-ui/react';
-import logo from '@/assets/logo.png';
 const Logo = () => {
   return <Image src={logo} boxSize={[120, 150]} />;
 };
@@ -29,85 +28,38 @@ export default function LargeWithLogoCentered() {
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={'flex-start'}>
-            <ListHeader>Product</ListHeader>
+            <ListHeader>Danh mục</ListHeader>
             <Box as='a' href={'#'}>
-              Overview
+              Sữa cho bé
             </Box>
             <Stack direction={'row'} align={'center'} spacing={2}>
               <Box as='a' href={'#'}>
-                Features
+                Sữa cho mẹ
               </Box>
-              <Tag
-                size={'sm'}
-                bg={useColorModeValue('green.300', 'green.800')}
-                ml={2}
-                color={'white'}
-              >
-                New
-              </Tag>
             </Stack>
+          </Stack>
+          <Stack align={'flex-start'}>
+            <ListHeader>Nhãn hàng</ListHeader>
             <Box as='a' href={'#'}>
-              Tutorials
+              Similac
             </Box>
             <Box as='a' href={'#'}>
-              Pricing
-            </Box>
-            <Box as='a' href={'#'}>
-              Releases
+              YokoGold
             </Box>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Company</ListHeader>
-            <Box as='a' href={'#'}>
-              About Us
-            </Box>
-            <Box as='a' href={'#'}>
-              Press
-            </Box>
-            <Box as='a' href={'#'}>
-              Careers
-            </Box>
-            <Box as='a' href={'#'}>
-              Contact Us
-            </Box>
-            <Box as='a' href={'#'}>
-              Partners
+            <ListHeader>Đơn vị vận chuyển</ListHeader>
+            <Box>
+              <Image src='https://theme.hstatic.net/200000472237/1001083717/14/logo.png?v=592' />
             </Box>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Legal</ListHeader>
-            <Box as='a' href={'#'}>
-              Cookies Policy
-            </Box>
-            <Box as='a' href={'#'}>
-              Privacy Policy
-            </Box>
-            <Box as='a' href={'#'}>
-              Terms of Service
-            </Box>
-            <Box as='a' href={'#'}>
-              Law Enforcement
-            </Box>
-            <Box as='a' href={'#'}>
-              Status
-            </Box>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Follow Us</ListHeader>
-            <Box as='a' href={'#'}>
-              Facebook
-            </Box>
-            <Box as='a' href={'#'}>
-              Twitter
-            </Box>
-            <Box as='a' href={'#'}>
-              Dribbble
-            </Box>
-            <Box as='a' href={'#'}>
-              Instagram
-            </Box>
-            <Box as='a' href={'#'}>
-              LinkedIn
+            <ListHeader>Đơn vị thanh toán</ListHeader>
+            <Box>
+              <Image
+                src='https://payos.vn/wp-content/uploads/sites/13/2023/07/payos-logo.svg'
+                maxWidth='150px'
+              />
             </Box>
           </Stack>
         </SimpleGrid>
@@ -133,7 +85,7 @@ export default function LargeWithLogoCentered() {
           <Logo />
         </Flex>
         <Text pt={6} fontSize={'sm'} textAlign={'center'}>
-          © 2022 Chakra Templates. All rights reserved
+          © 2024 Yumilk Shop
         </Text>
       </Box>
     </Box>
