@@ -237,7 +237,7 @@ const PreOrderCheckoutModal = ({ isOpen, onClose, productData }) => {
                   Giá sản phẩm ({quantity} cái)
                 </Text>
                 <Text fontSize='1.15rem' fontWeight='400'>
-                  {formatMoney(productData.salePrice)}
+                  {formatMoney(productData.salePrice * quantity)}
                 </Text>
               </HStack>
               <HStack w='full' justifyContent='space-between'>
@@ -254,7 +254,9 @@ const PreOrderCheckoutModal = ({ isOpen, onClose, productData }) => {
                   Tổng tiền
                 </Text>
                 <Text fontSize='1.8rem' color='pink.400' fontWeight={600}>
-                  {formatMoney(productData.salePrice + shippingFee?.total)}
+                  {formatMoney(
+                    productData.salePrice * quantity + shippingFee?.total
+                  )}
                 </Text>
               </HStack>
             </VStack>

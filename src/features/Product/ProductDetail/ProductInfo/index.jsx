@@ -28,6 +28,7 @@ import {
 import { useState } from 'react';
 import { PiStarFill } from 'react-icons/pi';
 import { useDispatch, useSelector } from 'react-redux';
+import ProductReportModal from './ProductReportModal';
 
 const policies = [
   {
@@ -83,6 +84,10 @@ const ProductInfo = ({ productData }) => {
       pb={2}
     >
       <VStack textAlign='left' gap='2' w='full' flex='1'>
+        <Flex justifyContent='flex-end' w='full'>
+          {' '}
+          <ProductReportModal productId={productData.id} />
+        </Flex>
         <Heading
           w='full'
           as='h2'
@@ -98,12 +103,8 @@ const ProductInfo = ({ productData }) => {
           <HStack alignItems='center' fontSize='1rem' gap='4'>
             <HStack gap='1'>
               <Box color='pink.400' fontWeight='500'>
-                4.9
+                {productData?.averageRating}
               </Box>
-              <Icon as={PiStarFill} color='yellow.500' />
-              <Icon as={PiStarFill} color='yellow.500' />
-              <Icon as={PiStarFill} color='yellow.500' />
-              <Icon as={PiStarFill} color='yellow.500' />
               <Icon as={PiStarFill} color='yellow.500' />
             </HStack>
 
