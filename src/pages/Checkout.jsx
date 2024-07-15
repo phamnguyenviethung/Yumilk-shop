@@ -11,6 +11,8 @@ import PaymentMethods from '@/features/Checkout/PaymentMethods';
 import ProductList from '@/features/Checkout/ProductList';
 import UsePoint from '@/features/Checkout/UsePoint';
 import {
+  Alert,
+  AlertIcon,
   Button,
   Container,
   HStack,
@@ -89,6 +91,24 @@ const Checkout = () => {
 
   return (
     <Container maxW='container.xl' pt='2rem'>
+      <Alert
+        status='warning'
+        mb={10}
+        fontSize='0.9rem'
+        fontWeight={500}
+        textAlign='center'
+        w='full'
+      >
+        <Text w='full'>
+          {' '}
+          Nhập mã{' '}
+          <Text as='span' color='pink.400' fontWeight={700}>
+            {' '}
+            PNVIETHUNG{' '}
+          </Text>{' '}
+          để nhận giảm giá
+        </Text>
+      </Alert>
       <Stack
         direction={['column', 'column', 'row']}
         gap={[16, 16, 4]}
