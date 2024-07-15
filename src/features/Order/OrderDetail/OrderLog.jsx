@@ -45,8 +45,6 @@ function OrderStep({ data, currentStatusID }) {
   return (
     <Stepper size='lg' index={activeStep} colorScheme='pink' h='100%'>
       {statusList.map(step => {
-        console.log(step);
-
         if (
           step.id === orderConstant.DELIVERED.id &&
           currentStatusID === orderConstant.CANCELLED.id
@@ -60,6 +58,15 @@ function OrderStep({ data, currentStatusID }) {
         ) {
           return <></>;
         }
+
+        if (
+          (!data.some(i => i.status === step.name) &&
+            currentStatusID === orderConstant.CANCELLED.id) ||
+          currentStatusID === orderConstant.DELIVERED.id
+        ) {
+          return <></>;
+        }
+
         return (
           <Fragment key={step.text}>
             <Step>
