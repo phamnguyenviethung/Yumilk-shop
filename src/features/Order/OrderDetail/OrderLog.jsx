@@ -112,6 +112,7 @@ const OrderLog = ({ data }) => {
         <VStack w='full' spacing={8}>
           {data.logs.map(l => {
             const info = orderConstant[l.status.toUpperCase()];
+        
             return (
               <HStack key={l.status} w='full' spacing={[1, 2, 4]}>
                 <Text
