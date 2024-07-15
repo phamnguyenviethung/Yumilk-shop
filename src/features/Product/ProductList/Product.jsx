@@ -80,11 +80,16 @@ const Product = ({ data }) => {
           {data.statusId !== 2 && (
             <>
               <HStack w='full' gap='1' my={1}>
-                <Icon as={PiStarFill} color='yellow.500' />
-                <Icon as={PiStarFill} color='yellow.500' />
-                <Icon as={PiStarFill} color='yellow.500' />
-                <Icon as={PiStarFill} color='yellow.500' />
-                <Icon as={PiStarFill} color='yellow.500' />
+                {data.averageRating > 0 ? (
+                  <>
+                    <Text my={2}>{data.averageRating}/5</Text>
+                    <Icon as={PiStarFill} color='yellow.500' />
+                  </>
+                ) : (
+                  <Text fontSize='0.75rem' my={2} color='gray.500'>
+                    Chưa có đánh giá
+                  </Text>
+                )}
               </HStack>
               <Text fontSize='0.85rem'>Đã bán {data.orderCount}</Text>
             </>
