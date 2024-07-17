@@ -12,7 +12,6 @@ import ProductList from '@/features/Checkout/ProductList';
 import UsePoint from '@/features/Checkout/UsePoint';
 import {
   Alert,
-  AlertIcon,
   Button,
   Container,
   HStack,

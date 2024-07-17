@@ -23,6 +23,8 @@ import { Link } from 'react-router-dom';
 import data, { noAuthData } from './data';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import LoginIcon from '@/assets/Icon/login';
+import numeral from 'numeral';
 
 const Navbar = () => {
   const [userMenu, setUserMenu] = useState(data);
@@ -50,11 +52,15 @@ const Navbar = () => {
           <SearchForm />
         </Box>
         <Flex alignItems='center' gap='3' flex='1' justifyContent='flex-end'>
-          <Link to='/cart'>
-            <CartNavbarIcon />
+          <Link to={authState?.isAuthenticated ? '/cart' : '/login'}>
+            {authState?.isAuthenticated ? (
+              <CartNavbarIcon />
+            ) : (
+              <Icon as={LoginIcon} fontSize='1.2rem' />
+            )}
           </Link>
 
-          <Box>
+          <Box zIndex={999}>
             <Menu>
               <MenuButton
                 as={IconButton}
@@ -87,8 +93,8 @@ const Navbar = () => {
             </Menu>
           </Box>
           {authState?.isAuthenticated && (
-            <Tag size='md' colorScheme='green'>
-              {authState?.userData?.point} xu
+            <Tag size='md' colorScheme='pink'>
+              {numeral(authState?.userData?.point).format('0,0')} xu
             </Tag>
           )}
         </Flex>
