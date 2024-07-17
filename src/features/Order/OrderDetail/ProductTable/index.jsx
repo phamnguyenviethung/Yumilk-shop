@@ -16,7 +16,6 @@ import {
 import ProductRow from './ProductRow';
 import order from '@/constants/order';
 import numeral from 'numeral';
-
 const ProductTable = ({ data, orderId }) => {
   return (
     <Box w='full'>
@@ -84,14 +83,16 @@ const ProductTable = ({ data, orderId }) => {
               {formatMoney(data.totalAmount)}
             </Text>
           </Flex>
-          <Flex w='full' justifyContent='space-between'>
-            <Text fontWeight='600' fontSize='1.1rem'>
-              Số xu nhận được
-            </Text>
-            <Text color='green.400' fontWeight='600'>
-              {numeral(data.recievingPoint).format('+0,0')}
-            </Text>
-          </Flex>
+          {data.orderStatus === order.DELIVERED.name && (
+            <Flex w='full' justifyContent='space-between'>
+              <Text fontWeight='600' fontSize='1.1rem'>
+                Số xu nhận được
+              </Text>
+              <Text color='green.400' fontWeight='600'>
+                {numeral(data.recievingPoint).format('+0,0')}
+              </Text>
+            </Flex>
+          )}
         </VStack>
       </Flex>
     </Box>

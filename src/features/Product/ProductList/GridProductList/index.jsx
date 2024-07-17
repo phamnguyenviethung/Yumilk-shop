@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useGetSellingProductQuery } from '@/apis/productApi';
-import { Box, Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Text,
+} from '@chakra-ui/react';
 import Product from '../Product';
 import { useState } from 'react';
 import SliderProductListSkeleton from '../SliderProductList/Skeleton';
@@ -16,13 +24,21 @@ const GridProductList = ({ heading, params, queryStr }) => {
     queryStr,
   });
 
-  if (isLoading) return <SliderProductListSkeleton />;
+  if (isLoading || isFetching) return <SliderProductListSkeleton />;
   if (isError)
     return (
-      <Box w='full'>
-        <Text>Có lỗi xảy ra</Text>
-      </Box>
+      <Center boxSize='full' minH='200px'>
+        <Text fontWeight='600'>Có lỗi xảy ra</Text>
+      </Center>
     );
+
+  if (data?.items?.length === 0) {
+    return (
+      <Center boxSize='full' minH='200px'>
+        <Text fontWeight='600'>Không tìm thấy sản phẩm nào phù hợp</Text>
+      </Center>
+    );
+  }
   return (
     <Box my={8}>
       <Box w='full' mb={4}>

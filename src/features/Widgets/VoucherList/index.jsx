@@ -1,12 +1,44 @@
+/* eslint-disable react/prop-types */
 import { useGetAllVouchersQuery } from '@/apis/voucherApi';
+import MilkIcon from '@/assets/Icon/milk';
 import Loading from '@/components/Loading';
-import { Box, Center, HStack, Tag, Text, VStack } from '@chakra-ui/react';
+import formatMoney from '@/utils/formatMoney';
+import {
+  Box,
+  Button,
+  Center,
+  Icon,
+  Stack,
+  Text,
+  useClipboard,
+  VStack,
+} from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Pagination } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
+const CopyButton = ({ code }) => {
+  const { onCopy, setValue, hasCopied, value } = useClipboard(code);
+
+  return (
+    <Button
+      colorScheme='pink'
+      size='sm'
+      isDisabled={hasCopied && value === code}
+      onClick={() => {
+        setValue(code);
+        onCopy();
+      }}
+    >
+      {hasCopied && value === code ? 'Đã sao chép' : 'Lấy mã'}
+    </Button>
+  );
+};
+
 const VoucherList = () => {
-  const { data, isLoading } = useGetAllVouchersQuery({
+  const { data, isLoading, isError } = useGetAllVouchersQuery({
     isActive: true,
     pageSize: 10,
   });
@@ -19,49 +51,110 @@ const VoucherList = () => {
     );
   }
 
+  if (isError) return <></>;
   return (
     <Swiper
-      slidesPerView={3}
+      slidesPerView={2}
+      breakpoints={{
+        480: {
+          slidesPerView: 2,
+        },
+        768: {
+          slidesPerView: 3,
+        },
+        992: {
+          slidesPerView: 3,
+        },
+      }}
       spaceBetween={30}
-      pagination
-      modules={[Pagination]}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+      }}
+      modules={[Autoplay]}
       className='mySwiper'
       style={{
-        minHeight: '150px',
+        minHeight: '100px',
       }}
     >
-      {data.items.map(v => {
-        return (
-          <SwiperSlide key={v.id}>
-            <Box
-              border='2px dashed'
-              borderColor='pink.400'
-              p={1}
-              minH='100px'
-              w='full'
+      {data.items
+        .filter(i => i.isAvailable)
+        .map(v => {
+          return (
+            <SwiperSlide
+              key={v.id}
+              style={{
+                minHeight: '100%',
+              }}
             >
-              <Box
-                textAlign='center'
-                bgColor='pink.500'
-                color='white'
-                fontSize='2rem'
-                fontWeight={600}
-                borderRadius={10}
+              <Stack
+                flexDirection={{
+                  base: 'column',
+                  lg: 'row',
+                }}
+                alignItems='center'
+                px={2}
+                py={[2, 2, 1]}
+                minH={[200, 120]}
+                w='full'
+                bgColor='blackAlpha.200'
+                borderRadius='10px'
               >
-                <Text>{v.code}</Text>
-              </Box>
-              <HStack w='full'>
-                <VStack>
-                  <Text color='gray.600' fontWeight={500}>
-                    Số lượt còn lại: {v.quantity}
-                  </Text>
+                <Center boxSize='full' flex='1'>
+                  <Icon
+                    as={MilkIcon}
+                    fontSize='2rem'
+                    bgColor='pink.400'
+                    color='white'
+                    borderRadius='50%'
+                    p='4'
+                    boxSize={{
+                      base: '50px',
+                      lg: '80px',
+                    }}
+                  />
+                </Center>
+                <VStack
+                  w='full'
+                  flex='2'
+                  justifyContent='space-between'
+                  alignItems='flex-start'
+                  px={1}
+                >
+                  <Box
+                    w='full'
+                    textAlign={{
+                      base: 'center',
+                      lg: 'left',
+                    }}
+                  >
+                    <Text fontWeight={700} fontSize='1.2rem'>
+                      {' '}
+                      Giảm {v?.percent}%
+                    </Text>
+                    <Text fontWeight={500} color='gray.600' fontSize='0.8rem'>
+                      {' '}
+                      Giảm tối đa {formatMoney(v?.maxDiscount)}
+                    </Text>
+                  </Box>
+                  <Stack
+                    flexDirection={{ base: 'column', lg: 'row' }}
+                    w='full'
+                    justifyContent='space-between'
+                    alignItems='center'
+                  >
+                    <Box>
+                      <Text color='gray.700' fontSize='0.8rem'>
+                        HSD: {dayjs(v.endDate).format('HH:mm DD/MM')}
+                      </Text>
+                    </Box>
+                    <CopyButton code={v?.code} />
+                  </Stack>
                 </VStack>
-                <Box></Box>
-              </HStack>
-            </Box>
-          </SwiperSlide>
-        );
-      })}
+              </Stack>
+            </SwiperSlide>
+          );
+        })}
     </Swiper>
   );
 };

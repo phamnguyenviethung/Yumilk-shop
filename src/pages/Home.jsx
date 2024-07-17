@@ -2,10 +2,12 @@ import BrandBanner from '@/features/Banner/BrandBanner';
 import SliderPostList from '@/features/Post/PostList/SliderPostList/SliderPostList';
 import GridProductList from '@/features/Product/ProductList/GridProductList';
 import SliderProductList from '@/features/Product/ProductList/SliderProductList';
+import VoucherList from '@/features/Widgets/VoucherList';
 import { Box, Center, Container } from '@chakra-ui/react';
 const Home = () => {
   return (
     <Container maxW='container.xl'>
+      <VoucherList />
       <Box>
         <SliderProductList
           heading='Đặt trước'
