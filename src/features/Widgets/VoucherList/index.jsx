@@ -77,7 +77,7 @@ const VoucherList = () => {
         minHeight: '100px',
       }}
     >
-      {data.items
+      {data?.items
         .filter(i => i.isAvailable)
         .map(v => {
           return (
