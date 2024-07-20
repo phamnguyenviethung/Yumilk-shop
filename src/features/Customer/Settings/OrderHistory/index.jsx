@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Center,
   Link as ChakraLink,
   Flex,
   Table,
@@ -39,6 +40,14 @@ const OrderHistory = () => {
     },
   });
   if (isLoading) return <p>Loading...</p>;
+
+  if (data?.items?.length === 0) {
+    return (
+      <Center boxSize='full'>
+        <Text fontWeight={600}>Chưa có đơn hàng nào</Text>
+      </Center>
+    );
+  }
   return (
     <Box boxSize='full'>
       <TableContainer maxW='full'>
@@ -124,7 +133,11 @@ const OrderHistory = () => {
       <Flex w='full' justifyContent='space-between' my={4}>
         <Box>
           <Text fontSize='0.9rem'>
-            Trang {page}/{(data.totalCount / data.pageSize).toFixed()}
+            Trang {page}/
+            {(data.totalCount / data.pageSize === 0
+              ? data.pageSize
+              : 1
+            ).toFixed()}
           </Text>
         </Box>
         <ButtonGroup>

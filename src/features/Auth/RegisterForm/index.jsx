@@ -33,7 +33,10 @@ const RegisterForm = () => {
       .trim()
       .min(1, 'Phải ít nhất 1 kí tự')
       .length(10, 'Số điện thoại phải là 10 số')
-      .matches(/^[^\s]+$/, 'Tên người dùng không được chứa dấu cách')
+      .matches(
+        /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+        'Số điện thoại không đáng tin cậy'
+      )
       .required('Vui lòng không bỏ trống'),
     email: yup
       .string()

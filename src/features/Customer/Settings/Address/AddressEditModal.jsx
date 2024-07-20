@@ -168,6 +168,10 @@ const AddressForm = ({ onClose, addressData, type }) => {
     receiverPhone: yup
       .string()
       .length(10, 'Số điện thoại phải là 10 số')
+      .matches(
+        /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+        'Số điện thoại không đáng tin cậy'
+      )
       .required('Vui lòng không bỏ trống'),
     provinceId: yup.string().required('Vui lòng không bỏ trống'),
     districtId: yup.string().required('Vui lòng không bỏ trống'),
