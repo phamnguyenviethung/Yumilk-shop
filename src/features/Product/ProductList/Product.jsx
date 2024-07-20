@@ -41,12 +41,12 @@ const Product = ({ data }) => {
         />
         <VStack pos='absolute' top='1' right='1'>
           {data.salePrice > 0 && (
-            <Tag colorScheme='red' variant='solid'>
-              Hot
+            <Tag colorScheme='orange' variant='solid'>
+              Giảm giá
             </Tag>
           )}
           {data.orderCount > 3 && (
-            <Tag colorScheme='blue' variant='solid'>
+            <Tag colorScheme='purple' variant='solid'>
               Bán chạy
             </Tag>
           )}
