@@ -65,6 +65,7 @@ const ProductInfo = ({ productData }) => {
         },
       });
       if (res.error) throw res.error.data;
+
       toast({
         title: 'Đã thêm vào giỏ hàng',
         status: 'success',
@@ -74,6 +75,13 @@ const ProductInfo = ({ productData }) => {
       });
     } catch (error) {
       console.log(error);
+      toast({
+        title: error?.message ?? 'Thất bại',
+        status: 'error',
+        duration: 1200,
+        isClosable: true,
+        position: 'top-right',
+      });
     }
   };
   return (

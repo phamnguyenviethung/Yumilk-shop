@@ -22,6 +22,14 @@ export const cartApi = api.injectEndpoints({
       transformResponse: res => res.data,
       invalidatesTags: ['Cart'],
     }),
+    reloadCart: build.mutation({
+      query: userID => ({
+        url: `/user/${userID}/cart`,
+        method: 'PUT',
+      }),
+      transformResponse: res => res.data,
+      invalidatesTags: ['Cart'],
+    }),
     changeQuantity: build.mutation({
       query: ({ userID, productID, data }) => ({
         url: `/user/${userID}/cart/${productID}`,
@@ -56,4 +64,5 @@ export const {
   useClearCartMutation,
   useChangeQuantityMutation,
   useAddToCartMutation,
+  useReloadCartMutation,
 } = cartApi;

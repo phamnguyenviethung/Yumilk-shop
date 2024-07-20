@@ -9,8 +9,10 @@ import { updateUserData } from './features/Auth/authSlice';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './configs/firebase';
 import ScrollToTop from './components/ScrollToTop';
+import { useReloadCartMutation } from './apis/cartApi';
 function App() {
   const authState = useSelector(state => state.auth);
+  const [reloadCartAPI] = useReloadCartMutation();
 
   const { data, isLoading } = useGetMeQuery(authState, {
     skip: !authState?.isAuthenticated,
@@ -29,6 +31,19 @@ function App() {
 
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        await reloadCartAPI(authState?.userData?.userID);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (authState?.isAuthenticated) {
+      run();
+    }
+  }, [authState?.isAuthenticated, authState?.userData?.userID, reloadCartAPI]);
 
   return (
     <>
