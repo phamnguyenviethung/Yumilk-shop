@@ -81,10 +81,10 @@ const Product = ({ data }) => {
             <>
               <HStack w='full' gap='1' my={1}>
                 {data.averageRating > 0 ? (
-                  <>
-                    <Text my={2}>{data.averageRating}/5</Text>
+                  <HStack alignItems='center' gap='1' h='20px'>
+                    <Text my={2}>{data.averageRating}</Text>
                     <Icon as={PiStarFill} color='yellow.500' />
-                  </>
+                  </HStack>
                 ) : (
                   <Text fontSize='0.75rem' my={2} color='gray.500'>
                     Chưa có đánh giá

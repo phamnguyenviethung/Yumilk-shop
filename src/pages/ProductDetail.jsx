@@ -4,7 +4,8 @@ import product from '@/constants/product';
 import ProductImages from '@/features/Product/ProductDetail/ProcutImages';
 import ProductInfo from '@/features/Product/ProductDetail/ProductInfo';
 import TabInfo from '@/features/Product/ProductDetail/TabInfo';
-import { Box, Center, Container, Stack } from '@chakra-ui/react';
+import SliderProductList from '@/features/Product/ProductList/SliderProductList';
+import { Box, Center, Container, Divider, Stack } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
@@ -63,8 +64,21 @@ const ProductDetail = () => {
           </>
         )}
       </Stack>
+      <Divider bgColor='pink.600' h='1px' my={4} />
+
       <Box>
         <TabInfo productID={id} />
+      </Box>
+      <Divider bgColor='pink.600' h='1px' my={1} />
+      <Box>
+        <SliderProductList
+          heading='Đang giảm giá'
+          params={{
+            onSale: true,
+            pageSize: 10,
+            statusIds: [1],
+          }}
+        />
       </Box>
     </Container>
   );
