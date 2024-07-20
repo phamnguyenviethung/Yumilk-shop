@@ -84,7 +84,6 @@ const Filter = ({ setQueryStr }) => {
                   setFilterQuery={setFilterQuery}
                 />
               </Box>
-              <Box>rate</Box>
             </VStack>
           </ModalBody>
           <ModalFooter>

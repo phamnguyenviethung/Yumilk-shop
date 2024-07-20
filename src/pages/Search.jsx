@@ -11,11 +11,14 @@ const Search = () => {
 
   return (
     <Container maxW='container.xl'>
-      <Box textAlign='center' w='full' mb={4} fontSize='1.2rem'>
-        <Text>
-          Kết quả tìm kiếm <b>{searchPararm.get('keyword') || ''}</b>
-        </Text>
-      </Box>
+      {searchPararm.get('keyword') === '' && (
+        <Box textAlign='center' w='full' mb={4} fontSize='1.2rem'>
+          <Text>
+            Kết quả tìm kiếm <b>{searchPararm.get('keyword')}</b>
+          </Text>
+        </Box>
+      )}
+
       <Flex mt={16} mb={2} justifyContent='space-between'>
         <Filter setQueryStr={setQueryStr} />
         <Sort setQueryStr={setQueryStr} />
