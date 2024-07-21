@@ -1,16 +1,17 @@
 import { useReloadCartMutation } from '@/apis/cartApi';
 import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
+import Loading from '@/components/Loading';
 import CartInfo from '@/features/Cart/CartInfo';
 import CartItems from '@/features/Cart/CastItems';
 import EmptyCart from '@/features/Cart/EmptyCart';
-import { Box, Container, Stack } from '@chakra-ui/react';
+import { Box, Center, Container, Stack } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 const Cart = () => {
   const cartState = useSelector(state => state.cart);
   const authState = useSelector(state => state.auth);
-  const [reloadCartAPI] = useReloadCartMutation();
+  const [reloadCartAPI, { isLoading }] = useReloadCartMutation();
 
   useEffect(() => {
     const run = async () => {
@@ -24,6 +25,14 @@ const Cart = () => {
       run();
     }
   }, [authState?.isAuthenticated, authState?.userData?.userID, reloadCartAPI]);
+
+  if (isLoading) {
+    return (
+      <Center boxSize='full'>
+        <Loading />
+      </Center>
+    );
+  }
 
   return (
     <Container maxW='container.xl' pt='2rem'>

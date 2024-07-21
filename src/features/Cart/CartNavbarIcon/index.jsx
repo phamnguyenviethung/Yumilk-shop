@@ -36,7 +36,7 @@ const AuthenticatedCartIcon = ({ userID }) => {
 
   useEffect(() => {
     dispatch(setCartData(data));
-  }, [data, dispatch]);
+  });
   return <Cart count={cartState?.data?.cartItems?.totalCount} />;
 };
 
