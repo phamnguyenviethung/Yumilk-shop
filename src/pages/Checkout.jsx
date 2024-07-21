@@ -1,3 +1,4 @@
+import { useReloadCartMutation } from '@/apis/cartApi';
 import { useGetMyAddressQuery } from '@/apis/customerApi';
 import { useCheckOutMutation, useGetShippingFeeQuery } from '@/apis/orderApi';
 import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
@@ -22,7 +23,7 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,6 +54,21 @@ const Checkout = () => {
       skip: isLoading || isFetching,
     }
   );
+
+  const [reloadCartAPI] = useReloadCartMutation();
+
+  useEffect(() => {
+    const run = async () => {
+      try {
+        await reloadCartAPI(authState?.userData?.userID);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (authState?.isAuthenticated) {
+      run();
+    }
+  }, [authState?.isAuthenticated, authState?.userData?.userID, reloadCartAPI]);
 
   const handleSelect = n => {
     setSelectIndex(n);
