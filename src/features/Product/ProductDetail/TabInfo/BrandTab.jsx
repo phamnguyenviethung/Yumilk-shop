@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useGetBrandInfoByIdQuery } from '@/apis/productApi';
-import { Box, Divider, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Divider, Image, Text, VStack } from '@chakra-ui/react';
 
 const BrandTab = ({ brandId }) => {
   const { data } = useGetBrandInfoByIdQuery(brandId);

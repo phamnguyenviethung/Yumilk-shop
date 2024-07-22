@@ -29,6 +29,7 @@ import { useState } from 'react';
 import { PiStarFill } from 'react-icons/pi';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductReportModal from './ProductReportModal';
+import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 
 const policies = [
   {
@@ -219,7 +220,11 @@ const ProductInfo = ({ productData }) => {
               size={['sm', 'md', 'lg']}
               colorScheme='pink'
               leftIcon={<Icon as={CartIcon} fontWeight='800' />}
-              onClick={authState.isAuthenticated ? handleAddtoCart : onOpen}
+              onClick={
+                authState?.isAuthenticated && authState?.userData?.isActive
+                  ? handleAddtoCart
+                  : onOpen
+              }
               isDisabled={productData.quantity === 0}
             >
               {productData.quantity === 0 ? 'Đã hết hàng' : 'Thêm vào giỏ hàng'}
@@ -257,6 +262,9 @@ const ProductInfo = ({ productData }) => {
         </VStack>
       </Stack>
       <NeedLoginDialog onClose={onClose} isOpen={isOpen} />
+      <NeedActiveDialog
+        isOpen={!authState?.userData?.isActive && authState?.isAuthenticated}
+      />
     </VStack>
   );
 };
