@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import CartIcon from '@/assets/Icon/cart';
-import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 import NeedLoginDialog from '@/components/Dialog/NeedLoginDialog';
 import PreOrderCheckoutModal from '@/features/Checkout/PreOrderCheckoutModal';
 import formatMoney from '@/utils/formatMoney';
@@ -146,9 +145,6 @@ const PreOrderProductInfo = ({ productData }) => {
         </Stack>
       </Stack>
       <NeedLoginDialog onClose={loginDis.onClose} isOpen={loginDis.isOpen} />
-      <NeedActiveDialog
-        isOpen={!auth?.userData?.isActive && auth.isAuthenticated}
-      />
     </VStack>
   );
 };

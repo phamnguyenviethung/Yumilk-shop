@@ -29,7 +29,6 @@ import { useState } from 'react';
 import { PiStarFill } from 'react-icons/pi';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductReportModal from './ProductReportModal';
-import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 
 const policies = [
   {
@@ -262,9 +261,6 @@ const ProductInfo = ({ productData }) => {
         </VStack>
       </Stack>
       <NeedLoginDialog onClose={onClose} isOpen={isOpen} />
-      <NeedActiveDialog
-        isOpen={!authState?.userData?.isActive && authState?.isAuthenticated}
-      />
     </VStack>
   );
 };
