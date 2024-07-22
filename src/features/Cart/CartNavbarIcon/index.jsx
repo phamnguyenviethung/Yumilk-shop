@@ -30,8 +30,14 @@ const Cart = ({ count }) => {
 };
 
 const AuthenticatedCartIcon = ({ userID }) => {
+  const authState = useSelector(state => state.auth);
   const cartState = useSelector(state => state.cart);
-  const { data } = useGetCartQuery({ userID });
+  const { data } = useGetCartQuery(
+    { userID },
+    {
+      skip: !authState?.userData?.isActive,
+    }
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,7 +49,8 @@ const AuthenticatedCartIcon = ({ userID }) => {
 const CartNavbarIcon = () => {
   const authState = useSelector(state => state.auth);
 
-  if (!authState.isAuthenticated) return <Cart />;
+  if (!authState.isAuthenticated || !authState?.userData?.isActive)
+    return <Cart />;
   return <AuthenticatedCartIcon userID={authState?.userData?.userID} />;
 };
 

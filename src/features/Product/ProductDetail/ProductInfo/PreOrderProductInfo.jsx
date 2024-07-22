@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import CartIcon from '@/assets/Icon/cart';
+import NeedActiveDialog from '@/components/Dialog/NeedActiveDialog';
 import NeedLoginDialog from '@/components/Dialog/NeedLoginDialog';
 import PreOrderCheckoutModal from '@/features/Checkout/PreOrderCheckoutModal';
 import formatMoney from '@/utils/formatMoney';
@@ -29,6 +30,8 @@ const InfoText = ({ name, value }) => {
 };
 
 const PreOrderProductInfo = ({ productData }) => {
+  const authState = useSelector(state => state.auth);
+
   const auth = useSelector(state => state.auth);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const loginDis = useDisclosure();
@@ -136,7 +139,7 @@ const PreOrderProductInfo = ({ productData }) => {
             </Button>
             {auth.isAuthenticated && (
               <PreOrderCheckoutModal
-                isOpen={isOpen}
+                isOpen={isOpen && authState?.userData?.isActive}
                 onClose={onClose}
                 productData={productData}
               />
@@ -144,7 +147,14 @@ const PreOrderProductInfo = ({ productData }) => {
           </Box>
         </Stack>
       </Stack>
-      <NeedLoginDialog onClose={loginDis.onClose} isOpen={loginDis.isOpen} />
+      <NeedLoginDialog
+        onClose={loginDis.onClose}
+        isOpen={loginDis.isOpen && !authState?.isAuthenticated}
+      />
+      <NeedActiveDialog
+        onClose={onClose}
+        isOpen={isOpen && !authState?.userData?.isActive}
+      />
     </VStack>
   );
 };
