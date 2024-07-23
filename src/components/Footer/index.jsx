@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useGetAllBrandQuery } from '@/apis/brandApi';
+import { useGetAllCategoryQuery } from '@/apis/categoryApi';
 import logo from '@/assets/logo.png';
 import {
   Box,
+  Center,
   Container,
   Flex,
   Image,
@@ -10,6 +13,8 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
+import Loading from '../Loading';
+import { Link } from 'react-router-dom';
 const Logo = () => {
   return <Image src={logo} boxSize={[120, 150]} />;
 };
@@ -22,30 +27,46 @@ const ListHeader = ({ children }) => {
   );
 };
 
-export default function LargeWithLogoCentered() {
+export default function Footer() {
+  const { data: brandData, isLoading: brandLoading } = useGetAllBrandQuery({
+    pageSize: 5,
+  });
+
+  const { data: categoryData, isLoading: categoryLoading } =
+    useGetAllCategoryQuery({
+      pageSize: 5,
+    });
+
+  if (brandLoading || categoryLoading)
+    return (
+      <Center boxSize='full'>
+        <Loading />
+      </Center>
+    );
+
   return (
     <Box bg={'gray.50'} color={'gray.700'}>
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={'flex-start'}>
             <ListHeader>Danh mục</ListHeader>
-            <Box as='a' href={'#'}>
-              Sữa cho bé
-            </Box>
-            <Stack direction={'row'} align={'center'} spacing={2}>
-              <Box as='a' href={'#'}>
-                Sữa cho mẹ
-              </Box>
-            </Stack>
+            {categoryData?.items.map(b => {
+              return (
+                <Text key={b.id} as={Link} to={`/search?keyword=${b.name}`}>
+                  {b.name}
+                </Text>
+              );
+            })}
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Nhãn hàng</ListHeader>
-            <Box as='a' href={'#'}>
-              Similac
-            </Box>
-            <Box as='a' href={'#'}>
-              YokoGold
-            </Box>
+            {brandData?.items.map(b => {
+              return (
+                <Text key={b.id} as={Link} to={`/search?keyword=${b.name}`}>
+                  {b.name}
+                </Text>
+              );
+            })}
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Đơn vị vận chuyển</ListHeader>
@@ -70,14 +91,14 @@ export default function LargeWithLogoCentered() {
           _before={{
             content: '""',
             borderBottom: '1px solid',
-            borderColor: useColorModeValue('gray.200', 'gray.700'),
+            borderColor: 'gray.200',
             flexGrow: 1,
             mr: 8,
           }}
           _after={{
             content: '""',
             borderBottom: '1px solid',
-            borderColor: useColorModeValue('gray.200', 'gray.700'),
+            borderColor: 'gray.200',
             flexGrow: 1,
             ml: 8,
           }}

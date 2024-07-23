@@ -1,7 +1,7 @@
-import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
+import { Box, Center, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-import { Alert, Box, Center, Text } from '@chakra-ui/react';
 import ActiveAlert from '../Dialog/ActiveAlert';
 
 const MainLayout = () => {
