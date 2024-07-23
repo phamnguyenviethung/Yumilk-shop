@@ -33,7 +33,13 @@ const AuthenticatedCartIcon = ({ userID }) => {
   const authState = useSelector(state => state.auth);
   const cartState = useSelector(state => state.cart);
   const { data } = useGetCartQuery(
-    { userID },
+    {
+      userID,
+      params: {
+        isUsingPoint: cartState?.data?.isUsingPoint,
+        voucherId: cartState?.data?.voucherId,
+      },
+    },
     {
       skip: !authState?.userData?.isActive,
     }
