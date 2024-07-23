@@ -191,34 +191,43 @@ const PreOrderCheckoutModal = ({ isOpen, onClose, productData }) => {
                 </Button>
               </ButtonGroup>
             </Flex>
-            <Box
-              w='full'
-              p={4}
-              border='0.5px dashed'
-              borderColor='pink.400'
-              borderRadius='6px'
-              _hover={{
-                borderColor: 'pink.400',
-              }}
-              minH='120px'
-              cursor='pointer'
-            >
-              {addressData[addressIndex].isDefault && (
-                <Tag mb={2} colorScheme='pink' size='sm'>
-                  Địa chỉ mặc định
-                </Tag>
-              )}
-              <Text fontWeight='600' fontSize='0.9rem'>
-                {addressData[addressIndex].receiverName} |{' '}
-                {addressData[addressIndex].receiverPhone}
-              </Text>
-              <Text mt={2} color='gray.500' fontSize='0.9rem' fontWeight='500'>
-                {addressData[addressIndex].address}{' '}
-                {addressData[addressIndex].wardName}{' '}
-                {addressData[addressIndex].districtName}{' '}
-                {addressData[addressIndex].provinceName}
-              </Text>
-            </Box>
+            {addressData?.length === 0 ? (
+              <Box>Chưa có địa chỉ</Box>
+            ) : (
+              <Box
+                w='full'
+                p={4}
+                border='0.5px dashed'
+                borderColor='pink.400'
+                borderRadius='6px'
+                _hover={{
+                  borderColor: 'pink.400',
+                }}
+                minH='120px'
+                cursor='pointer'
+              >
+                {addressData[addressIndex].isDefault && (
+                  <Tag mb={2} colorScheme='pink' size='sm'>
+                    Địa chỉ mặc định
+                  </Tag>
+                )}
+                <Text fontWeight='600' fontSize='0.9rem'>
+                  {addressData[addressIndex].receiverName} |{' '}
+                  {addressData[addressIndex].receiverPhone}
+                </Text>
+                <Text
+                  mt={2}
+                  color='gray.500'
+                  fontSize='0.9rem'
+                  fontWeight='500'
+                >
+                  {addressData[addressIndex].address}{' '}
+                  {addressData[addressIndex].wardName}{' '}
+                  {addressData[addressIndex].districtName}{' '}
+                  {addressData[addressIndex].provinceName}
+                </Text>
+              </Box>
+            )}
           </Box>
           <Box w='full'>
             <Text
