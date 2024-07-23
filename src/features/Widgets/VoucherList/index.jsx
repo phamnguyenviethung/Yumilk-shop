@@ -41,6 +41,8 @@ const VoucherList = () => {
   const { data, isLoading, isError } = useGetAllVouchersQuery({
     isActive: true,
     pageSize: 10,
+    sortOrder: 'desc',
+    sortColumn: 'percent',
   });
 
   if (isLoading) {
