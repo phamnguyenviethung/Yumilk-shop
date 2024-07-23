@@ -28,6 +28,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useThrottle } from 'use-throttle';
 import { increaseQuantity, removeFromCart } from '../cartSlice';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 const Quantity = ({ value, productID, auth, maxQuantity }) => {
   const dispatch = useDispatch();
@@ -143,6 +144,8 @@ const CartItem = ({ data }) => {
       fontWeight='500'
     >
       <Stack
+        as={Link}
+        to={`/product/${data.productId}`}
         flex='4'
         direction={{
           base: 'row',
