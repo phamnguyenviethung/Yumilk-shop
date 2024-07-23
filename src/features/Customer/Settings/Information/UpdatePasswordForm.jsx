@@ -49,7 +49,7 @@ const UpdatePasswordForm = () => {
             console.log(err);
             event.setSubmitting(false);
             toast({
-              title: 'Cập nhật thất bại',
+              title: err.message ?? 'Cập nhật thất bại',
               status: 'error',
               duration: 1000,
               isClosable: true,

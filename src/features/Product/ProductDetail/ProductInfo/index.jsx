@@ -95,7 +95,9 @@ const ProductInfo = ({ productData }) => {
       <VStack textAlign='left' gap='2' w='full' flex='1'>
         <Flex justifyContent='flex-end' w='full'>
           {' '}
-          <ProductReportModal productId={productData.id} />
+          {authState?.isAuthenticated && (
+            <ProductReportModal productId={productData.id} />
+          )}
         </Flex>
         <Heading
           w='full'
