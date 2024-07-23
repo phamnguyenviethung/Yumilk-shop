@@ -136,6 +136,10 @@ const VoucherList = () => {
                     </Text>
                     <Text fontWeight={500} color='gray.600' fontSize='0.8rem'>
                       {' '}
+                      Đơn hàng từ {formatMoney(v?.minPriceCondition)}
+                    </Text>
+                    <Text fontWeight={500} color='gray.600' fontSize='0.8rem'>
+                      {' '}
                       Giảm tối đa {formatMoney(v?.maxDiscount)}
                     </Text>
                   </Box>
