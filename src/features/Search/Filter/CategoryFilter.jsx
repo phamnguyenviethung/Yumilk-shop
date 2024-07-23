@@ -3,7 +3,7 @@ import { useGetAllCategoryQuery } from '@/apis/categoryApi';
 import { Checkbox, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
 const CategoryFilter = ({ setFilterQuery, selectedData }) => {
-  const { data, isLoading } = useGetAllCategoryQuery();
+  const { data, isLoading } = useGetAllCategoryQuery({ pageSize: 999999999 });
   const [categories, setCategories] = useState(selectedData);
 
   if (isLoading) return <p>loading</p>;
@@ -36,6 +36,7 @@ const CategoryFilter = ({ setFilterQuery, selectedData }) => {
             key={category.id}
             colorScheme='pink'
           >
+            {category?.parentName ? category?.parentName + ' / ' : ''}
             {category.name}
           </Checkbox>
         );

@@ -11,7 +11,7 @@ const Search = () => {
 
   return (
     <Container maxW='container.xl'>
-      {searchPararm.get('keyword') === '' && (
+      {searchPararm.get('keyword') && (
         <Box textAlign='center' w='full' mb={4} fontSize='1.2rem'>
           <Text>
             Kết quả tìm kiếm <b>{searchPararm.get('keyword')}</b>
