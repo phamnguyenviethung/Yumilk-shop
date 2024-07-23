@@ -85,6 +85,34 @@ export default function Footer() {
         </SimpleGrid>
       </Container>
       <Box py={10}>
+        <Center
+          w='full'
+          textAlign='center'
+          minH='60px'
+          fontWeight='500'
+          fontFamily="'Paytone One', sans-serif"
+        >
+          <Text
+            fontSize={{
+              base: '1rem',
+              lg: '1.15rem',
+            }}
+          >
+            Hotline:{' '}
+            <Text
+              mx={2}
+              as='span'
+              fontWeight='400'
+              color='pink.400'
+              fontSize={{
+                base: '1.2rem',
+                lg: '1.3rem',
+              }}
+            >
+              1900 1515
+            </Text>
+          </Text>
+        </Center>
         <Flex
           align={'center'}
           _before={{
