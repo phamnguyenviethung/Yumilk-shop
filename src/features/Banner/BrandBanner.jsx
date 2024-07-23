@@ -1,5 +1,6 @@
 import { useGetAllBrandQuery } from '@/apis/brandApi';
 import { Center, Image } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
@@ -36,7 +37,7 @@ const BrandBanner = () => {
     >
       {(brandData?.items || []).map(brand => (
         <SwiperSlide key={brand.id} style={{ minHeight: '120px' }}>
-          <Center boxSize='full'>
+          <Center as={Link} boxSize='full' to={`/search?keyword=${brand.name}`}>
             <Image
               borderRadius='10px'
               boxSize={100}
