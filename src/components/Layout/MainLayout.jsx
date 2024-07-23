@@ -7,11 +7,14 @@ import ActiveAlert from '../Dialog/ActiveAlert';
 const MainLayout = () => {
   return (
     <>
+      <Navbar />
+      <ActiveAlert />
+      <Outlet />
       <Center
         w='full'
         bgColor='yellow.100'
         textAlign='center'
-        minH='40px'
+        minH='60px'
         fontWeight='500'
         fontFamily="'Paytone One', sans-serif"
       >
@@ -37,9 +40,6 @@ const MainLayout = () => {
           <Text as='span'>/ 8h - 17h T2 - T7</Text>
         </Text>
       </Center>
-      <Navbar />
-      <ActiveAlert />
-      <Outlet />
       <Box mt='auto' pt={12}>
         <Footer />
       </Box>
