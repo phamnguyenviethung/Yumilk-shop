@@ -11,10 +11,9 @@ import {
   SimpleGrid,
   Stack,
   Text,
-  useColorModeValue,
 } from '@chakra-ui/react';
-import Loading from '../Loading';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading';
 const Logo = () => {
   return <Image src={logo} boxSize={[120, 150]} />;
 };

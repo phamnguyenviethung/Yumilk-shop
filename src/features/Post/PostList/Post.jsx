@@ -18,13 +18,12 @@ const Post = ({ data }) => {
       }}
       borderRadius='10'
     >
-      <Center flex='1' boxSize='full' pos='relative'>
+      <Center flex='1' boxSize='full' pos='relative' minH='300px'>
         <Image
           boxSize='full'
           alt={data.name}
           src={data.thumbnail}
           fallbackSrc='https://placehold.co/200x200'
-          objectFit='none'
         />
       </Center>
       <Flex w direction='column' flex='1' justifyContent='space-between'>

@@ -38,7 +38,14 @@ const Navbar = () => {
     <Container maxW='container.xl' maxH={theme.navbarHeight} mb={2}>
       <HStack w='full' maxH='full'>
         <ChakraLink flex='1' justifyContent='flex-start' as={Link} to='/'>
-          <Image src={logo} boxSize='180px' objectFit='cover'></Image>
+          <Image
+            src={logo}
+            boxSize={{
+              base: '150px',
+              lg: '180px',
+            }}
+            objectFit='cover'
+          ></Image>
         </ChakraLink>
 
         <Box
@@ -93,7 +100,7 @@ const Navbar = () => {
             </Menu>
           </Box>
           {authState?.isAuthenticated && (
-            <Tag size='md' colorScheme='pink'>
+            <Tag size={['sm', 'md']} colorScheme='pink'>
               {numeral(authState?.userData?.point).format('0,0')} xu
             </Tag>
           )}
