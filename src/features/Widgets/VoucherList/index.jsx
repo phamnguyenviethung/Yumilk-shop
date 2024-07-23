@@ -40,7 +40,7 @@ const CopyButton = ({ code }) => {
 const VoucherList = () => {
   const { data, isLoading, isError } = useGetAllVouchersQuery({
     isActive: true,
-    pageSize: 10,
+    pageSize: 9999,
     sortOrder: 'desc',
     sortColumn: 'percent',
   });
