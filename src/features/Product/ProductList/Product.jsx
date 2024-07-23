@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 const Product = ({ data }) => {
   return (
     <Flex
-      to={`/product/${data.id}`}
+      to={data.statusId === 2 ? `/preorder/${data.id}` : `/product/${data.id}`}
       as={Link}
       direction='column'
       minH='400px'

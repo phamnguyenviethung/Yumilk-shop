@@ -13,16 +13,16 @@ const ProductDetail = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetProductDetailQuery(id);
 
-  if (!isLoading && data.statusId === product.PRE_ORDER_STATUS) {
-    nav(`/preorder/${id}`);
-  }
-
   if (isLoading) {
     return (
       <Center boxSize='full'>
         <Loading />
       </Center>
     );
+  }
+
+  if (!isLoading && data.statusId === product.PRE_ORDER_STATUS) {
+    nav(`/preorder/${id}`);
   }
 
   if (isError)

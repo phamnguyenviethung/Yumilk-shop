@@ -100,7 +100,7 @@ const PreOrderProductInfo = ({ productData }) => {
         />
         <InfoText
           name='Số lượng còn lại:'
-          value={productData.maxPreOrderQuantity}
+          value={productData.maxPreOrderQuantity - productData.quantity}
         />
         <InfoText
           name='Dự kiến giao hàng:'
