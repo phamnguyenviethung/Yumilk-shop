@@ -87,7 +87,7 @@ const PreOrderProductInfo = ({ productData }) => {
         alignItems='flex-start'
       >
         <InfoText
-          name='Ngày mở bán:'
+          name='Ngày mở đặt hàng:'
           value={dayjs(productData.startDate)
             .add(dayjs().utcOffset(), 'minutes')
             .format('HH:mm DD/MM/YYYY')}
@@ -103,7 +103,7 @@ const PreOrderProductInfo = ({ productData }) => {
           value={productData.maxPreOrderQuantity - productData.quantity}
         />
         <InfoText
-          name='Dự kiến giao hàng:'
+          name='Dự kiến có hàng:'
           value={dayjs(productData.endDate)
             .add(productData.expectedPreOrderDays, 'day')
             .add(dayjs().utcOffset(), 'minutes')
@@ -130,11 +130,25 @@ const PreOrderProductInfo = ({ productData }) => {
               leftIcon={<Icon as={CartIcon} fontWeight='800' />}
               onClick={auth.isAuthenticated ? onOpen : loginDis.onOpen}
               isDisabled={
-                productData.maxPreOrderQuantity === 0 || !auth.isAuthenticated
+                productData.maxPreOrderQuantity === 0 ||
+                !auth.isAuthenticated ||
+                dayjs().isBefore(
+                  dayjs(productData.startDate).add(
+                    dayjs().utcOffset(),
+                    'minutes'
+                  )
+                )
               }
             >
               {!auth.isAuthenticated
                 ? 'Đăng nhập để tiếp tục'
+                : dayjs().isBefore(
+                    dayjs(productData.startDate).add(
+                      dayjs().utcOffset(),
+                      'minutes'
+                    )
+                  )
+                ? 'Chưa mở bán'
                 : 'Đặt trước ngay'}
             </Button>
             {auth.isAuthenticated && (
